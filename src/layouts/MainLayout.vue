@@ -2,37 +2,82 @@
   <Authenticator :form-fields="formFields">
     <q-layout view="lHh Lpr lFf">
       <q-header elevated>
-        <q-toolbar>
-          <q-btn
-            flat
-            dense
-            round
-            icon="menu"
-            aria-label="Menu"
-            @click="toggleLeftDrawer"
-          />
+        <q-toolbar class="bg-blue-grey-10">
+        <q-btn
+          flat
+          dense
+          round
+          icon="mdi-menu"
+          aria-label="Menu"
+          @click="toggleLeftDrawer"
+        />
 
-          <q-toolbar-title> Quasar App </q-toolbar-title>
-
-          <div>Quasar v{{ $q.version }}</div>
-        </q-toolbar>
+        <q-toolbar-title> Skill Tracker </q-toolbar-title>
+        <q-btn icon="mdi-filter" flat dense round @click="toggleRightDrawer"/>
+      </q-toolbar>
       </q-header>
 
-      <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-        <q-list>
-          <q-item-label header> Essential Links </q-item-label>
+      <q-drawer v-model="leftDrawerOpen" show-if-above class="bg-blue-grey-10">
+      <q-list>
+        <q-item clickable tag="a" target="_blank" href="" class="text-white">
+          <q-item-section avatar>
+            <q-icon name="mdi-view-dashboard" color="white" />
+          </q-item-section>
 
-          <EssentialLink
-            v-for="link in essentialLinks"
-            :key="link.title"
-            v-bind="link"
-          />
-        </q-list>
-      </q-drawer>
+          <q-item-section>
+            <q-item-label>Dashboard</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="" class="text-white">
+          <q-item-section avatar>
+            <q-icon name="mdi-account" color="white" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Users</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="" class="text-white">
+          <q-item-section avatar>
+            <q-icon name="mdi-account-group" color="white" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Teams</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="" class="text-white">
+          <q-item-section avatar>
+            <q-icon name="mdi-domain" color="white" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Domains</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="" class="text-white">
+          <q-item-section avatar>
+            <q-icon name="mdi-certificate" color="white" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Certificates</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
 
       <q-page-container>
         <router-view />
       </q-page-container>
+      <q-drawer side="right" class="bg-blue-grey-3 q-pa-md" v-model="rightDrawerOpen">
+      <q-list separator>
+        <q-item-label>Filters</q-item-label>
+        <q-select multiple v-model="filters.domains" label="Domains" color="primary" :options="filtersOptions.domains"></q-select>
+        <q-select multiple v-model="filters.levels" label="Levels" color="primary" :options="filtersOptions.levels"></q-select>
+        <q-select multiple v-model="filters.teams" label="Teams" color="primary" :options="filtersOptions.teams"></q-select>
+      </q-list>
+    </q-drawer>
     </q-layout>
   </Authenticator>
 </template>
