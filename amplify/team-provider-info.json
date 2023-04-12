@@ -9,7 +9,28 @@
       "UnauthRoleName": "amplify-skilltracker-dev-215033-unauthRole",
       "StackName": "amplify-skilltracker-dev-215033",
       "StackId": "arn:aws:cloudformation:us-east-1:385225558339:stack/amplify-skilltracker-dev-215033/6b129640-d8d4-11ed-843a-0e2d83f2deef",
-      "AmplifyAppId": "d4itncjn2qpp0"
+      "AmplifyAppId": "d4itncjn2qpp0",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-skilltracker-dev-215033-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "skilltracker2e50d456": {}
+      },
+      "function": {
+        "skilltracker2e50d456PostConfirmation": {
+          "GROUP": "users",
+          "deploymentBucketName": "amplify-skilltracker-dev-215033-deployment",
+          "s3Key": "amplify-builds/skilltracker2e50d456PostConfirmation-73363645444666547771-build.zip"
+        },
+        "skilltracker2e50d456PreSignup": {
+          "DOMAINALLOWLIST": "teksystems.com,1strategy.com",
+          "deploymentBucketName": "amplify-skilltracker-dev-215033-deployment",
+          "s3Key": "amplify-builds/skilltracker2e50d456PreSignup-71596d637343702f5931-build.zip"
+        }
+      },
+      "api": {
+        "skilltracker": {}
+      }
     }
   }
 }
