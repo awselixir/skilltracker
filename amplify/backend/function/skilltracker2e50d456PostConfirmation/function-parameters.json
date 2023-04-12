@@ -12,5 +12,15 @@
   "triggerTemplate": "PostConfirmation.json.ejs",
   "triggerEventPath": "PostConfirmation.event.json",
   "roleName": "skilltracker2e50d456PostConfirmation",
-  "skipEdit": true
+  "skipEdit": true,
+  "permissions": {
+    "storage": {
+      "User:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
 }

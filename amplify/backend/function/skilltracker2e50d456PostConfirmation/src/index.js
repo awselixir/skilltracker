@@ -1,4 +1,10 @@
-/**
+/* Amplify Params - DO NOT EDIT
+	API_SKILLTRACKER_GRAPHQLAPIIDOUTPUT
+	API_SKILLTRACKER_USERTABLE_ARN
+	API_SKILLTRACKER_USERTABLE_NAME
+	ENV
+	REGION
+Amplify Params - DO NOT EDIT *//**
  * @fileoverview
  *
  * This CloudFormation Trigger creates a handler which awaits the other handlers

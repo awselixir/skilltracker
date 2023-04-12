@@ -1,12 +1,26 @@
 {
   "api": {
     "skilltracker": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "skilltracker2e50d456"
+        }
+      ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authskilltracker2e50d456"
+              }
             }
           ],
           "defaultAuthentication": {
@@ -74,16 +88,6 @@
   "function": {
     "skilltracker2e50d456PostConfirmation": {
       "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "skilltracker2e50d456PreSignup": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "skilltracker2e50d456UserToDb": {
-      "build": true,
       "dependsOn": [
         {
           "attributes": [
@@ -93,6 +97,11 @@
           "resourceName": "skilltracker"
         }
       ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "skilltracker2e50d456PreSignup": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
@@ -143,22 +152,6 @@
         {
           "category": "function",
           "resourceName": "skilltracker2e50d456PreSignup"
-        }
-      ]
-    },
-    "AMPLIFY_function_skilltracker2e50d456UserToDb_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "skilltracker2e50d456UserToDb"
-        }
-      ]
-    },
-    "AMPLIFY_function_skilltracker2e50d456UserToDb_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "skilltracker2e50d456UserToDb"
         }
       ]
     }

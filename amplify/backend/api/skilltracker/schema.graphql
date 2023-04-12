@@ -1,19 +1,22 @@
-type Group @model @auth(rules: [{allow: public}]) {
+type Group @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   description: String
   users: [User] @manyToMany(relationName: "GroupUser")
 }
 
-type CertificationLevel @model @auth(rules: [{allow: public}]) {
+type CertificationLevel @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   description: String
   score: Int
-  certifications: [Certification] @hasMany(indexName: "byCertificationLevel", fields: ["id"])
+  certifications: [Certification]
+    @hasMany(indexName: "byCertificationLevel", fields: ["id"])
 }
 
-type User @model @auth(rules: [{allow: public}]) {
+type User
+  @model
+  @auth(rules: [{ allow: owner, operations: [create, delete, update], identityClaim: "sub" }, { allow: private, provider: iam}]) {
   id: ID!
   firstName: String!
   lastName: String!
@@ -23,7 +26,7 @@ type User @model @auth(rules: [{allow: public}]) {
   groups: [Group] @manyToMany(relationName: "GroupUser")
 }
 
-type Certification @model @auth(rules: [{allow: public}]) {
+type Certification @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   shortName: String!
@@ -36,11 +39,12 @@ type Certification @model @auth(rules: [{allow: public}]) {
   users: [User] @manyToMany(relationName: "UserCertification")
 }
 
-type Provider @model @auth(rules: [{allow: public}]) {
+type Provider @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   shortName: String!
   description: String
   image: String
-  certifications: [Certification] @hasMany(indexName: "byProvider", fields: ["id"])
+  certifications: [Certification]
+    @hasMany(indexName: "byProvider", fields: ["id"])
 }

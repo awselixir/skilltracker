@@ -1,4 +1,4 @@
 {
-  "modules": "add-to-group",
+  "modules": "add-to-group,add-to-db",
   "resourceName": "skilltracker2e50d456PostConfirmation"
 }
