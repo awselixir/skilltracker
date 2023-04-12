@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-skilltracker-dev-215033-authRole",
+      "UnauthRoleArn": "arn:aws:iam::385225558339:role/amplify-skilltracker-dev-215033-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::385225558339:role/amplify-skilltracker-dev-215033-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-skilltracker-dev-215033-deployment",
+      "UnauthRoleName": "amplify-skilltracker-dev-215033-unauthRole",
+      "StackName": "amplify-skilltracker-dev-215033",
+      "StackId": "arn:aws:cloudformation:us-east-1:385225558339:stack/amplify-skilltracker-dev-215033/6b129640-d8d4-11ed-843a-0e2d83f2deef",
+      "AmplifyAppId": "d4itncjn2qpp0"
+    }
+  }
+}
