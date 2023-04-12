@@ -26,6 +26,10 @@
           "DOMAINALLOWLIST": "teksystems.com,1strategy.com",
           "deploymentBucketName": "amplify-skilltracker-dev-215033-deployment",
           "s3Key": "amplify-builds/skilltracker2e50d456PreSignup-71596d637343702f5931-build.zip"
+        },
+        "skilltracker2e50d456UserToDb": {
+          "deploymentBucketName": "amplify-skilltracker-dev-215033-deployment",
+          "s3Key": "amplify-builds/skilltracker2e50d456UserToDb-412f563071476243676a-build.zip"
         }
       },
       "api": {

@@ -81,6 +81,20 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "skilltracker2e50d456UserToDb": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "skilltracker"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -129,6 +143,22 @@
         {
           "category": "function",
           "resourceName": "skilltracker2e50d456PreSignup"
+        }
+      ]
+    },
+    "AMPLIFY_function_skilltracker2e50d456UserToDb_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "skilltracker2e50d456UserToDb"
+        }
+      ]
+    },
+    "AMPLIFY_function_skilltracker2e50d456UserToDb_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "skilltracker2e50d456UserToDb"
         }
       ]
     }
