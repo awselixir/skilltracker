@@ -20,7 +20,7 @@
         "skilltracker2e50d456PostConfirmation": {
           "GROUP": "users",
           "deploymentBucketName": "amplify-skilltracker-dev-215033-deployment",
-          "s3Key": "amplify-builds/skilltracker2e50d456PostConfirmation-5234716443325262456e-build.zip"
+          "s3Key": "amplify-builds/skilltracker2e50d456PostConfirmation-7134794f784d3373512f-build.zip"
         },
         "skilltracker2e50d456PreSignup": {
           "DOMAINALLOWLIST": "teksystems.com,1strategy.com",
@@ -30,6 +30,12 @@
       },
       "api": {
         "skilltracker": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d4itncjn2qpp0",
+          "type": "manual"
+        }
       }
     }
   }
