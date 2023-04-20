@@ -3,94 +3,147 @@
     <q-layout view="lHh Lpr lFf">
       <q-header elevated>
         <q-toolbar class="bg-blue-grey-10">
-        <q-btn
-          flat
-          dense
-          round
-          icon="mdi-menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+          <q-btn
+            flat
+            dense
+            round
+            icon="mdi-menu"
+            aria-label="Menu"
+            @click="toggleLeftDrawer"
+          />
 
-        <q-toolbar-title> Skill Tracker </q-toolbar-title>
-        <q-btn icon="mdi-filter" flat dense round @click="toggleRightDrawer"/>
-      </q-toolbar>
+          <q-toolbar-title> Skill Tracker </q-toolbar-title>
+          <q-btn-dropdown
+            :color="userStore.me.color"
+            :label="`${userStore.me.firstName[0]}${userStore.me.lastName[0]}`"
+            unelevated
+            class="without-icon" v-if="userStore.me.firstName.length > 0">
+            <q-list dense>
+              <q-item clickable v-close-popup @click="auth.signOut">
+                <q-item-section avatar>
+                  <q-icon name="mdi-logout"/>
+                </q-item-section>
+                <q-item-section>
+                  Sign Out
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+          <q-btn
+            icon="mdi-filter"
+            flat
+            dense
+            round
+            @click="toggleRightDrawer"
+          />
+        </q-toolbar>
       </q-header>
 
       <q-drawer v-model="leftDrawerOpen" show-if-above class="bg-blue-grey-10">
-      <q-list>
-        <q-item clickable tag="a" target="_blank" href="" class="text-white">
-          <q-item-section avatar>
-            <q-icon name="mdi-view-dashboard" color="white" />
-          </q-item-section>
+        <q-list>
+          <q-item clickable tag="a" target="_blank" href="" class="text-white">
+            <q-item-section avatar>
+              <q-icon name="mdi-view-dashboard" color="white" />
+            </q-item-section>
 
-          <q-item-section>
-            <q-item-label>Dashboard</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="" class="text-white">
-          <q-item-section avatar>
-            <q-icon name="mdi-account" color="white" />
-          </q-item-section>
+            <q-item-section>
+              <q-item-label>Dashboard</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable :to="{ name: 'providers' }" class="text-white">
+            <q-item-section avatar>
+              <q-icon name="mdi-domain" color="white" />
+            </q-item-section>
 
-          <q-item-section>
-            <q-item-label>Users</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="" class="text-white">
-          <q-item-section avatar>
-            <q-icon name="mdi-account-group" color="white" />
-          </q-item-section>
+            <q-item-section>
+              <q-item-label>Providers</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable tag="a" target="_blank" href="" class="text-white">
+            <q-item-section avatar>
+              <q-icon name="mdi-account" color="white" />
+            </q-item-section>
 
-          <q-item-section>
-            <q-item-label>Teams</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="" class="text-white">
-          <q-item-section avatar>
-            <q-icon name="mdi-domain" color="white" />
-          </q-item-section>
+            <q-item-section>
+              <q-item-label>Users</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item :to="{name: 'teams'}" class="text-white">
+            <q-item-section avatar>
+              <q-icon name="mdi-account-group" color="white" />
+            </q-item-section>
 
-          <q-item-section>
-            <q-item-label>Domains</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="" class="text-white">
-          <q-item-section avatar>
-            <q-icon name="mdi-certificate" color="white" />
-          </q-item-section>
+            <q-item-section>
+              <q-item-label>Teams</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable :to="{ name: 'certifications' }" class="text-white">
+            <q-item-section avatar>
+              <q-icon name="mdi-certificate" color="white" />
+            </q-item-section>
 
-          <q-item-section>
-            <q-item-label>Certificates</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-drawer>
+            <q-item-section>
+              <q-item-label>Certifications</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-expansion-item class="text-white" switch-toggle-side label="Admin" >
+            <q-item
+              :to="{ name: 'levels' }"
+              class="text-white"
+              :inset-level="1"
+            >
+              <q-item-section avatar>
+                <q-icon name="mdi-stairs-box" color="white" />
+              </q-item-section>
+
+              <q-item-section>
+                <q-item-label>Levels</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-expansion-item>
+        </q-list>
+      </q-drawer>
 
       <q-page-container>
         <router-view />
       </q-page-container>
-      <q-drawer side="right" class="bg-blue-grey-3 q-pa-md" v-model="rightDrawerOpen">
-      <q-list separator>
-        <q-item-label>Filters</q-item-label>
+      <q-drawer
+        side="right"
+        class="bg-blue-grey-3 q-pa-md"
+        v-model="rightDrawerOpen"
+      >
+        <q-list separator>
+          <!-- <q-item-label>Filters</q-item-label>
         <q-select multiple v-model="filters.domains" label="Domains" color="primary" :options="filtersOptions.domains"></q-select>
         <q-select multiple v-model="filters.levels" label="Levels" color="primary" :options="filtersOptions.levels"></q-select>
-        <q-select multiple v-model="filters.teams" label="Teams" color="primary" :options="filtersOptions.teams"></q-select>
-      </q-list>
-    </q-drawer>
+        <q-select multiple v-model="filters.teams" label="Teams" color="primary" :options="filtersOptions.teams"></q-select> -->
+        </q-list>
+      </q-drawer>
     </q-layout>
   </Authenticator>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import EssentialLink from 'components/EssentialLink.vue';
+<script setup>
+import { onMounted, ref, toRefs } from 'vue';
+import { useLevelStore } from '../stores/level-store';
+import { useProviderStore } from '../stores/provider-store';
+import { useUserStore } from '../stores/user-store';
 import '@aws-amplify/ui-vue/styles.css';
 import { Amplify } from 'aws-amplify';
-import { Authenticator } from '@aws-amplify/ui-vue';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
 import awsconfig from '../aws-exports';
+const auth = useAuthenticator();
+const { user: me } = toRefs(auth);
+
+// const groups = user.value.getSignInUserSession()?.getAccessToken()?.payload[
+//   'cognito:groups'
+// ];
 
 Amplify.configure(awsconfig);
+
+const levelStore = useLevelStore();
+const providerStore = useProviderStore();
+const userStore = useUserStore();
 
 const formFields = {
   signUp: {
@@ -102,70 +155,40 @@ const formFields = {
     family_name: {
       order: 2,
       placeholder: 'Enter your last name',
-      label: 'Last Name'
+      label: 'Last Name',
     },
     email: {
       order: 3,
       placeholder: 'Enter your email address',
-      label: 'Email'
+      label: 'Email',
     },
     password: {
-      order: 4
+      order: 4,
     },
     confirm_password: {
-      order: 5
-    }
+      order: 5,
+    },
   },
 };
 
-const essentialLinks = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
-];
-
 const leftDrawerOpen = ref(false);
+const rightDrawerOpen = ref(false);
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+
+function toggleRightDrawer() {
+  rightDrawerOpen.value = !rightDrawerOpen.value;
+}
+
+onMounted(async () => {
+  await Promise.allSettled([
+    providerStore.fetchProviders(),
+    levelStore.fetchCertsLevels(),
+    userStore.fetchUsers(),
+  ]);
+  const myId = me.value.username;
+  await userStore.fetchMe(myId);
+});
 </script>
