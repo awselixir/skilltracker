@@ -20,7 +20,7 @@
   </q-card>
 </div>
 </template>
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   class: {
     type: String,
@@ -28,7 +28,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: "grey",
+    default: 'grey',
   },
   icon: {
     type: String,
@@ -44,7 +44,7 @@ const props = defineProps({
   },
   textColor: {
     type: String,
-    default: "white",
+    default: 'white',
     required: false,
   },
 });

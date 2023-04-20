@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <VChart class="chart" :option="xAxisData" autoresize />
 </template>
 <script setup>
@@ -169,4 +169,4 @@ const { getPaletteColor } = colors;
 .chart {
   height: 300px;
 }
-</style>
+</style> -->
