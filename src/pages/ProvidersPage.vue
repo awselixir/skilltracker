@@ -33,6 +33,18 @@
         >
         </q-btn>
       </template>
+      <template v-slot:body-cell-name="props">
+        <q-td :props="props">
+          <q-item class="q-pa-none" dense>
+            <q-item-section avatar>
+              <q-avatar size="sm">
+              <img :src="`/icons/${props.row.shortName.toLowerCase()}.png`" />
+            </q-avatar>
+            </q-item-section>
+            <q-item-section>{{  props.value }} ({{ props.row.shortName }})</q-item-section>
+          </q-item>
+        </q-td>
+      </template>
       <!-- <template v-slot:body-cell-description="props">
         <q-td :props="props">
           <div class="description-cell text-grey-8"> {{ props.row.description }}</div>
@@ -65,15 +77,6 @@ const pagination = {
 };
 
 const columns = [
-  {
-    name: 'shortName',
-    field: 'shortName',
-    label: 'Short Name',
-    required: true,
-    align: 'center',
-    sortable: true,
-    style: 'width: 200px',
-  },
   {
     name: 'name',
     field: 'name',
