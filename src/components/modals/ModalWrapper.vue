@@ -56,7 +56,7 @@
             @click="triggerForm"
             >Submit</q-btn
           >
-          <q-btn color="grey-5" square unelevated @click="cancel">Cancel</q-btn>
+          <q-btn color="grey-5" square unelevated @click="cancel">Close</q-btn>
         </div>
       </div>
     </div>

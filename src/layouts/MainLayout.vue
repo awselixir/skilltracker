@@ -14,18 +14,19 @@
 
           <q-toolbar-title> Skill Tracker </q-toolbar-title>
           <q-btn-dropdown
+            rounded
             :color="userStore.me.color"
-            :label="`${userStore.me.firstName[0]}${userStore.me.lastName[0]}`"
+            :label="`${userStore.me.firstName[0]}`"
             unelevated
-            class="without-icon" v-if="userStore.me.firstName.length > 0">
+            class="without-icon"
+            v-if="userStore.me.firstName.length > 0"
+          >
             <q-list dense>
               <q-item clickable v-close-popup @click="auth.signOut">
                 <q-item-section avatar>
-                  <q-icon name="mdi-logout"/>
+                  <q-icon name="mdi-logout" />
                 </q-item-section>
-                <q-item-section>
-                  Sign Out
-                </q-item-section>
+                <q-item-section> Sign Out </q-item-section>
               </q-item>
             </q-list>
           </q-btn-dropdown>
@@ -68,7 +69,7 @@
               <q-item-label>Users</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item :to="{name: 'teams'}" class="text-white">
+          <q-item :to="{ name: 'teams' }" class="text-white">
             <q-item-section avatar>
               <q-icon name="mdi-account-group" color="white" />
             </q-item-section>
@@ -77,7 +78,7 @@
               <q-item-label>Teams</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable :to="{ name: 'certifications' }" class="text-white">
+          <q-item clickable :to="{ name: 'certs' }" class="text-white">
             <q-item-section avatar>
               <q-icon name="mdi-certificate" color="white" />
             </q-item-section>
@@ -86,7 +87,7 @@
               <q-item-label>Certifications</q-item-label>
             </q-item-section>
           </q-item>
-          <q-expansion-item class="text-white" switch-toggle-side label="Admin" >
+          <q-expansion-item class="text-white" switch-toggle-side label="Admin">
             <q-item
               :to="{ name: 'levels' }"
               class="text-white"
@@ -124,7 +125,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, toRefs } from 'vue';
+import { onMounted, ref, toRefs, watch } from 'vue';
 import { useLevelStore } from '../stores/level-store';
 import { useProviderStore } from '../stores/provider-store';
 import { useUserStore } from '../stores/user-store';
@@ -132,8 +133,10 @@ import '@aws-amplify/ui-vue/styles.css';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
 import awsconfig from '../aws-exports';
+let me = ref(null)
 const auth = useAuthenticator();
-const { user: me } = toRefs(auth);
+let { user } = toRefs(auth);
+me = user
 
 // const groups = user.value.getSignInUserSession()?.getAccessToken()?.payload[
 //   'cognito:groups'
@@ -173,6 +176,18 @@ const formFields = {
 
 const leftDrawerOpen = ref(false);
 const rightDrawerOpen = ref(false);
+
+watch(auth, (newAuth) => {
+  console.log(newAuth.user)
+  if (typeof newAuth.user !== 'undefined' && newAuth.user.signInUserSession !== 'undefined') {
+    const groups = newAuth.user.signInUserSession.accessToken.payload[
+      'cognito:groups'
+    ];
+    if (groups.includes('admins')) {
+      userStore.isAdmin = true;
+    }
+  }
+}, {deep: true});
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;

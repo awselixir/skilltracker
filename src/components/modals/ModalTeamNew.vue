@@ -21,7 +21,7 @@
           label="Add Users"
           color="primary"
           bottom-slots
-          :options="userStore.users"
+          :options="userStore.usersSortedByName"
           dense
           option-value="id"
           :option-label="(item) => item.length === 0 ? '' : `${item.firstName} ${item.lastName}`"
