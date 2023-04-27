@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia';
 import { API } from 'aws-amplify';
-import { listCertifications } from 'src/graphql/queries';
+import { getCertification, listCertifications } from 'src/graphql/queries';
 import {
   createCertification,
   deleteCertification,
-  updateCertification
+  updateCertification,
 } from 'src/graphql/mutations';
-import { success, error } from '../components/messages';
+import { error } from '../components/messages';
 
 export const useCertificationStore = defineStore('certification', {
   state: () => ({
@@ -16,69 +16,59 @@ export const useCertificationStore = defineStore('certification', {
   getters: {
     certificationsSorted: (state) => {
       const items = [...state.certifications].sort((a, b) => {
-        const nameA = a.shortName.toUpperCase()
-        const nameB = b.shortName.toUpperCase()
+        const nameA = a.shortName.toUpperCase();
+        const nameB = b.shortName.toUpperCase();
         if (nameA < nameB) {
-          return -1
+          return -1;
         }
         if (nameA > nameB) {
-          return 1
+          return 1;
         }
 
-        return 0
-      })
+        return 0;
+      });
 
-      return items
-    }
+      return items;
+    },
   },
   actions: {
+    async fetchCertification(id) {
+      try {
+        const cert = await API.graphql({
+          query: getCertification,
+          variables: { id: id },
+        });
+
+        return cert;
+      } catch (err) {
+        error('Something went wrong');
+      }
+    },
     async fetchCertifications() {
       this.certificationsLoading = true;
       const allCertifications = await API.graphql({
         query: listCertifications,
       });
-      this.certifications =
-        allCertifications.data?.listCertifications?.items;
+      this.certifications = allCertifications.data?.listCertifications?.items;
       this.certificationsLoading = false;
     },
-    async newCertification(input, route) {
-      try {
-        await API.graphql({
-          query: createCertification,
-          variables: { input: input },
-        });
-        success(`Certification ${input.name} created`);
-        this.fetchCertifications();
-        this.router.push(route);
-      } catch (err) {
-        error('Something went wrong');
-      }
+    async newCert(input) {
+      return await API.graphql({
+        query: createCertification,
+        variables: { input: input },
+      });
     },
-    async deleteCertification(input, route) {
-      try {
-        await API.graphql({
-          query: deleteCertification,
-          variables: { input: { id: input.id } },
-        });
-        success(`Certification ${input.name} deleted`);
-        this.fetchCertifications();
-        this.router.push(route);
-      } catch (err) {
-        error('Something went wrong');
-      }
+    async deleteCert(input) {
+      return await API.graphql({
+        query: deleteCertification,
+        variables: { input: { id: input.id } },
+      });
     },
-    async updateCertification(input, route) {
-      try {
-        await API.graphql({
-          query: updateCertification,
-          variables: { input: input },
-        });
-        success(`Certification ${input.name} updated`);
-        this.fetchCertifications();
-        this.router.push(route);
-      } catch (err) {
-        error('Something went wrong');
-      }
+    async updateCert(input) {
+      return await API.graphql({
+        query: updateCertification,
+        variables: { input: input },
+      });
     },
   },
 });

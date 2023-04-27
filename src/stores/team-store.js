@@ -4,6 +4,7 @@ import { getTeam, listTeams } from 'src/graphql/queries';
 import {
   createTeam,
   createUserTeam,
+  deleteUserTeam,
   deleteTeam,
   updateTeam,
 } from 'src/graphql/mutations';
@@ -74,7 +75,6 @@ export const useTeamStore = defineStore('team', {
       }
     },
     async newUserTeam(input) {
-      console.log(input);
       await API.graphql({
         query: createUserTeam,
         variables: { input: input },
@@ -93,12 +93,34 @@ export const useTeamStore = defineStore('team', {
         error('Something went wrong');
       }
     },
+    async deleteUserTeam(id) {
+      try {
+        await API.graphql({
+          query: deleteUserTeam,
+          variables: {input: { id: id }}
+        })
+        this.fetchTeams()
+        success('User removed from team')
+      } catch(err) {
+        error('Something went wrong')
+      }
+    },
     async updateTeam(input, route) {
+      const { users, ...newInput} = input
       try {
         await API.graphql({
           query: updateTeam,
-          variables: { input: input },
+          variables: { input: newInput },
         });
+        if (users.length > 0) {
+          for (const user of users) {
+            await this.newUserTeam({
+              userId: user.id,
+              teamId: newInput.id,
+            });
+          }
+        }
+
         success(`Team ${input.name} updated`);
         this.fetchTeams();
         this.router.push(route);

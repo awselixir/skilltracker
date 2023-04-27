@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia';
+import { orderBy } from 'lodash';
 import { API } from 'aws-amplify';
 import { getUser, listUsers } from 'src/graphql/queries';
 import {
   createUser,
+  createUserCertification,
   deleteUser,
-  updateUser
+  deleteUserCertification,
+  updateUser,
 } from 'src/graphql/mutations';
 import { success, error } from '../components/messages';
 
@@ -12,11 +15,17 @@ export const useUserStore = defineStore('user', {
   state: () => ({
     me: {
       firstName: '',
-      lastName: ''
+      lastName: '',
     },
+    isAdmin: false,
     users: [],
     usersLoading: false,
   }),
+  getters: {
+    usersSortedByName: (state) => {
+      return orderBy(state.users, 'firstName', 'asc');
+    },
+  },
   // getters: {
   //   usersSorted: (state) => {
   //     const items = [...state.users].sort((a, b) => {
@@ -39,17 +48,16 @@ export const useUserStore = defineStore('user', {
     async fetchMe(myId) {
       const me = await API.graphql({
         query: getUser,
-        variables: {id: myId}
-      })
-      this.me = me.data.getUser
+        variables: { id: myId },
+      });
+      this.me = me.data.getUser;
     },
     async fetchUsers() {
       this.usersLoading = true;
       const allUsers = await API.graphql({
         query: listUsers,
       });
-      this.users =
-        allUsers.data?.listUsers?.items;
+      this.users = allUsers.data?.listUsers?.items;
       this.usersLoading = false;
     },
     async newUser(input, route) {
@@ -64,6 +72,18 @@ export const useUserStore = defineStore('user', {
       } catch (err) {
         error('Something went wrong');
       }
+    },
+    async newUserCertification(input) {
+      return await API.graphql({
+        query: createUserCertification,
+        variables: { input: input },
+      });
+    },
+    async deleteUserCert(id) {
+      return await API.graphql({
+        query: deleteUserCertification,
+        variables: { input: { id: id } },
+      });
     },
     async deleteUser(input, route) {
       try {
