@@ -1,46 +1,31 @@
-type Team @model @auth(rules: [{ allow: private, operations: [read, create, update] }, {allow: groups, groups:["admins"]}]) {
+type Team @model @auth(rules: [{allow: private, operations: [read, create, update]}, {allow: groups, groups: ["admins"]}]) {
   id: ID!
   name: String!
   description: String
   users: [User] @manyToMany(relationName: "UserTeam")
 }
 
-type CertificationLevel
-  @model
-  @auth(
-    rules: [
-      { allow: private, operations: [read] }
-      { allow: groups, groups: ["admins"] }
-    ]
-  ) {
+type CertificationLevel @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["admins"]}]) {
   id: ID!
   name: String!
   description: String
   score: Int
-  certifications: [Certification]
-    @hasMany(indexName: "byCertificationLevel", fields: ["id"])
+  certifications: [Certification] @hasMany(indexName: "byCertificationLevel", fields: ["id"])
 }
 
-type User @model @auth(rules: [{ allow: private }]) {
+type User @model @auth(rules: [{allow: private}]) {
   id: ID!
   firstName: String!
   lastName: String!
   email: String!
   image: String
-  certifications: [UserCertification]
-    @hasMany(indexName: "byUser", fields: ["id"])
+  certifications: [UserCertification] @hasMany(indexName: "byUser", fields: ["id"])
   teams: [Team] @manyToMany(relationName: "UserTeam")
   color: String
+  state: String
 }
 
-type Certification
-  @model
-  @auth(
-    rules: [
-      { allow: private, operations: [read] }
-      { allow: groups, groups: ["admins"] }
-    ]
-  ) {
+type Certification @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["admins"]}]) {
   id: ID!
   name: String!
   shortName: String!
@@ -49,13 +34,11 @@ type Certification
   providerID: ID! @index(name: "byProvider")
   provider: Provider @belongsTo(fields: ["providerID"])
   certificationlevelID: ID! @index(name: "byCertificationLevel")
-  certificationLevel: CertificationLevel
-    @belongsTo(fields: ["certificationlevelID"])
-  users: [UserCertification]
-    @hasMany(indexName: "byCertification", fields: ["id"])
+  certificationLevel: CertificationLevel @belongsTo(fields: ["certificationlevelID"])
+  users: [UserCertification] @hasMany(indexName: "byCertification", fields: ["id"])
 }
 
-type UserCertification @model @auth(rules: [{ allow: private }]) {
+type UserCertification @model @auth(rules: [{allow: private, operations: [create, read]}, {allow: owner}, {allow: groups, groups: ["admins"], operations: [read, create, update, delete]}]) {
   id: ID!
   userId: ID! @index(name: "byUser")
   certificationId: ID! @index(name: "byCertification")
@@ -67,19 +50,12 @@ type UserCertification @model @auth(rules: [{ allow: private }]) {
   expiredAt: AWSDate
 }
 
-type Provider
-  @model
-  @auth(
-    rules: [
-      { allow: private, operations: [read] }
-      { allow: groups, groups: ["admins"] }
-    ]
-  ) {
+type Provider @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["admins"]}]) {
   id: ID!
   name: String!
   shortName: String!
   description: String
   image: String
-  certifications: [Certification]
-    @hasMany(indexName: "byProvider", fields: ["id"])
+  certifications: [Certification] @hasMany(indexName: "byProvider", fields: ["id"])
 }
+ 

@@ -17,6 +17,9 @@ export const getTeam = /* GraphQL */ `
             id
             name
             description
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -26,7 +29,14 @@ export const getTeam = /* GraphQL */ `
             lastName
             email
             image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
             color
+            state
             createdAt
             updatedAt
           }
@@ -56,6 +66,24 @@ export const listTeams = /* GraphQL */ `
             id
             teamId
             userId
+            team {
+              id
+              name
+              description
+              createdAt
+              updatedAt
+            }
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -89,6 +117,9 @@ export const getCertificationLevel = /* GraphQL */ `
             shortName
             description
             image
+            certifications {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -98,10 +129,23 @@ export const getCertificationLevel = /* GraphQL */ `
             name
             description
             score
+            certifications {
+              nextToken
+            }
             createdAt
             updatedAt
           }
           users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           createdAt
@@ -138,7 +182,27 @@ export const listCertificationLevels = /* GraphQL */ `
             description
             image
             providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
             certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -170,7 +234,14 @@ export const getUser = /* GraphQL */ `
             lastName
             email
             image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
             color
+            state
             createdAt
             updatedAt
           }
@@ -181,7 +252,27 @@ export const getUser = /* GraphQL */ `
             description
             image
             providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
             certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -189,6 +280,7 @@ export const getUser = /* GraphQL */ `
           updatedAt
           earnedAt
           expiredAt
+          owner
         }
         nextToken
       }
@@ -201,6 +293,9 @@ export const getUser = /* GraphQL */ `
             id
             name
             description
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -210,7 +305,14 @@ export const getUser = /* GraphQL */ `
             lastName
             email
             image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
             color
+            state
             createdAt
             updatedAt
           }
@@ -220,6 +322,7 @@ export const getUser = /* GraphQL */ `
         nextToken
       }
       color
+      state
       createdAt
       updatedAt
     }
@@ -243,10 +346,33 @@ export const listUsers = /* GraphQL */ `
             id
             userId
             certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             earnedAt
             expiredAt
+            owner
           }
           nextToken
         }
@@ -255,12 +381,31 @@ export const listUsers = /* GraphQL */ `
             id
             teamId
             userId
+            team {
+              id
+              name
+              description
+              createdAt
+              updatedAt
+            }
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
           nextToken
         }
         color
+        state
         createdAt
         updatedAt
       }
@@ -291,7 +436,27 @@ export const getCertification = /* GraphQL */ `
             description
             image
             providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
             certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -314,7 +479,27 @@ export const getCertification = /* GraphQL */ `
             description
             image
             providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
             certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -334,7 +519,14 @@ export const getCertification = /* GraphQL */ `
             lastName
             email
             image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
             color
+            state
             createdAt
             updatedAt
           }
@@ -345,7 +537,27 @@ export const getCertification = /* GraphQL */ `
             description
             image
             providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
             certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -353,6 +565,7 @@ export const getCertification = /* GraphQL */ `
           updatedAt
           earnedAt
           expiredAt
+          owner
         }
         nextToken
       }
@@ -382,6 +595,17 @@ export const listCertifications = /* GraphQL */ `
           description
           image
           certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -394,6 +618,17 @@ export const listCertifications = /* GraphQL */ `
           description
           score
           certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -404,10 +639,33 @@ export const listCertifications = /* GraphQL */ `
             id
             userId
             certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             earnedAt
             expiredAt
+            owner
           }
           nextToken
         }
@@ -447,6 +705,17 @@ export const certificationsByProviderID = /* GraphQL */ `
           description
           image
           certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -459,6 +728,17 @@ export const certificationsByProviderID = /* GraphQL */ `
           description
           score
           certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -469,10 +749,33 @@ export const certificationsByProviderID = /* GraphQL */ `
             id
             userId
             certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             earnedAt
             expiredAt
+            owner
           }
           nextToken
         }
@@ -512,6 +815,17 @@ export const certificationsByCertificationlevelID = /* GraphQL */ `
           description
           image
           certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -524,6 +838,17 @@ export const certificationsByCertificationlevelID = /* GraphQL */ `
           description
           score
           certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -534,10 +859,33 @@ export const certificationsByCertificationlevelID = /* GraphQL */ `
             id
             userId
             certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             earnedAt
             expiredAt
+            owner
           }
           nextToken
         }
@@ -565,10 +913,33 @@ export const getUserCertification = /* GraphQL */ `
             id
             userId
             certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             earnedAt
             expiredAt
+            owner
           }
           nextToken
         }
@@ -577,12 +948,31 @@ export const getUserCertification = /* GraphQL */ `
             id
             teamId
             userId
+            team {
+              id
+              name
+              description
+              createdAt
+              updatedAt
+            }
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
           nextToken
         }
         color
+        state
         createdAt
         updatedAt
       }
@@ -600,6 +990,17 @@ export const getUserCertification = /* GraphQL */ `
           description
           image
           certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -612,6 +1013,17 @@ export const getUserCertification = /* GraphQL */ `
           description
           score
           certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -622,10 +1034,33 @@ export const getUserCertification = /* GraphQL */ `
             id
             userId
             certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             earnedAt
             expiredAt
+            owner
           }
           nextToken
         }
@@ -636,6 +1071,7 @@ export const getUserCertification = /* GraphQL */ `
       updatedAt
       earnedAt
       expiredAt
+      owner
     }
   }
 `;
@@ -661,12 +1097,30 @@ export const listUserCertifications = /* GraphQL */ `
           email
           image
           certifications {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           teams {
+            items {
+              id
+              teamId
+              userId
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           color
+          state
           createdAt
           updatedAt
         }
@@ -683,6 +1137,9 @@ export const listUserCertifications = /* GraphQL */ `
             shortName
             description
             image
+            certifications {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -692,10 +1149,23 @@ export const listUserCertifications = /* GraphQL */ `
             name
             description
             score
+            certifications {
+              nextToken
+            }
             createdAt
             updatedAt
           }
           users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           createdAt
@@ -705,6 +1175,7 @@ export const listUserCertifications = /* GraphQL */ `
         updatedAt
         earnedAt
         expiredAt
+        owner
       }
       nextToken
     }
@@ -736,12 +1207,30 @@ export const userCertificationsByUserId = /* GraphQL */ `
           email
           image
           certifications {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           teams {
+            items {
+              id
+              teamId
+              userId
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           color
+          state
           createdAt
           updatedAt
         }
@@ -758,6 +1247,9 @@ export const userCertificationsByUserId = /* GraphQL */ `
             shortName
             description
             image
+            certifications {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -767,10 +1259,23 @@ export const userCertificationsByUserId = /* GraphQL */ `
             name
             description
             score
+            certifications {
+              nextToken
+            }
             createdAt
             updatedAt
           }
           users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           createdAt
@@ -780,6 +1285,7 @@ export const userCertificationsByUserId = /* GraphQL */ `
         updatedAt
         earnedAt
         expiredAt
+        owner
       }
       nextToken
     }
@@ -811,12 +1317,30 @@ export const userCertificationsByCertificationId = /* GraphQL */ `
           email
           image
           certifications {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           teams {
+            items {
+              id
+              teamId
+              userId
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           color
+          state
           createdAt
           updatedAt
         }
@@ -833,6 +1357,9 @@ export const userCertificationsByCertificationId = /* GraphQL */ `
             shortName
             description
             image
+            certifications {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -842,10 +1369,23 @@ export const userCertificationsByCertificationId = /* GraphQL */ `
             name
             description
             score
+            certifications {
+              nextToken
+            }
             createdAt
             updatedAt
           }
           users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           createdAt
@@ -855,6 +1395,7 @@ export const userCertificationsByCertificationId = /* GraphQL */ `
         updatedAt
         earnedAt
         expiredAt
+        owner
       }
       nextToken
     }
@@ -882,6 +1423,9 @@ export const getProvider = /* GraphQL */ `
             shortName
             description
             image
+            certifications {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -891,10 +1435,23 @@ export const getProvider = /* GraphQL */ `
             name
             description
             score
+            certifications {
+              nextToken
+            }
             createdAt
             updatedAt
           }
           users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           createdAt
@@ -928,7 +1485,27 @@ export const listProviders = /* GraphQL */ `
             description
             image
             providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
             certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -956,6 +1533,24 @@ export const getUserTeam = /* GraphQL */ `
             id
             teamId
             userId
+            team {
+              id
+              name
+              description
+              createdAt
+              updatedAt
+            }
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -975,10 +1570,33 @@ export const getUserTeam = /* GraphQL */ `
             id
             userId
             certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
             earnedAt
             expiredAt
+            owner
           }
           nextToken
         }
@@ -987,12 +1605,31 @@ export const getUserTeam = /* GraphQL */ `
             id
             teamId
             userId
+            team {
+              id
+              name
+              description
+              createdAt
+              updatedAt
+            }
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
           nextToken
         }
         color
+        state
         createdAt
         updatedAt
       }
@@ -1017,6 +1654,13 @@ export const listUserTeams = /* GraphQL */ `
           name
           description
           users {
+            items {
+              id
+              teamId
+              userId
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -1029,12 +1673,30 @@ export const listUserTeams = /* GraphQL */ `
           email
           image
           certifications {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           teams {
+            items {
+              id
+              teamId
+              userId
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           color
+          state
           createdAt
           updatedAt
         }
@@ -1069,6 +1731,13 @@ export const userTeamsByTeamId = /* GraphQL */ `
           name
           description
           users {
+            items {
+              id
+              teamId
+              userId
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -1081,12 +1750,30 @@ export const userTeamsByTeamId = /* GraphQL */ `
           email
           image
           certifications {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           teams {
+            items {
+              id
+              teamId
+              userId
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           color
+          state
           createdAt
           updatedAt
         }
@@ -1121,6 +1808,13 @@ export const userTeamsByUserId = /* GraphQL */ `
           name
           description
           users {
+            items {
+              id
+              teamId
+              userId
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           createdAt
@@ -1133,12 +1827,30 @@ export const userTeamsByUserId = /* GraphQL */ `
           email
           image
           certifications {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
             nextToken
           }
           teams {
+            items {
+              id
+              teamId
+              userId
+              createdAt
+              updatedAt
+            }
             nextToken
           }
           color
+          state
           createdAt
           updatedAt
         }
