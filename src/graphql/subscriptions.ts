@@ -2,681 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateTeam = /* GraphQL */ `
-  subscription OnCreateTeam($filter: ModelSubscriptionTeamFilterInput) {
-    onCreateTeam(filter: $filter) {
-      id
-      name
-      description
-      users {
-        items {
-          id
-          teamId
-          userId
-          team {
-            id
-            name
-            description
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          user {
-            id
-            firstName
-            lastName
-            email
-            image
-            certifications {
-              nextToken
-            }
-            teams {
-              nextToken
-            }
-            color
-            state
-            createdAt
-            updatedAt
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateTeam = /* GraphQL */ `
-  subscription OnUpdateTeam($filter: ModelSubscriptionTeamFilterInput) {
-    onUpdateTeam(filter: $filter) {
-      id
-      name
-      description
-      users {
-        items {
-          id
-          teamId
-          userId
-          team {
-            id
-            name
-            description
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          user {
-            id
-            firstName
-            lastName
-            email
-            image
-            certifications {
-              nextToken
-            }
-            teams {
-              nextToken
-            }
-            color
-            state
-            createdAt
-            updatedAt
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteTeam = /* GraphQL */ `
-  subscription OnDeleteTeam($filter: ModelSubscriptionTeamFilterInput) {
-    onDeleteTeam(filter: $filter) {
-      id
-      name
-      description
-      users {
-        items {
-          id
-          teamId
-          userId
-          team {
-            id
-            name
-            description
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          user {
-            id
-            firstName
-            lastName
-            email
-            image
-            certifications {
-              nextToken
-            }
-            teams {
-              nextToken
-            }
-            color
-            state
-            createdAt
-            updatedAt
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateCertificationLevel = /* GraphQL */ `
-  subscription OnCreateCertificationLevel(
-    $filter: ModelSubscriptionCertificationLevelFilterInput
-  ) {
-    onCreateCertificationLevel(filter: $filter) {
-      id
-      name
-      description
-      score
-      certifications {
-        items {
-          id
-          name
-          shortName
-          description
-          image
-          providerID
-          provider {
-            id
-            name
-            shortName
-            description
-            image
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          certificationlevelID
-          certificationLevel {
-            id
-            name
-            description
-            score
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          users {
-            items {
-              id
-              userId
-              certificationId
-              createdAt
-              updatedAt
-              earnedAt
-              expiredAt
-              owner
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateCertificationLevel = /* GraphQL */ `
-  subscription OnUpdateCertificationLevel(
-    $filter: ModelSubscriptionCertificationLevelFilterInput
-  ) {
-    onUpdateCertificationLevel(filter: $filter) {
-      id
-      name
-      description
-      score
-      certifications {
-        items {
-          id
-          name
-          shortName
-          description
-          image
-          providerID
-          provider {
-            id
-            name
-            shortName
-            description
-            image
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          certificationlevelID
-          certificationLevel {
-            id
-            name
-            description
-            score
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          users {
-            items {
-              id
-              userId
-              certificationId
-              createdAt
-              updatedAt
-              earnedAt
-              expiredAt
-              owner
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteCertificationLevel = /* GraphQL */ `
-  subscription OnDeleteCertificationLevel(
-    $filter: ModelSubscriptionCertificationLevelFilterInput
-  ) {
-    onDeleteCertificationLevel(filter: $filter) {
-      id
-      name
-      description
-      score
-      certifications {
-        items {
-          id
-          name
-          shortName
-          description
-          image
-          providerID
-          provider {
-            id
-            name
-            shortName
-            description
-            image
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          certificationlevelID
-          certificationLevel {
-            id
-            name
-            description
-            score
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          users {
-            items {
-              id
-              userId
-              certificationId
-              createdAt
-              updatedAt
-              earnedAt
-              expiredAt
-              owner
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-    onCreateUser(filter: $filter) {
-      id
-      firstName
-      lastName
-      email
-      image
-      certifications {
-        items {
-          id
-          userId
-          certificationId
-          user {
-            id
-            firstName
-            lastName
-            email
-            image
-            certifications {
-              nextToken
-            }
-            teams {
-              nextToken
-            }
-            color
-            state
-            createdAt
-            updatedAt
-          }
-          certification {
-            id
-            name
-            shortName
-            description
-            image
-            providerID
-            provider {
-              id
-              name
-              shortName
-              description
-              image
-              createdAt
-              updatedAt
-            }
-            certificationlevelID
-            certificationLevel {
-              id
-              name
-              description
-              score
-              createdAt
-              updatedAt
-            }
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          createdAt
-          updatedAt
-          earnedAt
-          expiredAt
-          owner
-        }
-        nextToken
-      }
-      teams {
-        items {
-          id
-          teamId
-          userId
-          team {
-            id
-            name
-            description
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          user {
-            id
-            firstName
-            lastName
-            email
-            image
-            certifications {
-              nextToken
-            }
-            teams {
-              nextToken
-            }
-            color
-            state
-            createdAt
-            updatedAt
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      color
-      state
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-    onUpdateUser(filter: $filter) {
-      id
-      firstName
-      lastName
-      email
-      image
-      certifications {
-        items {
-          id
-          userId
-          certificationId
-          user {
-            id
-            firstName
-            lastName
-            email
-            image
-            certifications {
-              nextToken
-            }
-            teams {
-              nextToken
-            }
-            color
-            state
-            createdAt
-            updatedAt
-          }
-          certification {
-            id
-            name
-            shortName
-            description
-            image
-            providerID
-            provider {
-              id
-              name
-              shortName
-              description
-              image
-              createdAt
-              updatedAt
-            }
-            certificationlevelID
-            certificationLevel {
-              id
-              name
-              description
-              score
-              createdAt
-              updatedAt
-            }
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          createdAt
-          updatedAt
-          earnedAt
-          expiredAt
-          owner
-        }
-        nextToken
-      }
-      teams {
-        items {
-          id
-          teamId
-          userId
-          team {
-            id
-            name
-            description
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          user {
-            id
-            firstName
-            lastName
-            email
-            image
-            certifications {
-              nextToken
-            }
-            teams {
-              nextToken
-            }
-            color
-            state
-            createdAt
-            updatedAt
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      color
-      state
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-    onDeleteUser(filter: $filter) {
-      id
-      firstName
-      lastName
-      email
-      image
-      certifications {
-        items {
-          id
-          userId
-          certificationId
-          user {
-            id
-            firstName
-            lastName
-            email
-            image
-            certifications {
-              nextToken
-            }
-            teams {
-              nextToken
-            }
-            color
-            state
-            createdAt
-            updatedAt
-          }
-          certification {
-            id
-            name
-            shortName
-            description
-            image
-            providerID
-            provider {
-              id
-              name
-              shortName
-              description
-              image
-              createdAt
-              updatedAt
-            }
-            certificationlevelID
-            certificationLevel {
-              id
-              name
-              description
-              score
-              createdAt
-              updatedAt
-            }
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          createdAt
-          updatedAt
-          earnedAt
-          expiredAt
-          owner
-        }
-        nextToken
-      }
-      teams {
-        items {
-          id
-          teamId
-          userId
-          team {
-            id
-            name
-            description
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          user {
-            id
-            firstName
-            lastName
-            email
-            image
-            certifications {
-              nextToken
-            }
-            teams {
-              nextToken
-            }
-            color
-            state
-            createdAt
-            updatedAt
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      color
-      state
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateCertification = /* GraphQL */ `
   subscription OnCreateCertification(
     $filter: ModelSubscriptionCertificationFilterInput
@@ -722,6 +47,27 @@ export const onCreateCertification = /* GraphQL */ `
             }
             users {
               nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            name
+            description
+            image
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
             }
             createdAt
             updatedAt
@@ -793,8 +139,10 @@ export const onCreateCertification = /* GraphQL */ `
             }
             color
             state
+            title
             createdAt
             updatedAt
+            owner
           }
           certification {
             id
@@ -891,6 +239,27 @@ export const onUpdateCertification = /* GraphQL */ `
           }
           nextToken
         }
+        skills {
+          items {
+            id
+            name
+            description
+            image
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -956,8 +325,10 @@ export const onUpdateCertification = /* GraphQL */ `
             }
             color
             state
+            title
             createdAt
             updatedAt
+            owner
           }
           certification {
             id
@@ -1054,6 +425,27 @@ export const onDeleteCertification = /* GraphQL */ `
           }
           nextToken
         }
+        skills {
+          items {
+            id
+            name
+            description
+            image
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -1119,8 +511,10 @@ export const onDeleteCertification = /* GraphQL */ `
             }
             color
             state
+            title
             createdAt
             updatedAt
+            owner
           }
           certification {
             id
@@ -1166,6 +560,1290 @@ export const onDeleteCertification = /* GraphQL */ `
     }
   }
 `;
+export const onCreateCertificationLevel = /* GraphQL */ `
+  subscription OnCreateCertificationLevel(
+    $filter: ModelSubscriptionCertificationLevelFilterInput
+  ) {
+    onCreateCertificationLevel(filter: $filter) {
+      id
+      name
+      description
+      score
+      certifications {
+        items {
+          id
+          name
+          shortName
+          description
+          image
+          providerID
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          certificationlevelID
+          certificationLevel {
+            id
+            name
+            description
+            score
+            certifications {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCertificationLevel = /* GraphQL */ `
+  subscription OnUpdateCertificationLevel(
+    $filter: ModelSubscriptionCertificationLevelFilterInput
+  ) {
+    onUpdateCertificationLevel(filter: $filter) {
+      id
+      name
+      description
+      score
+      certifications {
+        items {
+          id
+          name
+          shortName
+          description
+          image
+          providerID
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          certificationlevelID
+          certificationLevel {
+            id
+            name
+            description
+            score
+            certifications {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCertificationLevel = /* GraphQL */ `
+  subscription OnDeleteCertificationLevel(
+    $filter: ModelSubscriptionCertificationLevelFilterInput
+  ) {
+    onDeleteCertificationLevel(filter: $filter) {
+      id
+      name
+      description
+      score
+      certifications {
+        items {
+          id
+          name
+          shortName
+          description
+          image
+          providerID
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          certificationlevelID
+          certificationLevel {
+            id
+            name
+            description
+            score
+            certifications {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateProvider = /* GraphQL */ `
+  subscription OnCreateProvider($filter: ModelSubscriptionProviderFilterInput) {
+    onCreateProvider(filter: $filter) {
+      id
+      name
+      shortName
+      description
+      image
+      certifications {
+        items {
+          id
+          name
+          shortName
+          description
+          image
+          providerID
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          certificationlevelID
+          certificationLevel {
+            id
+            name
+            description
+            score
+            certifications {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      skills {
+        items {
+          id
+          name
+          description
+          image
+          providerId
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateProvider = /* GraphQL */ `
+  subscription OnUpdateProvider($filter: ModelSubscriptionProviderFilterInput) {
+    onUpdateProvider(filter: $filter) {
+      id
+      name
+      shortName
+      description
+      image
+      certifications {
+        items {
+          id
+          name
+          shortName
+          description
+          image
+          providerID
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          certificationlevelID
+          certificationLevel {
+            id
+            name
+            description
+            score
+            certifications {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      skills {
+        items {
+          id
+          name
+          description
+          image
+          providerId
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteProvider = /* GraphQL */ `
+  subscription OnDeleteProvider($filter: ModelSubscriptionProviderFilterInput) {
+    onDeleteProvider(filter: $filter) {
+      id
+      name
+      shortName
+      description
+      image
+      certifications {
+        items {
+          id
+          name
+          shortName
+          description
+          image
+          providerID
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          certificationlevelID
+          certificationLevel {
+            id
+            name
+            description
+            score
+            certifications {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      skills {
+        items {
+          id
+          name
+          description
+          image
+          providerId
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSkill = /* GraphQL */ `
+  subscription OnCreateSkill($filter: ModelSubscriptionSkillFilterInput) {
+    onCreateSkill(filter: $filter) {
+      id
+      name
+      description
+      image
+      providerId
+      provider {
+        id
+        name
+        shortName
+        description
+        image
+        certifications {
+          items {
+            id
+            name
+            shortName
+            description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            name
+            description
+            image
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSkill = /* GraphQL */ `
+  subscription OnUpdateSkill($filter: ModelSubscriptionSkillFilterInput) {
+    onUpdateSkill(filter: $filter) {
+      id
+      name
+      description
+      image
+      providerId
+      provider {
+        id
+        name
+        shortName
+        description
+        image
+        certifications {
+          items {
+            id
+            name
+            shortName
+            description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            name
+            description
+            image
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSkill = /* GraphQL */ `
+  subscription OnDeleteSkill($filter: ModelSubscriptionSkillFilterInput) {
+    onDeleteSkill(filter: $filter) {
+      id
+      name
+      description
+      image
+      providerId
+      provider {
+        id
+        name
+        shortName
+        description
+        image
+        certifications {
+          items {
+            id
+            name
+            shortName
+            description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            name
+            description
+            image
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSkillLevel = /* GraphQL */ `
+  subscription OnCreateSkillLevel(
+    $filter: ModelSubscriptionSkillLevelFilterInput
+  ) {
+    onCreateSkillLevel(filter: $filter) {
+      id
+      name
+      description
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSkillLevel = /* GraphQL */ `
+  subscription OnUpdateSkillLevel(
+    $filter: ModelSubscriptionSkillLevelFilterInput
+  ) {
+    onUpdateSkillLevel(filter: $filter) {
+      id
+      name
+      description
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSkillLevel = /* GraphQL */ `
+  subscription OnDeleteSkillLevel(
+    $filter: ModelSubscriptionSkillLevelFilterInput
+  ) {
+    onDeleteSkillLevel(filter: $filter) {
+      id
+      name
+      description
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateTeam = /* GraphQL */ `
+  subscription OnCreateTeam($filter: ModelSubscriptionTeamFilterInput) {
+    onCreateTeam(filter: $filter) {
+      id
+      name
+      description
+      color
+      users {
+        items {
+          id
+          userId
+          teamId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          team {
+            id
+            name
+            description
+            color
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateTeam = /* GraphQL */ `
+  subscription OnUpdateTeam($filter: ModelSubscriptionTeamFilterInput) {
+    onUpdateTeam(filter: $filter) {
+      id
+      name
+      description
+      color
+      users {
+        items {
+          id
+          userId
+          teamId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          team {
+            id
+            name
+            description
+            color
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteTeam = /* GraphQL */ `
+  subscription OnDeleteTeam($filter: ModelSubscriptionTeamFilterInput) {
+    onDeleteTeam(filter: $filter) {
+      id
+      name
+      description
+      color
+      users {
+        items {
+          id
+          userId
+          teamId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          team {
+            id
+            name
+            description
+            color
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onCreateUser(filter: $filter, owner: $owner) {
+      id
+      firstName
+      lastName
+      email
+      image
+      certifications {
+        items {
+          id
+          userId
+          certificationId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          certification {
+            id
+            name
+            shortName
+            description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          earnedAt
+          expiredAt
+          owner
+        }
+        nextToken
+      }
+      teams {
+        items {
+          id
+          userId
+          teamId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          team {
+            id
+            name
+            description
+            color
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      color
+      state
+      title
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onUpdateUser(filter: $filter, owner: $owner) {
+      id
+      firstName
+      lastName
+      email
+      image
+      certifications {
+        items {
+          id
+          userId
+          certificationId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          certification {
+            id
+            name
+            shortName
+            description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          earnedAt
+          expiredAt
+          owner
+        }
+        nextToken
+      }
+      teams {
+        items {
+          id
+          userId
+          teamId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          team {
+            id
+            name
+            description
+            color
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      color
+      state
+      title
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onDeleteUser(filter: $filter, owner: $owner) {
+      id
+      firstName
+      lastName
+      email
+      image
+      certifications {
+        items {
+          id
+          userId
+          certificationId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          certification {
+            id
+            name
+            shortName
+            description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          earnedAt
+          expiredAt
+          owner
+        }
+        nextToken
+      }
+      teams {
+        items {
+          id
+          userId
+          teamId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          team {
+            id
+            name
+            description
+            color
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      color
+      state
+      title
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const onCreateUserCertification = /* GraphQL */ `
   subscription OnCreateUserCertification(
     $filter: ModelSubscriptionUserCertificationFilterInput
@@ -1194,8 +1872,10 @@ export const onCreateUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -1219,15 +1899,8 @@ export const onCreateUserCertification = /* GraphQL */ `
         teams {
           items {
             id
-            teamId
             userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
+            teamId
             user {
               id
               firstName
@@ -1236,18 +1909,31 @@ export const onCreateUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
         color
         state
+        title
         createdAt
         updatedAt
+        owner
       }
       certification {
         id
@@ -1271,6 +1957,18 @@ export const onCreateUserCertification = /* GraphQL */ `
               image
               providerID
               certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              description
+              image
+              providerId
               createdAt
               updatedAt
             }
@@ -1315,8 +2013,10 @@ export const onCreateUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -1376,8 +2076,10 @@ export const onUpdateUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -1401,15 +2103,8 @@ export const onUpdateUserCertification = /* GraphQL */ `
         teams {
           items {
             id
-            teamId
             userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
+            teamId
             user {
               id
               firstName
@@ -1418,18 +2113,31 @@ export const onUpdateUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
         color
         state
+        title
         createdAt
         updatedAt
+        owner
       }
       certification {
         id
@@ -1453,6 +2161,18 @@ export const onUpdateUserCertification = /* GraphQL */ `
               image
               providerID
               certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              description
+              image
+              providerId
               createdAt
               updatedAt
             }
@@ -1497,8 +2217,10 @@ export const onUpdateUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -1558,8 +2280,10 @@ export const onDeleteUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -1583,15 +2307,8 @@ export const onDeleteUserCertification = /* GraphQL */ `
         teams {
           items {
             id
-            teamId
             userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
+            teamId
             user {
               id
               firstName
@@ -1600,18 +2317,31 @@ export const onDeleteUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
         color
         state
+        title
         createdAt
         updatedAt
+        owner
       }
       certification {
         id
@@ -1635,6 +2365,18 @@ export const onDeleteUserCertification = /* GraphQL */ `
               image
               providerID
               certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              description
+              image
+              providerId
               createdAt
               updatedAt
             }
@@ -1679,8 +2421,10 @@ export const onDeleteUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -1712,236 +2456,15 @@ export const onDeleteUserCertification = /* GraphQL */ `
     }
   }
 `;
-export const onCreateProvider = /* GraphQL */ `
-  subscription OnCreateProvider($filter: ModelSubscriptionProviderFilterInput) {
-    onCreateProvider(filter: $filter) {
-      id
-      name
-      shortName
-      description
-      image
-      certifications {
-        items {
-          id
-          name
-          shortName
-          description
-          image
-          providerID
-          provider {
-            id
-            name
-            shortName
-            description
-            image
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          certificationlevelID
-          certificationLevel {
-            id
-            name
-            description
-            score
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          users {
-            items {
-              id
-              userId
-              certificationId
-              createdAt
-              updatedAt
-              earnedAt
-              expiredAt
-              owner
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateProvider = /* GraphQL */ `
-  subscription OnUpdateProvider($filter: ModelSubscriptionProviderFilterInput) {
-    onUpdateProvider(filter: $filter) {
-      id
-      name
-      shortName
-      description
-      image
-      certifications {
-        items {
-          id
-          name
-          shortName
-          description
-          image
-          providerID
-          provider {
-            id
-            name
-            shortName
-            description
-            image
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          certificationlevelID
-          certificationLevel {
-            id
-            name
-            description
-            score
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          users {
-            items {
-              id
-              userId
-              certificationId
-              createdAt
-              updatedAt
-              earnedAt
-              expiredAt
-              owner
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteProvider = /* GraphQL */ `
-  subscription OnDeleteProvider($filter: ModelSubscriptionProviderFilterInput) {
-    onDeleteProvider(filter: $filter) {
-      id
-      name
-      shortName
-      description
-      image
-      certifications {
-        items {
-          id
-          name
-          shortName
-          description
-          image
-          providerID
-          provider {
-            id
-            name
-            shortName
-            description
-            image
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          certificationlevelID
-          certificationLevel {
-            id
-            name
-            description
-            score
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          users {
-            items {
-              id
-              userId
-              certificationId
-              createdAt
-              updatedAt
-              earnedAt
-              expiredAt
-              owner
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateUserTeam = /* GraphQL */ `
-  subscription OnCreateUserTeam($filter: ModelSubscriptionUserTeamFilterInput) {
-    onCreateUserTeam(filter: $filter) {
+  subscription OnCreateUserTeam(
+    $filter: ModelSubscriptionUserTeamFilterInput
+    $owner: String
+  ) {
+    onCreateUserTeam(filter: $filter, owner: $owner) {
       id
-      teamId
       userId
-      team {
-        id
-        name
-        description
-        users {
-          items {
-            id
-            teamId
-            userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
-            user {
-              id
-              firstName
-              lastName
-              email
-              image
-              color
-              state
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
+      teamId
       user {
         id
         firstName
@@ -1961,8 +2484,10 @@ export const onCreateUserTeam = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -1986,15 +2511,8 @@ export const onCreateUserTeam = /* GraphQL */ `
         teams {
           items {
             id
-            teamId
             userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
+            teamId
             user {
               id
               firstName
@@ -2003,65 +2521,87 @@ export const onCreateUserTeam = /* GraphQL */ `
               image
               color
               state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
         color
         state
+        title
+        createdAt
+        updatedAt
+        owner
+      }
+      team {
+        id
+        name
+        description
+        color
+        users {
+          items {
+            id
+            userId
+            teamId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateUserTeam = /* GraphQL */ `
-  subscription OnUpdateUserTeam($filter: ModelSubscriptionUserTeamFilterInput) {
-    onUpdateUserTeam(filter: $filter) {
+  subscription OnUpdateUserTeam(
+    $filter: ModelSubscriptionUserTeamFilterInput
+    $owner: String
+  ) {
+    onUpdateUserTeam(filter: $filter, owner: $owner) {
       id
-      teamId
       userId
-      team {
-        id
-        name
-        description
-        users {
-          items {
-            id
-            teamId
-            userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
-            user {
-              id
-              firstName
-              lastName
-              email
-              image
-              color
-              state
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
+      teamId
       user {
         id
         firstName
@@ -2081,8 +2621,10 @@ export const onUpdateUserTeam = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -2106,15 +2648,8 @@ export const onUpdateUserTeam = /* GraphQL */ `
         teams {
           items {
             id
-            teamId
             userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
+            teamId
             user {
               id
               firstName
@@ -2123,65 +2658,87 @@ export const onUpdateUserTeam = /* GraphQL */ `
               image
               color
               state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
         color
         state
+        title
+        createdAt
+        updatedAt
+        owner
+      }
+      team {
+        id
+        name
+        description
+        color
+        users {
+          items {
+            id
+            userId
+            teamId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteUserTeam = /* GraphQL */ `
-  subscription OnDeleteUserTeam($filter: ModelSubscriptionUserTeamFilterInput) {
-    onDeleteUserTeam(filter: $filter) {
+  subscription OnDeleteUserTeam(
+    $filter: ModelSubscriptionUserTeamFilterInput
+    $owner: String
+  ) {
+    onDeleteUserTeam(filter: $filter, owner: $owner) {
       id
-      teamId
       userId
-      team {
-        id
-        name
-        description
-        users {
-          items {
-            id
-            teamId
-            userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
-            user {
-              id
-              firstName
-              lastName
-              email
-              image
-              color
-              state
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
+      teamId
       user {
         id
         firstName
@@ -2201,8 +2758,10 @@ export const onDeleteUserTeam = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -2226,15 +2785,8 @@ export const onDeleteUserTeam = /* GraphQL */ `
         teams {
           items {
             id
-            teamId
             userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
+            teamId
             user {
               id
               firstName
@@ -2243,21 +2795,75 @@ export const onDeleteUserTeam = /* GraphQL */ `
               image
               color
               state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
         color
         state
+        title
+        createdAt
+        updatedAt
+        owner
+      }
+      team {
+        id
+        name
+        description
+        color
+        users {
+          items {
+            id
+            userId
+            teamId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;

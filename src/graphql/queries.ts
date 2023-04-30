@@ -2,27 +2,127 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTeam = /* GraphQL */ `
-  query GetTeam($id: ID!) {
-    getTeam(id: $id) {
+export const getCertification = /* GraphQL */ `
+  query GetCertification($id: ID!) {
+    getCertification(id: $id) {
       id
       name
+      shortName
       description
-      users {
-        items {
-          id
-          teamId
-          userId
-          team {
+      image
+      providerID
+      provider {
+        id
+        name
+        shortName
+        description
+        image
+        certifications {
+          items {
             id
             name
+            shortName
             description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
             users {
               nextToken
             }
             createdAt
             updatedAt
           }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            name
+            description
+            image
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      certificationlevelID
+      certificationLevel {
+        id
+        name
+        description
+        score
+        certifications {
+          items {
+            id
+            name
+            shortName
+            description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      users {
+        items {
+          id
+          userId
+          certificationId
           user {
             id
             firstName
@@ -37,11 +137,47 @@ export const getTeam = /* GraphQL */ `
             }
             color
             state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          certification {
+            id
+            name
+            shortName
+            description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
           createdAt
           updatedAt
+          earnedAt
+          expiredAt
+          owner
         }
         nextToken
       }
@@ -50,29 +186,83 @@ export const getTeam = /* GraphQL */ `
     }
   }
 `;
-export const listTeams = /* GraphQL */ `
-  query ListTeams(
-    $filter: ModelTeamFilterInput
+export const listCertifications = /* GraphQL */ `
+  query ListCertifications(
+    $filter: ModelCertificationFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listCertifications(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         name
+        shortName
         description
-        users {
-          items {
-            id
-            teamId
-            userId
-            team {
+        image
+        providerID
+        provider {
+          id
+          name
+          shortName
+          description
+          image
+          certifications {
+            items {
               id
               name
+              shortName
               description
+              image
+              providerID
+              certificationlevelID
               createdAt
               updatedAt
             }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              description
+              image
+              providerId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        certificationlevelID
+        certificationLevel {
+          id
+          name
+          description
+          score
+          certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        users {
+          items {
+            id
+            userId
+            certificationId
             user {
               id
               firstName
@@ -81,11 +271,275 @@ export const listTeams = /* GraphQL */ `
               image
               color
               state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
+            earnedAt
+            expiredAt
+            owner
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const certificationsByProviderID = /* GraphQL */ `
+  query CertificationsByProviderID(
+    $providerID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCertificationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    certificationsByProviderID(
+      providerID: $providerID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        shortName
+        description
+        image
+        providerID
+        provider {
+          id
+          name
+          shortName
+          description
+          image
+          certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              description
+              image
+              providerId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        certificationlevelID
+        certificationLevel {
+          id
+          name
+          description
+          score
+          certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        users {
+          items {
+            id
+            userId
+            certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            earnedAt
+            expiredAt
+            owner
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const certificationsByCertificationlevelID = /* GraphQL */ `
+  query CertificationsByCertificationlevelID(
+    $certificationlevelID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCertificationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    certificationsByCertificationlevelID(
+      certificationlevelID: $certificationlevelID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        shortName
+        description
+        image
+        providerID
+        provider {
+          id
+          name
+          shortName
+          description
+          image
+          certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              description
+              image
+              providerId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        certificationlevelID
+        certificationLevel {
+          id
+          name
+          description
+          score
+          certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        users {
+          items {
+            id
+            userId
+            certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            earnedAt
+            expiredAt
+            owner
           }
           nextToken
         }
@@ -118,6 +572,9 @@ export const getCertificationLevel = /* GraphQL */ `
             description
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             createdAt
@@ -215,6 +672,504 @@ export const listCertificationLevels = /* GraphQL */ `
     }
   }
 `;
+export const getProvider = /* GraphQL */ `
+  query GetProvider($id: ID!) {
+    getProvider(id: $id) {
+      id
+      name
+      shortName
+      description
+      image
+      certifications {
+        items {
+          id
+          name
+          shortName
+          description
+          image
+          providerID
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          certificationlevelID
+          certificationLevel {
+            id
+            name
+            description
+            score
+            certifications {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          users {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      skills {
+        items {
+          id
+          name
+          description
+          image
+          providerId
+          provider {
+            id
+            name
+            shortName
+            description
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listProviders = /* GraphQL */ `
+  query ListProviders(
+    $filter: ModelProviderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProviders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        shortName
+        description
+        image
+        certifications {
+          items {
+            id
+            name
+            shortName
+            description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            name
+            description
+            image
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getSkill = /* GraphQL */ `
+  query GetSkill($id: ID!) {
+    getSkill(id: $id) {
+      id
+      name
+      description
+      image
+      providerId
+      provider {
+        id
+        name
+        shortName
+        description
+        image
+        certifications {
+          items {
+            id
+            name
+            shortName
+            description
+            image
+            providerID
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            certificationlevelID
+            certificationLevel {
+              id
+              name
+              description
+              score
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            name
+            description
+            image
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listSkills = /* GraphQL */ `
+  query ListSkills(
+    $filter: ModelSkillFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        image
+        providerId
+        provider {
+          id
+          name
+          shortName
+          description
+          image
+          certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              description
+              image
+              providerId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const skillsByProviderId = /* GraphQL */ `
+  query SkillsByProviderId(
+    $providerId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelSkillFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    skillsByProviderId(
+      providerId: $providerId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        description
+        image
+        providerId
+        provider {
+          id
+          name
+          shortName
+          description
+          image
+          certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              description
+              image
+              providerId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getSkillLevel = /* GraphQL */ `
+  query GetSkillLevel($id: ID!) {
+    getSkillLevel(id: $id) {
+      id
+      name
+      description
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listSkillLevels = /* GraphQL */ `
+  query ListSkillLevels(
+    $filter: ModelSkillLevelFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSkillLevels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        score
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getTeam = /* GraphQL */ `
+  query GetTeam($id: ID!) {
+    getTeam(id: $id) {
+      id
+      name
+      description
+      color
+      users {
+        items {
+          id
+          userId
+          teamId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          team {
+            id
+            name
+            description
+            color
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listTeams = /* GraphQL */ `
+  query ListTeams(
+    $filter: ModelTeamFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        color
+        users {
+          items {
+            id
+            userId
+            teamId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -242,8 +1197,10 @@ export const getUser = /* GraphQL */ `
             }
             color
             state
+            title
             createdAt
             updatedAt
+            owner
           }
           certification {
             id
@@ -287,18 +1244,8 @@ export const getUser = /* GraphQL */ `
       teams {
         items {
           id
-          teamId
           userId
-          team {
-            id
-            name
-            description
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
+          teamId
           user {
             id
             firstName
@@ -313,18 +1260,34 @@ export const getUser = /* GraphQL */ `
             }
             color
             state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          team {
+            id
+            name
+            description
+            color
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       color
       state
+      title
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -354,8 +1317,10 @@ export const listUsers = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -379,15 +1344,8 @@ export const listUsers = /* GraphQL */ `
         teams {
           items {
             id
-            teamId
             userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
+            teamId
             user {
               id
               firstName
@@ -396,501 +1354,31 @@ export const listUsers = /* GraphQL */ `
               image
               color
               state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
         color
         state
+        title
         createdAt
         updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getCertification = /* GraphQL */ `
-  query GetCertification($id: ID!) {
-    getCertification(id: $id) {
-      id
-      name
-      shortName
-      description
-      image
-      providerID
-      provider {
-        id
-        name
-        shortName
-        description
-        image
-        certifications {
-          items {
-            id
-            name
-            shortName
-            description
-            image
-            providerID
-            provider {
-              id
-              name
-              shortName
-              description
-              image
-              createdAt
-              updatedAt
-            }
-            certificationlevelID
-            certificationLevel {
-              id
-              name
-              description
-              score
-              createdAt
-              updatedAt
-            }
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      certificationlevelID
-      certificationLevel {
-        id
-        name
-        description
-        score
-        certifications {
-          items {
-            id
-            name
-            shortName
-            description
-            image
-            providerID
-            provider {
-              id
-              name
-              shortName
-              description
-              image
-              createdAt
-              updatedAt
-            }
-            certificationlevelID
-            certificationLevel {
-              id
-              name
-              description
-              score
-              createdAt
-              updatedAt
-            }
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      users {
-        items {
-          id
-          userId
-          certificationId
-          user {
-            id
-            firstName
-            lastName
-            email
-            image
-            certifications {
-              nextToken
-            }
-            teams {
-              nextToken
-            }
-            color
-            state
-            createdAt
-            updatedAt
-          }
-          certification {
-            id
-            name
-            shortName
-            description
-            image
-            providerID
-            provider {
-              id
-              name
-              shortName
-              description
-              image
-              createdAt
-              updatedAt
-            }
-            certificationlevelID
-            certificationLevel {
-              id
-              name
-              description
-              score
-              createdAt
-              updatedAt
-            }
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          createdAt
-          updatedAt
-          earnedAt
-          expiredAt
-          owner
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listCertifications = /* GraphQL */ `
-  query ListCertifications(
-    $filter: ModelCertificationFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCertifications(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        shortName
-        description
-        image
-        providerID
-        provider {
-          id
-          name
-          shortName
-          description
-          image
-          certifications {
-            items {
-              id
-              name
-              shortName
-              description
-              image
-              providerID
-              certificationlevelID
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        certificationlevelID
-        certificationLevel {
-          id
-          name
-          description
-          score
-          certifications {
-            items {
-              id
-              name
-              shortName
-              description
-              image
-              providerID
-              certificationlevelID
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        users {
-          items {
-            id
-            userId
-            certificationId
-            user {
-              id
-              firstName
-              lastName
-              email
-              image
-              color
-              state
-              createdAt
-              updatedAt
-            }
-            certification {
-              id
-              name
-              shortName
-              description
-              image
-              providerID
-              certificationlevelID
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-            earnedAt
-            expiredAt
-            owner
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const certificationsByProviderID = /* GraphQL */ `
-  query CertificationsByProviderID(
-    $providerID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelCertificationFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    certificationsByProviderID(
-      providerID: $providerID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        name
-        shortName
-        description
-        image
-        providerID
-        provider {
-          id
-          name
-          shortName
-          description
-          image
-          certifications {
-            items {
-              id
-              name
-              shortName
-              description
-              image
-              providerID
-              certificationlevelID
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        certificationlevelID
-        certificationLevel {
-          id
-          name
-          description
-          score
-          certifications {
-            items {
-              id
-              name
-              shortName
-              description
-              image
-              providerID
-              certificationlevelID
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        users {
-          items {
-            id
-            userId
-            certificationId
-            user {
-              id
-              firstName
-              lastName
-              email
-              image
-              color
-              state
-              createdAt
-              updatedAt
-            }
-            certification {
-              id
-              name
-              shortName
-              description
-              image
-              providerID
-              certificationlevelID
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-            earnedAt
-            expiredAt
-            owner
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const certificationsByCertificationlevelID = /* GraphQL */ `
-  query CertificationsByCertificationlevelID(
-    $certificationlevelID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelCertificationFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    certificationsByCertificationlevelID(
-      certificationlevelID: $certificationlevelID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        name
-        shortName
-        description
-        image
-        providerID
-        provider {
-          id
-          name
-          shortName
-          description
-          image
-          certifications {
-            items {
-              id
-              name
-              shortName
-              description
-              image
-              providerID
-              certificationlevelID
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        certificationlevelID
-        certificationLevel {
-          id
-          name
-          description
-          score
-          certifications {
-            items {
-              id
-              name
-              shortName
-              description
-              image
-              providerID
-              certificationlevelID
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        users {
-          items {
-            id
-            userId
-            certificationId
-            user {
-              id
-              firstName
-              lastName
-              email
-              image
-              color
-              state
-              createdAt
-              updatedAt
-            }
-            certification {
-              id
-              name
-              shortName
-              description
-              image
-              providerID
-              certificationlevelID
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-            earnedAt
-            expiredAt
-            owner
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
+        owner
       }
       nextToken
     }
@@ -921,8 +1409,10 @@ export const getUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -946,15 +1436,8 @@ export const getUserCertification = /* GraphQL */ `
         teams {
           items {
             id
-            teamId
             userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
+            teamId
             user {
               id
               firstName
@@ -963,18 +1446,31 @@ export const getUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
         color
         state
+        title
         createdAt
         updatedAt
+        owner
       }
       certification {
         id
@@ -998,6 +1494,18 @@ export const getUserCertification = /* GraphQL */ `
               image
               providerID
               certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              description
+              image
+              providerId
               createdAt
               updatedAt
             }
@@ -1042,8 +1550,10 @@ export const getUserCertification = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -1112,17 +1622,20 @@ export const listUserCertifications = /* GraphQL */ `
           teams {
             items {
               id
-              teamId
               userId
+              teamId
               createdAt
               updatedAt
+              owner
             }
             nextToken
           }
           color
           state
+          title
           createdAt
           updatedAt
+          owner
         }
         certification {
           id
@@ -1138,6 +1651,9 @@ export const listUserCertifications = /* GraphQL */ `
             description
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             createdAt
@@ -1222,17 +1738,20 @@ export const userCertificationsByUserId = /* GraphQL */ `
           teams {
             items {
               id
-              teamId
               userId
+              teamId
               createdAt
               updatedAt
+              owner
             }
             nextToken
           }
           color
           state
+          title
           createdAt
           updatedAt
+          owner
         }
         certification {
           id
@@ -1248,6 +1767,9 @@ export const userCertificationsByUserId = /* GraphQL */ `
             description
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             createdAt
@@ -1332,17 +1854,20 @@ export const userCertificationsByCertificationId = /* GraphQL */ `
           teams {
             items {
               id
-              teamId
               userId
+              teamId
               createdAt
               updatedAt
+              owner
             }
             nextToken
           }
           color
           state
+          title
           createdAt
           updatedAt
+          owner
         }
         certification {
           id
@@ -1358,6 +1883,9 @@ export const userCertificationsByCertificationId = /* GraphQL */ `
             description
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             createdAt
@@ -1401,164 +1929,12 @@ export const userCertificationsByCertificationId = /* GraphQL */ `
     }
   }
 `;
-export const getProvider = /* GraphQL */ `
-  query GetProvider($id: ID!) {
-    getProvider(id: $id) {
-      id
-      name
-      shortName
-      description
-      image
-      certifications {
-        items {
-          id
-          name
-          shortName
-          description
-          image
-          providerID
-          provider {
-            id
-            name
-            shortName
-            description
-            image
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          certificationlevelID
-          certificationLevel {
-            id
-            name
-            description
-            score
-            certifications {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          users {
-            items {
-              id
-              userId
-              certificationId
-              createdAt
-              updatedAt
-              earnedAt
-              expiredAt
-              owner
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listProviders = /* GraphQL */ `
-  query ListProviders(
-    $filter: ModelProviderFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listProviders(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        shortName
-        description
-        image
-        certifications {
-          items {
-            id
-            name
-            shortName
-            description
-            image
-            providerID
-            provider {
-              id
-              name
-              shortName
-              description
-              image
-              createdAt
-              updatedAt
-            }
-            certificationlevelID
-            certificationLevel {
-              id
-              name
-              description
-              score
-              createdAt
-              updatedAt
-            }
-            users {
-              nextToken
-            }
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const getUserTeam = /* GraphQL */ `
   query GetUserTeam($id: ID!) {
     getUserTeam(id: $id) {
       id
-      teamId
       userId
-      team {
-        id
-        name
-        description
-        users {
-          items {
-            id
-            teamId
-            userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
-            user {
-              id
-              firstName
-              lastName
-              email
-              image
-              color
-              state
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
+      teamId
       user {
         id
         firstName
@@ -1578,8 +1954,10 @@ export const getUserTeam = /* GraphQL */ `
               image
               color
               state
+              title
               createdAt
               updatedAt
+              owner
             }
             certification {
               id
@@ -1603,15 +1981,8 @@ export const getUserTeam = /* GraphQL */ `
         teams {
           items {
             id
-            teamId
             userId
-            team {
-              id
-              name
-              description
-              createdAt
-              updatedAt
-            }
+            teamId
             user {
               id
               firstName
@@ -1620,21 +1991,75 @@ export const getUserTeam = /* GraphQL */ `
               image
               color
               state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
               createdAt
               updatedAt
             }
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
         color
         state
+        title
+        createdAt
+        updatedAt
+        owner
+      }
+      team {
+        id
+        name
+        description
+        color
+        users {
+          items {
+            id
+            userId
+            teamId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -1647,25 +2072,8 @@ export const listUserTeams = /* GraphQL */ `
     listUserTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        teamId
         userId
-        team {
-          id
-          name
-          description
-          users {
-            items {
-              id
-              teamId
-              userId
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
+        teamId
         user {
           id
           firstName
@@ -1688,97 +2096,43 @@ export const listUserTeams = /* GraphQL */ `
           teams {
             items {
               id
+              userId
               teamId
-              userId
               createdAt
               updatedAt
-            }
-            nextToken
-          }
-          color
-          state
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const userTeamsByTeamId = /* GraphQL */ `
-  query UserTeamsByTeamId(
-    $teamId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelUserTeamFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    userTeamsByTeamId(
-      teamId: $teamId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        teamId
-        userId
-        team {
-          id
-          name
-          description
-          users {
-            items {
-              id
-              teamId
-              userId
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
-        user {
-          id
-          firstName
-          lastName
-          email
-          image
-          certifications {
-            items {
-              id
-              userId
-              certificationId
-              createdAt
-              updatedAt
-              earnedAt
-              expiredAt
               owner
             }
             nextToken
           }
-          teams {
+          color
+          state
+          title
+          createdAt
+          updatedAt
+          owner
+        }
+        team {
+          id
+          name
+          description
+          color
+          users {
             items {
               id
-              teamId
               userId
+              teamId
               createdAt
               updatedAt
+              owner
             }
             nextToken
           }
-          color
-          state
           createdAt
           updatedAt
         }
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -1801,25 +2155,8 @@ export const userTeamsByUserId = /* GraphQL */ `
     ) {
       items {
         id
-        teamId
         userId
-        team {
-          id
-          name
-          description
-          users {
-            items {
-              id
-              teamId
-              userId
-              createdAt
-              updatedAt
-            }
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
+        teamId
         user {
           id
           firstName
@@ -1842,20 +2179,126 @@ export const userTeamsByUserId = /* GraphQL */ `
           teams {
             items {
               id
-              teamId
               userId
+              teamId
               createdAt
               updatedAt
+              owner
             }
             nextToken
           }
           color
           state
+          title
+          createdAt
+          updatedAt
+          owner
+        }
+        team {
+          id
+          name
+          description
+          color
+          users {
+            items {
+              id
+              userId
+              teamId
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
         createdAt
         updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const userTeamsByTeamId = /* GraphQL */ `
+  query UserTeamsByTeamId(
+    $teamId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserTeamFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userTeamsByTeamId(
+      teamId: $teamId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userId
+        teamId
+        user {
+          id
+          firstName
+          lastName
+          email
+          image
+          certifications {
+            items {
+              id
+              userId
+              certificationId
+              createdAt
+              updatedAt
+              earnedAt
+              expiredAt
+              owner
+            }
+            nextToken
+          }
+          teams {
+            items {
+              id
+              userId
+              teamId
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          color
+          state
+          title
+          createdAt
+          updatedAt
+          owner
+        }
+        team {
+          id
+          name
+          description
+          color
+          users {
+            items {
+              id
+              userId
+              teamId
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        owner
       }
       nextToken
     }
