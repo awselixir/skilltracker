@@ -42,7 +42,7 @@
   </ModalWrapper>
 </template>
 <script setup>
-import ModalWrapper from './ModalWrapper.vue';
+import ModalWrapper from '../../components/modals/ModalWrapper.vue';
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useTeamStore } from '../../stores/team-store';

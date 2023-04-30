@@ -39,7 +39,7 @@
 </template>
 <script setup>
 import { onMounted } from 'vue';
-import { useTeamStore } from '../stores/team-store';
+import { useTeamStore } from '../../stores/team-store';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 const teamStore = useTeamStore();
