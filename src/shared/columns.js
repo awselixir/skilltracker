@@ -1,3 +1,5 @@
+import { calculateTeamsCerts } from './functions';
+
 export const certsPageColumns = [
   {
     name: 'name',
@@ -9,7 +11,7 @@ export const certsPageColumns = [
   },
   {
     name: 'provider',
-    field: row => row.provider.shortName,
+    field: (row) => row.provider.shortName,
     label: 'Provider',
     required: true,
     align: 'left',
@@ -17,7 +19,7 @@ export const certsPageColumns = [
   },
   {
     name: 'level',
-    field: row => row.certificationLevel.name,
+    field: (row) => row.certificationLevel.name,
     label: 'Level',
     required: true,
     align: 'left',
@@ -25,7 +27,7 @@ export const certsPageColumns = [
   },
   {
     name: 'earned',
-    field: row => row.users.items.length > 0 ? row.users.items.length : '-',
+    field: (row) => (row.users.items.length > 0 ? row.users.items.length : '-'),
     label: 'Earned',
     required: true,
     align: 'center',
@@ -44,7 +46,10 @@ export const usersPageColumns = [
   },
   {
     name: 'certs',
-    field: row => row.certifications.items.length > 0 ? row.certifications.items.length : '-',
+    field: (row) =>
+      row.certifications.items.length > 0
+        ? row.certifications.items.length
+        : '-',
     label: 'Certs',
     required: true,
     align: 'center',
@@ -54,14 +59,44 @@ export const usersPageColumns = [
     name: 'score',
     field: (row) => {
       if (row.certifications.items.length > 0) {
-        return row.certifications.items.reduce((acc, cert) => acc + cert.certification.certificationLevel.score, 0)
+        return row.certifications.items.reduce(
+          (acc, cert) => acc + cert.certification.certificationLevel.score,
+          0
+        );
       } else {
-        return '-'
+        return '-';
       }
     },
     label: 'Score',
     required: true,
     align: 'center',
-    sortable: true
-  }
+    sortable: true,
+  },
+];
+
+export const teamsPageColumns = [
+  {
+    name: 'name',
+    field: 'name',
+    label: 'Name',
+    required: true,
+    align: 'left',
+    sortable: true,
+  },
+  {
+    name: 'users',
+    field: (row) => (row.users.items.length > 0 ? row.users.items.length : '-'),
+    label: 'Users',
+    required: true,
+    align: 'center',
+    sortable: true,
+  },
+  {
+    name: 'certs',
+    field: (row) => (calculateTeamsCerts(row) ? calculateTeamsCerts(row) : '-'),
+    label: 'Certs',
+    required: true,
+    align: 'center',
+    sortable: true,
+  },
 ];
