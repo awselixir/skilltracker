@@ -19,24 +19,30 @@
                   {{ item.firstName }} {{ item.lastName }}
                 </div>
                 <div class="row q-col-gutter-sm items-center">
-                  <div class="col-md-auto col-2">
-                    Email:
+                  <div class="col-md-auto col-2">Email:</div>
+                  <div class="col-10 text-grey-8 col-md-auto">
+                    {{ item.email }}
                   </div>
-                  <div class="col-10 text-grey-8 col-md-auto">{{  item.email }}</div>
-                  <div class="col-md-auto col-2" v-if="item.title">
-                    Title:
+                  <div class="col-md-auto col-2" v-if="item.title">Title:</div>
+                  <div class="col-md-auto col-10 text-grey-8" v-if="item.title">
+                    {{ item.title }}
                   </div>
-                  <div class="col-md-auto col-10 text-grey-8" v-if="item.title">{{  item.title }}</div>
-                  <div class="col-md-auto col-2" v-if="item.state">
-                    State:
+                  <div class="col-md-auto col-2" v-if="item.state">State:</div>
+                  <div class="col-md-auto col-10 text-grey-8" v-if="item.state">
+                    {{ item.state }}
                   </div>
-                  <div class="col-md-auto col-10 text-grey-8" v-if="item.state">{{  item.state }}</div>
-                  <div class="col-md-auto col-2">Certs</div>
+                  <div class="col-md-auto col-2">Certs:</div>
                   <div class="col-md-auto col-10 text-grey-8">
-                    {{ item.certifications.length > 0 ? item.certifications.length : '-' }}
+                    {{
+                      item.certifications.length > 0
+                        ? item.certifications.length
+                        : '-'
+                    }}
                   </div>
-                  <div class="col-md-auto col-2">Score</div>
-                  <div class="col-md-auto col-10 text-grey-8">{{calculateScore()}}</div>
+                  <div class="col-md-auto col-2">Score:</div>
+                  <div class="col-md-auto col-10 text-grey-8">
+                    {{ calculateScore() }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -124,7 +130,7 @@ const $q = useQuasar();
 const loading = ref(true);
 
 const visibleColumns = computed(() => {
-  return $q.screen.lt.md ? ['name'] : ['name', 'earnedAt']
+  return $q.screen.lt.md ? ['name'] : ['name', 'earnedAt'];
 });
 
 const item = reactive({
@@ -135,7 +141,7 @@ const item = reactive({
   color: '',
   state: '',
   title: '',
-  certifications: []
+  certifications: [],
 });
 
 const calculateScore = () => {
@@ -176,14 +182,23 @@ const pagination = reactive({
 const fetchUser = async () => {
   const user = await userStore.fetchUser(route.params.id);
 
-  const { id, firstName, lastName, color, certifications, email, state, title } = user.data?.getUser;
+  const {
+    id,
+    firstName,
+    lastName,
+    color,
+    certifications,
+    email,
+    state,
+    title,
+  } = user.data?.getUser;
   item.id = id;
   item.firstName = firstName;
   item.lastName = lastName;
   item.email = email;
   item.color = color;
   item.state = state;
-  item.title = title
+  item.title = title;
   item.certifications = certifications.items;
   loading.value = false;
 };

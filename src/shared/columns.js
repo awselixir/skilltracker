@@ -1,4 +1,4 @@
-import { calculateTeamsCerts } from './functions';
+import { calculateTeamsCerts, calculateTeamsScore } from './functions';
 
 export const certsPageColumns = [
   {
@@ -95,6 +95,14 @@ export const teamsPageColumns = [
     name: 'certs',
     field: (row) => (calculateTeamsCerts(row) ? calculateTeamsCerts(row) : '-'),
     label: 'Certs',
+    required: true,
+    align: 'center',
+    sortable: true,
+  },
+  {
+    name: 'score',
+    field: (row) => (calculateTeamsScore(row) ? calculateTeamsScore(row) : '-'),
+    label: 'Score',
     required: true,
     align: 'center',
     sortable: true,

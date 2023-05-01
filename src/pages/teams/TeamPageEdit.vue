@@ -3,9 +3,9 @@
     @cancel="goBack"
     title="Update Team"
     action="update"
-    @delete="callDelete"
-    @submit="updateHandler"
-    :loading="loading"
+    @delete="teamDeleteHandler"
+    @submit="teamUpdateHandler"
+    :loading="false"
   >
     <template #default>
       <transition
@@ -70,7 +70,12 @@
             <div v-if="!addUserBox">
               <q-item v-for="item in existingUsersSorted" :key="item.id">
                 <q-item-section avatar>
-                  <q-avatar :color="item.user.color" text-color="white" size="md">{{ item.user.firstName[0] }}</q-avatar>
+                  <q-avatar
+                    :color="item.user.color"
+                    text-color="white"
+                    size="md"
+                    >{{ item.user.firstName[0] }}</q-avatar
+                  >
                 </q-item-section>
                 <q-item-section
                   >{{ item.user.firstName }}
@@ -82,7 +87,7 @@
                     round
                     dense
                     flat
-                    @click="deleteTeamUserHandler(item.id)"
+                    @click="userTeamDeleteHandler(item.id)"
                   />
                 </q-item-section>
               </q-item>
@@ -94,7 +99,7 @@
   </ModalWrapper>
 </template>
 <script setup>
-import ModalWrapper from './ModalWrapper.vue';
+import ModalWrapper from '../../components/modals/ModalWrapper.vue';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { orderBy } from 'lodash';
 import { API } from 'aws-amplify';
@@ -102,8 +107,9 @@ import { getTeam } from 'src/graphql/queries';
 import { useRoute, useRouter } from 'vue-router';
 import { useTeamStore } from '../../stores/team-store';
 import { useUserStore } from 'src/stores/user-store';
+import { error, success } from 'components/messages';
 
-defineEmits(['done']);
+const emit = defineEmits(['updated']);
 
 const route = useRoute();
 const router = useRouter();
@@ -118,10 +124,9 @@ const input = reactive({
   id: '',
   name: '',
   description: '',
+  existingUsers: [],
   users: [],
 });
-
-const existingUsers = ref([]);
 
 const fetchTeam = async () => {
   const team = await API.graphql({
@@ -132,16 +137,16 @@ const fetchTeam = async () => {
   input.id = id;
   input.name = name;
   input.description = description;
-  existingUsers.value = users.items;
+  input.existingUsers = users.items;
   loading.value = false;
 };
 
 const existingUsersSorted = computed(() => {
-  return orderBy(existingUsers.value, 'user.firstName', 'asc');
+  return orderBy(input.existingUsers, 'user.firstName', 'asc');
 });
 
 const existingUserIds = computed(() => {
-  return existingUsers.value.map((item) => item.user.id);
+  return input.existingUsers.map((item) => item.user.id);
 });
 
 const filteredAvailableUsers = computed(() => {
@@ -150,20 +155,46 @@ const filteredAvailableUsers = computed(() => {
   );
 });
 const goBack = () => {
-  router.push({ name: 'teams' });
+  router.push({ name: 'team', params: { id: route.params.id } });
 };
 
-const callDelete = async () => {
-  await teamStore.deleteTeam(input, { name: 'teams' });
+const teamDeleteHandler = async () => {
+  try {
+    await teamStore.deleteTeam(input);
+    success(`Team ${input.name} deleted`);
+    router.push({ name: 'teams' });
+  } catch (err) {
+    console.log(err)
+    error('Something went wrong');
+  }
 };
 
-const deleteTeamUserHandler = async (id) => {
-  await teamStore.deleteUserTeam(id);
-  await fetchTeam();
+const userTeamDeleteHandler = async (id) => {
+  try {
+    await teamStore.deleteUserTeam(id);
+    success('User removed');
+    emit('updated');
+    await fetchTeam();
+  } catch (err) {
+    error('Something went wrong');
+  }
 };
 
-const updateHandler = async () => {
-  await teamStore.updateTeam(input, { name: 'teams' });
+const teamUpdateHandler = async () => {
+  try {
+    await teamStore.updateTeam({
+      id: input.id,
+      name: input.name,
+      description: input.description,
+      users: input.users,
+    });
+    success(`Team ${input.name} updated`);
+    goBack();
+    emit('updated');
+  } catch (err) {
+    console.log(err);
+    error('Something went wrong');
+  }
 };
 onMounted(async () => {
   await fetchTeam();

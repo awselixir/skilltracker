@@ -113,7 +113,7 @@ onMounted(async () => {
 const newTeam = () => router.push({ name: 'newTeam' });
 
 const rowClickHandler = (_event, row) => {
-  router.push({ name: 'updateTeam', params: { id: row.id } });
+  router.push({ name: 'team', params: { id: row.id } });
 };
 
 const pagination = reactive({

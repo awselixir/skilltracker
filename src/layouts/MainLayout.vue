@@ -21,7 +21,14 @@
             class="without-icon"
             v-if="userStore.me.firstName.length > 0"
           >
-            <q-list dense>
+            <q-list>
+              <q-item clickable v-close-popup @click="router.push({name: 'user', params: {id: userStore.me.id}})">
+                <q-item-section avatar>
+                  <q-icon name="mdi-account" />
+                </q-item-section>
+                <q-item-section> My Profile </q-item-section>
+              </q-item>
+              <q-separator />
               <q-item clickable v-close-popup @click="auth.signOut">
                 <q-item-section avatar>
                   <q-icon name="mdi-logout" />
@@ -126,6 +133,7 @@
 
 <script setup>
 import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { useCertificationStore } from 'src/stores/certification-store';
 import { useLevelStore } from '../stores/level-store';
 import { useProviderStore } from '../stores/provider-store';
@@ -144,6 +152,8 @@ const auth = useAuthenticator();
 // ];
 
 Amplify.configure(awsconfig);
+
+const router = useRouter()
 
 const certificationStore = useCertificationStore();
 const levelStore = useLevelStore();

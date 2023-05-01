@@ -80,7 +80,7 @@ const props = defineProps({
   },
   loading: {
     type: Boolean,
-    required: true
+    required: false
   },
   title: {
     type: String,

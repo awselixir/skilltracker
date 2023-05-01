@@ -29,3 +29,15 @@ export const calculateTeamsCerts = (row) => {
     return acc + userTeam.user.certifications.items.length;
   }, 0);
 };
+
+export const calculateTeamsScore = (row) => {
+  const usersCerts = []
+  for (const item of row.users.items) {
+    for (const userCert of item.user.certifications.items) {
+      usersCerts.push(userCert)
+    }
+  }
+  return usersCerts.reduce((acc, userCert) => {
+    return acc + userCert.certification.certificationLevel.score
+  }, 0)
+};

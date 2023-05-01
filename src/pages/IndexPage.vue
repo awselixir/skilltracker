@@ -183,6 +183,15 @@
                   align: 'center',
                   sortable: false,
                 },
+                {
+                  name: 'score',
+                  field: (row) =>
+                    calculateTeamsScore(row) ? calculateTeamsScore(row) : '-',
+                  label: 'Score',
+                  required: true,
+                  align: 'center',
+                  sortable: true,
+                },
               ]"
               square
               :rows="teamStore.teams"
@@ -199,7 +208,7 @@
               row-key="id"
               @row-click="
                 (_event, row) =>
-                  router.push({ name: 'user', params: { id: row.id } })
+                  router.push({ name: 'team', params: { id: row.id } })
               "
             >
               <template v-slot:body-cell-name="props">
@@ -241,7 +250,7 @@ import { useRouter } from 'vue-router';
 import { useScoreStore } from 'src/stores/score-store';
 import { useTeamStore } from 'src/stores/team-store';
 import { useUserStore } from 'src/stores/user-store';
-import { calculateTeamsCerts } from 'src/shared/functions';
+import { calculateTeamsCerts, calculateTeamsScore } from 'src/shared/functions';
 
 const router = useRouter();
 const scoreStore = useScoreStore();

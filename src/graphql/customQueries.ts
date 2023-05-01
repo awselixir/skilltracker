@@ -333,3 +333,54 @@ export const listTeams = /* GraphQL */ `
     }
   }
 `;
+
+export const getTeam = /* GraphQL */ `
+  query CustomGetTeam($id: ID!) {
+    getTeam(id: $id) {
+      id
+      name
+      description
+      color
+      users {
+        items {
+          id
+          userId
+          teamId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              items {
+                  id
+                  userId
+                  certificationId
+                  certification {
+                    id
+                    name
+                    shortName
+                    description
+                    image
+                    providerID
+                    certificationlevelID
+                    certificationLevel {
+                      id
+                      name
+                      score
+                    }
+                  }
+                  earnedAt
+                  expiredAt
+                }
+            }
+            color
+            state
+            title
+          }
+        }
+      }
+    }
+  }
+`;

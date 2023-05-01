@@ -91,7 +91,21 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'update/:id',
             name: 'updateTeam',
-            component: () => import('components/modals/ModalTeamUpdate.vue'),
+            component: () => import('src/pages/teams/TeamPageEdit.vue'),
+            props: true,
+          },
+        ],
+      },
+      {
+        path: 'teams/:id',
+        name: 'team',
+        component: () => import('src/pages/teams/TeamPage.vue'),
+        props: true,
+        children: [
+          {
+            path: 'edit',
+            name: 'editTeam',
+            component: () => import('src/pages/teams/TeamPageEdit.vue'),
             props: true,
           },
         ],
