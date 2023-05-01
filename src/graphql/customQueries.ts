@@ -274,3 +274,62 @@ export const listProviders = /* GraphQL */ `
     }
   }
 `;
+
+export const listTeams = /* GraphQL */ `
+  query CustomListTeams(
+    $filter: ModelTeamFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        color
+        users {
+          items {
+            id
+            userId
+            teamId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              certifications {
+                items {
+                  id
+                  userId
+                  certificationId
+                  certification {
+                    id
+                    name
+                    shortName
+                    description
+                    image
+                    providerID
+                    certificationlevelID
+                    certificationLevel {
+                      id
+                      name
+                      score
+                    }
+                  }
+                  earnedAt
+                  expiredAt
+                }
+              }
+            }
+          }
+          nextToken
+        }
+      }
+      nextToken
+    }
+  }
+`;

@@ -24,7 +24,10 @@
           :options="userStore.usersSortedByName"
           dense
           option-value="id"
-          :option-label="(item) => item.length === 0 ? '' : `${item.firstName} ${item.lastName}`"
+          :option-label="
+            (item) =>
+              item.length === 0 ? '' : `${item.firstName} ${item.lastName}`
+          "
           multiple
           use-chips
         />
@@ -46,11 +49,13 @@ import ModalWrapper from '../../components/modals/ModalWrapper.vue';
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useTeamStore } from '../../stores/team-store';
-import { useUserStore} from '../../stores/user-store';
+import { useUserStore } from '../../stores/user-store';
+import { error, success } from 'components/messages';
+import { createColor } from 'src/shared/functions';
 
 const router = useRouter();
 const teamStore = useTeamStore();
-const userStore = useUserStore()
+const userStore = useUserStore();
 
 const goBack = () => {
   router.push({ name: 'teams' });
@@ -59,10 +64,18 @@ const goBack = () => {
 const input = reactive({
   name: '',
   description: '',
-  users: []
+  color: createColor(),
+  users: [],
 });
 
 const newTeam = async () => {
-  await teamStore.newTeam(input, {name: 'teams'});
+  try {
+    await teamStore.newTeam(input);
+    success(`Team ${input.name} created`);
+    await teamStore.fetchTeams();
+    router.push({ name: 'teams' });
+  } catch (err) {
+    error('Something went wrong');
+  }
 };
 </script>

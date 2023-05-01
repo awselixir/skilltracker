@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { API } from 'aws-amplify';
-import { getTeam, listTeams } from 'src/graphql/queries';
+import { getTeam } from 'src/graphql/queries';
+import { listTeams } from 'src/graphql/customQueries';
 import {
   createTeam,
   createUserTeam,
@@ -49,30 +50,31 @@ export const useTeamStore = defineStore('team', {
       this.teams = allTeams.data?.listTeams?.items;
       this.teamsLoading = false;
     },
-    async newTeam(input, route) {
+    async newTeam(input) {
       const { users, ...newInput } = input;
 
-      try {
-        const teamResult = await API.graphql({
-          query: createTeam,
-          variables: { input: newInput },
+      const teamResult = await API.graphql({
+        query: createTeam,
+        variables: { input: newInput },
+      });
+
+      if (users.length > 0) {
+        const usersList = users.map((user) => {
+          this.newUserTeam({
+            userId: user.id,
+            teamId: teamResult.data.createTeam.id,
+            owner: user.id,
+          });
         });
 
-        if (users.length > 0) {
-          for (const user of users) {
-            await this.newUserTeam({
-              userId: user.id,
-              teamId: teamResult.data.createTeam.id,
-              owner: user.id,
-            });
-          }
-        }
-
-        success(`Team ${input.name} created`);
-        this.fetchTeams();
-        this.router.push(route);
-      } catch (err) {
-        error('Something went wrong');
+        await Promise.allSettled(usersList);
+        // for (const user of users) {
+        //   await this.newUserTeam({
+        //     userId: user.id,
+        //     teamId: teamResult.data.createTeam.id,
+        //     owner: user.id,
+        //   });
+        // }
       }
     },
     async newUserTeam(input) {

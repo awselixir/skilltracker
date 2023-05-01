@@ -42,7 +42,7 @@
 
       <q-drawer v-model="leftDrawerOpen" show-if-above class="bg-blue-grey-10">
         <q-list>
-          <q-item clickable :to="{name: 'index'}" class="text-white">
+          <q-item clickable :to="{ name: 'index' }" class="text-white">
             <q-item-section avatar>
               <q-icon name="mdi-view-dashboard" color="white" />
             </q-item-section>
@@ -60,7 +60,7 @@
               <q-item-label>Providers</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable :to="{name: 'users'}" class="text-white">
+          <q-item clickable :to="{ name: 'users' }" class="text-white">
             <q-item-section avatar>
               <q-icon name="mdi-account" color="white" />
             </q-item-section>
@@ -126,10 +126,11 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import { useCertificationStore} from 'src/stores/certification-store'
+import { useCertificationStore } from 'src/stores/certification-store';
 import { useLevelStore } from '../stores/level-store';
 import { useProviderStore } from '../stores/provider-store';
-import { useScoreStore} from '../stores/score-store'
+import { useScoreStore } from '../stores/score-store';
+import { useTeamStore } from 'src/stores/team-store';
 import { useUserStore } from '../stores/user-store';
 import '@aws-amplify/ui-vue/styles.css';
 import { Amplify } from 'aws-amplify';
@@ -144,10 +145,11 @@ const auth = useAuthenticator();
 
 Amplify.configure(awsconfig);
 
-const certificationStore = useCertificationStore()
+const certificationStore = useCertificationStore();
 const levelStore = useLevelStore();
 const providerStore = useProviderStore();
-const scoreStore = useScoreStore()
+const scoreStore = useScoreStore();
+const teamStore = useTeamStore();
 const userStore = useUserStore();
 
 const formFields = {
@@ -193,24 +195,31 @@ const fetchData = async () => {
     providerStore.fetchProviders(),
     levelStore.fetchCertsLevels(),
     userStore.fetchUsers(),
-    userStore.fetchMe(auth.user.username)
+    teamStore.fetchTeams(),
+    userStore.fetchMe(auth.user.username),
   ]);
-  scoreStore.dashboardLoading = false
-}
+  scoreStore.dashboardLoading = false;
+};
 
-watch(auth, async (newAuth) => {
-  if (newAuth.route === 'authenticated') {
-    await fetchData()
-  }
-  if (typeof newAuth.user !== 'undefined' && newAuth.user.signInUserSession !== 'undefined') {
-    const groups = newAuth.user.signInUserSession.accessToken.payload[
-      'cognito:groups'
-    ];
-    if (groups.includes('admins')) {
-      userStore.isAdmin = true;
+watch(
+  auth,
+  async (newAuth) => {
+    if (newAuth.route === 'authenticated') {
+      await fetchData();
     }
-  }
-}, {deep: true});
+    if (
+      typeof newAuth.user !== 'undefined' &&
+      newAuth.user.signInUserSession !== 'undefined'
+    ) {
+      const groups =
+        newAuth.user.signInUserSession.accessToken.payload['cognito:groups'];
+      if (groups.includes('admins')) {
+        userStore.isAdmin = true;
+      }
+    }
+  },
+  { deep: true }
+);
 
 // onMounted(async () => {
 //   await Promise.allSettled([
