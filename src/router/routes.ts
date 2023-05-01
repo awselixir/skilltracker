@@ -14,9 +14,15 @@ const routes: RouteRecordRaw[] = [
             path: 'edit',
             name: 'editCert',
             component: () => import('src/pages/certs/CertPageEdit.vue'),
-            props: true
-          }
-        ]
+            props: true,
+          },
+          {
+            path: 'add',
+            name: 'addUserCert',
+            component: () => import('src/pages/certs/CertPageAddUsers.vue'),
+            props: true,
+          },
+        ],
       },
       {
         path: 'certs',
@@ -26,8 +32,7 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'new',
             name: 'newCertification',
-            component: () =>
-              import('src/pages/certs/CertsPageNew.vue'),
+            component: () => import('src/pages/certs/CertsPageNew.vue'),
             props: true,
           },
         ],
@@ -55,7 +60,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'providers',
         name: 'providers',
-        component: () => import('pages/ProvidersPage.vue'),
+        component: () => import('src/pages/providers/ProvidersPage.vue'),
         children: [
           {
             path: 'new',
@@ -75,12 +80,12 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'teams',
         name: 'teams',
-        component: () => import('pages/TeamsPage.vue'),
+        component: () => import('src/pages/teams/TeamsPage.vue'),
         children: [
           {
             path: 'new',
             name: 'newTeam',
-            component: () => import('components/modals/ModalTeamNew.vue'),
+            component: () => import('src/pages/teams/TeamsPageNew.vue'),
             props: true,
           },
           {
@@ -91,7 +96,29 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
-      { path: '', component: () => import('pages/IndexPage.vue') },
+      {
+        path: 'users',
+        name: 'users',
+        component: () => import('pages/users/UsersPage.vue'),
+      },
+      {
+        path: 'users/:id',
+        name: 'user',
+        component: () => import('src/pages/users/UserPage.vue'),
+        children: [
+          {
+            path: 'edit',
+            name: 'editUser',
+            component: () => import('src/pages/users/UserPageEdit.vue'),
+            props: true,
+          },
+        ],
+      },
+      {
+        path: '',
+        name: 'index',
+        component: () => import('pages/IndexPage.vue'),
+      },
     ],
   },
 
