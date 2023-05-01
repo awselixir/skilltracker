@@ -1,19 +1,19 @@
 <template>
   <div :class="[props.class, 'cursor-pointer']">
-  <q-card square>
+  <q-card square flat>
     <q-card-section class="q-pa-none">
       <q-item class="q-pa-none" :to="props.to">
         <q-item-section
           avatar
-          :class="[`bg-${props.color}-8`, 'q-pa-lg', 'q-mr-none']"
+          :class="[`bg-${props.color}-8`, 'q-py-xs','q-px-md', 'q-mr-none']"
         >
-          <q-icon :name="props.icon" :color="props.textColor" size="md" />
+          <q-icon :name="props.icon" :color="props.textColor" size="sm" />
         </q-item-section>
-        <q-item-section :class="['q-pa-md', `text-${textColor}`, `bg-${color}-6`]">
+        <q-item-section :class="['q-px-md','q-py-xs', `text-${textColor}`, `bg-${color}-6`]">
           <q-item-label lines="1" class="text-h6 text-weight-bolder">{{
             props.label
           }}</q-item-label>
-          <q-item-label lines="1">{{ props.text }}</q-item-label>
+          <q-item-label lines="1" class="text-caption">{{ props.text }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-card-section>
@@ -35,7 +35,7 @@ const props = defineProps({
     required: true,
   },
   label: {
-    type: [Number, String],
+    type: String,
     required: true,
   },
   to: {

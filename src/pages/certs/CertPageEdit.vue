@@ -22,7 +22,7 @@
             bottom-slots
             autofocus
             :rules="[
-              (val) => val.length > 3 || 'Must be at least 3 characters',
+              (val) => val.length >= 3 || 'Must be at least 3 characters',
             ]"
           />
           <q-input
@@ -110,14 +110,12 @@
 <script setup>
 import ModalWrapper from '../../components/modals/ModalWrapper.vue';
 import { computed, onMounted, reactive, ref } from 'vue';
-import { orderBy} from 'lodash'
-import { API } from 'aws-amplify';
-import { getCertification } from 'src/graphql/queries';
+import { orderBy } from 'lodash';
 import { useRoute, useRouter } from 'vue-router';
 import { useCertificationStore } from '../../stores/certification-store';
 import { useLevelStore } from '../../stores/level-store';
 import { useProviderStore } from '../../stores/provider-store';
-import { useUserStore} from '../../stores/user-store'
+import { useUserStore } from '../../stores/user-store';
 import { error, success } from 'components/messages';
 
 const emit = defineEmits(['updated']);
@@ -128,7 +126,7 @@ const router = useRouter();
 const certificationStore = useCertificationStore();
 const levelStore = useLevelStore();
 const providerStore = useProviderStore();
-const userStore = useUserStore()
+const userStore = useUserStore();
 
 const loading = ref(true);
 const input = reactive({
@@ -147,10 +145,7 @@ const sortedUsers = computed(() => {
 });
 
 const fetchCertification = async () => {
-  const certification = await API.graphql({
-    query: getCertification,
-    variables: { id: route.params.id },
-  });
+  const cert = await certificationStore.fetchCertification(route.params.id);
   const {
     id,
     name,
@@ -159,7 +154,7 @@ const fetchCertification = async () => {
     providerID,
     certificationlevelID,
     users,
-  } = certification.data?.getCertification;
+  } = cert.data.getCertification;
   input.id = id;
   input.name = name;
   input.description = description;
@@ -197,15 +192,14 @@ const certUpdateHandler = async () => {
 
 const userCertDeleteHandler = async (id) => {
   try {
-    await userStore.deleteUserCert(id)
-    success('User removed from certification')
-    emit('updated')
-    await fetchCertification()
-  } catch(err) {
-    error('Something went wrong')
+    await userStore.deleteUserCert(id);
+    success('User removed from certification');
+    emit('updated');
+    await fetchCertification();
+  } catch (err) {
+    error('Something went wrong');
   }
-
-}
+};
 onMounted(async () => {
   await fetchCertification();
 });

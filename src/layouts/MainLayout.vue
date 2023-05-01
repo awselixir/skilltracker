@@ -42,7 +42,7 @@
 
       <q-drawer v-model="leftDrawerOpen" show-if-above class="bg-blue-grey-10">
         <q-list>
-          <q-item clickable tag="a" target="_blank" href="" class="text-white">
+          <q-item clickable :to="{name: 'index'}" class="text-white">
             <q-item-section avatar>
               <q-icon name="mdi-view-dashboard" color="white" />
             </q-item-section>
@@ -60,7 +60,7 @@
               <q-item-label>Providers</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable tag="a" target="_blank" href="" class="text-white">
+          <q-item clickable :to="{name: 'users'}" class="text-white">
             <q-item-section avatar>
               <q-icon name="mdi-account" color="white" />
             </q-item-section>
@@ -125,18 +125,18 @@
 </template>
 
 <script setup>
-import { onMounted, ref, toRefs, watch } from 'vue';
+import { ref, watch } from 'vue';
+import { useCertificationStore} from 'src/stores/certification-store'
 import { useLevelStore } from '../stores/level-store';
 import { useProviderStore } from '../stores/provider-store';
+import { useScoreStore} from '../stores/score-store'
 import { useUserStore } from '../stores/user-store';
 import '@aws-amplify/ui-vue/styles.css';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
 import awsconfig from '../aws-exports';
-let me = ref(null)
+
 const auth = useAuthenticator();
-let { user } = toRefs(auth);
-me = user
 
 // const groups = user.value.getSignInUserSession()?.getAccessToken()?.payload[
 //   'cognito:groups'
@@ -144,8 +144,10 @@ me = user
 
 Amplify.configure(awsconfig);
 
+const certificationStore = useCertificationStore()
 const levelStore = useLevelStore();
 const providerStore = useProviderStore();
+const scoreStore = useScoreStore()
 const userStore = useUserStore();
 
 const formFields = {
@@ -177,8 +179,29 @@ const formFields = {
 const leftDrawerOpen = ref(false);
 const rightDrawerOpen = ref(false);
 
-watch(auth, (newAuth) => {
-  console.log(newAuth.user)
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
+
+function toggleRightDrawer() {
+  rightDrawerOpen.value = !rightDrawerOpen.value;
+}
+
+const fetchData = async () => {
+  await Promise.allSettled([
+    certificationStore.fetchCertifications(),
+    providerStore.fetchProviders(),
+    levelStore.fetchCertsLevels(),
+    userStore.fetchUsers(),
+    userStore.fetchMe(auth.user.username)
+  ]);
+  scoreStore.dashboardLoading = false
+}
+
+watch(auth, async (newAuth) => {
+  if (newAuth.route === 'authenticated') {
+    await fetchData()
+  }
   if (typeof newAuth.user !== 'undefined' && newAuth.user.signInUserSession !== 'undefined') {
     const groups = newAuth.user.signInUserSession.accessToken.payload[
       'cognito:groups'
@@ -189,21 +212,15 @@ watch(auth, (newAuth) => {
   }
 }, {deep: true});
 
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
-
-function toggleRightDrawer() {
-  rightDrawerOpen.value = !rightDrawerOpen.value;
-}
-
-onMounted(async () => {
-  await Promise.allSettled([
-    providerStore.fetchProviders(),
-    levelStore.fetchCertsLevels(),
-    userStore.fetchUsers(),
-  ]);
-  const myId = me.value.username;
-  await userStore.fetchMe(myId);
-});
+// onMounted(async () => {
+//   await Promise.allSettled([
+//     certificationStore.fetchCertifications(),
+//     providerStore.fetchProviders(),
+//     levelStore.fetchCertsLevels(),
+//     userStore.fetchUsers(),
+//   ]);
+//   scoreStore.dashboardLoading = false
+//   const myId = me.value.username;
+//   await userStore.fetchMe(myId);
+// });
 </script>

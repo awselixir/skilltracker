@@ -40,13 +40,13 @@
           </div>
         </div>
 
-        <div class="col relative-position">
+        <q-scroll-area class="col" :visible="false">
           <q-form ref="myForm" @submit="submit"><slot /></q-form>
-          <q-inner-loading :showing="props.loading" v-if="action == 'update'">
+          <q-inner-loading :showing="props.loading" v-if="action == 'update' || action == 'addUser' || action == 'updateUser'">
             <q-spinner size="50px" color="primary" />
           </q-inner-loading>
-        </div>
-        <div class="col-auto">
+        </q-scroll-area>
+        <div class="col-auto q-pt-md bg-white">
           <q-btn
             color="primary"
             square

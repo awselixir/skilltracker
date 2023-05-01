@@ -52,7 +52,6 @@
           :pagination="pagination"
           binary-state-sort
           :rows="item.users"
-          @row-click="(_event, row) => router.push({name: 'user', params: {id: row.user.id}})"
         >
           <template v-slot:top="props">
             <div class="q-table__title">Earned</div>

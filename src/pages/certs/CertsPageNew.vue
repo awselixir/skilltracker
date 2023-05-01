@@ -14,7 +14,7 @@
           color="primary"
           bottom-slots
           autofocus
-          :rules="[(val) => val.length > 3 || 'Must be at least 3 characters']"
+          :rules="[(val) => val.length >= 3 || 'Must be at least 3 characters']"
         />
         <q-input
           v-model="input.shortName"
