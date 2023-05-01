@@ -1,30 +1,3 @@
-type Team @model @auth(rules: [{allow: private, operations: [read, create, update]}, {allow: groups, groups: ["admins"]}]) {
-  id: ID!
-  name: String!
-  description: String
-  users: [User] @manyToMany(relationName: "UserTeam")
-}
-
-type CertificationLevel @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["admins"]}]) {
-  id: ID!
-  name: String!
-  description: String
-  score: Int
-  certifications: [Certification] @hasMany(indexName: "byCertificationLevel", fields: ["id"])
-}
-
-type User @model @auth(rules: [{allow: private}]) {
-  id: ID!
-  firstName: String!
-  lastName: String!
-  email: String!
-  image: String
-  certifications: [UserCertification] @hasMany(indexName: "byUser", fields: ["id"])
-  teams: [Team] @manyToMany(relationName: "UserTeam")
-  color: String
-  state: String
-}
-
 type Certification @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["admins"]}]) {
   id: ID!
   name: String!
@@ -38,16 +11,12 @@ type Certification @model @auth(rules: [{allow: private, operations: [read]}, {a
   users: [UserCertification] @hasMany(indexName: "byCertification", fields: ["id"])
 }
 
-type UserCertification @model @auth(rules: [{allow: private, operations: [create, read]}, {allow: owner}, {allow: groups, groups: ["admins"], operations: [read, create, update, delete]}]) {
+type CertificationLevel @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["admins"]}]) {
   id: ID!
-  userId: ID! @index(name: "byUser")
-  certificationId: ID! @index(name: "byCertification")
-  user: User! @belongsTo(fields: ["userId"])
-  certification: Certification! @belongsTo(fields: ["certificationId"])
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-  earnedAt: AWSDate
-  expiredAt: AWSDate
+  name: String!
+  description: String
+  score: Int
+  certifications: [Certification] @hasMany(indexName: "byCertificationLevel", fields: ["id"])
 }
 
 type Provider @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["admins"]}]) {
@@ -57,5 +26,66 @@ type Provider @model @auth(rules: [{allow: private, operations: [read]}, {allow:
   description: String
   image: String
   certifications: [Certification] @hasMany(indexName: "byProvider", fields: ["id"])
+  skills: [Skill] @hasMany(indexName: "byProvider", fields: ["id"])
 }
- 
+
+type Skill @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["admins"]}]) {
+  id: ID!
+  name: String!
+  description: String
+  image: String
+  providerId: ID! @index(name: "byProvider")
+  provider: Provider @belongsTo(fields: ["providerId"])
+}
+
+type SkillLevel @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["admins"]}]) {
+  id: ID!
+  name: String!
+  description: String
+  score: Int
+}
+
+type Team @model @auth(rules: [{allow: private, operations: [read, create]}, {allow: groups, groups: ["admins"]}]) {
+  id: ID!
+  name: String!
+  description: String
+  color: String
+  users: [UserTeam] @hasMany(indexName: "byTeam", fields: ["id"])
+}
+
+type User @model @auth(rules: [{allow: private, operations: [read]},{allow: owner, operations: [read, update]}, {allow: groups, groups: ["admins"]}]) {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  image: String
+  certifications: [UserCertification] @hasMany(indexName: "byUser", fields: ["id"])
+  teams: [UserTeam] @hasMany(indexName: "byUser", fields: ["id"])
+  color: String
+  state: String
+  title: String
+}
+
+type UserCertification @model @auth(rules: [{allow: private, operations: [create, read]}, {allow: owner}, {allow: groups, groups: ["admins"]}]) {
+  id: ID!
+  userId: ID! @index(name: "byUser")
+  certificationId: ID! @index(name: "byCertification")
+  user: User! @belongsTo(fields: ["userId"])
+  certification: Certification! @belongsTo(fields: ["certificationId"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  earnedAt: AWSDate
+  expiredAt: AWSDate
+  owner: String
+}
+
+type UserTeam @model @auth(rules: [{allow: private, operations: [create, read]}, {allow: owner}, {allow: groups, groups: ["admins"]}]) {
+  id: ID!
+  userId: ID! @index(name: "byUser")
+  teamId: ID! @index(name: "byTeam")
+  user: User! @belongsTo(fields: ["userId"])
+  team: Team! @belongsTo(fields: ["teamId"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
