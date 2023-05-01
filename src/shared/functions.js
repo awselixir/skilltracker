@@ -23,3 +23,9 @@ export const createColor = () => {
 
   return `${name}-${number}`;
 };
+
+export const calculateTeamsCerts = (row) => {
+  return row.users.items.reduce((acc, userTeam) => {
+    return acc + userTeam.user.certifications.items.length;
+  }, 0);
+};
