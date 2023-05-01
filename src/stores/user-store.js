@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { orderBy } from 'lodash';
+import { useCertificationStore } from './certification-store';
 import { API } from 'aws-amplify';
-import { getUser, listUsers } from 'src/graphql/queries';
+import { getUser, listUsers } from 'src/graphql/customQueries';
 import {
   createUser,
   createUserCertification,
@@ -10,6 +11,8 @@ import {
   updateUser,
 } from 'src/graphql/mutations';
 import { success, error } from '../components/messages';
+
+const certificationStore = useCertificationStore();
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -60,6 +63,12 @@ export const useUserStore = defineStore('user', {
       this.users = allUsers.data?.listUsers?.items;
       this.usersLoading = false;
     },
+    async fetchUser(id) {
+      return await API.graphql({
+        query: getUser,
+        variables: { id: id },
+      });
+    },
     async newUser(input, route) {
       try {
         await API.graphql({
@@ -74,16 +83,24 @@ export const useUserStore = defineStore('user', {
       }
     },
     async newUserCertification(input) {
-      return await API.graphql({
+      await API.graphql({
         query: createUserCertification,
         variables: { input: input },
       });
+      await Promise.allSettled([
+        certificationStore.fetchCertifications(),
+        this.fetchUsers(),
+      ]);
     },
     async deleteUserCert(id) {
-      return await API.graphql({
+      await API.graphql({
         query: deleteUserCertification,
         variables: { input: { id: id } },
       });
+      await Promise.allSettled([
+        certificationStore.fetchCertifications(),
+        this.fetchUsers(),
+      ]);
     },
     async deleteUser(input, route) {
       try {
@@ -98,18 +115,11 @@ export const useUserStore = defineStore('user', {
         error('Something went wrong');
       }
     },
-    async updateUser(input, route) {
-      try {
-        await API.graphql({
-          query: updateUser,
-          variables: { input: input },
-        });
-        success(`User ${input.name} updated`);
-        this.fetchUsers();
-        this.router.push(route);
-      } catch (err) {
-        error('Something went wrong');
-      }
+    async updateUser(input) {
+      return await API.graphql({
+        query: updateUser,
+        variables: { input: input },
+      });
     },
   },
 });

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { API } from 'aws-amplify';
-import { listProviders } from 'src/graphql/queries';
+import { listProviders } from 'src/graphql/customQueries'
 import {
   createProvider,
   deleteProvider,

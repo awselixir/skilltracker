@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { API } from 'aws-amplify';
-import { getCertification, listCertifications } from 'src/graphql/queries';
+//import { listCertifications } from 'src/graphql/queries';
+import { getCertification, listCertifications } from 'src/graphql/customQueries';
 import {
   createCertification,
   deleteCertification,

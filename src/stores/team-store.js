@@ -63,6 +63,7 @@ export const useTeamStore = defineStore('team', {
             await this.newUserTeam({
               userId: user.id,
               teamId: teamResult.data.createTeam.id,
+              owner: user.id,
             });
           }
         }
@@ -97,16 +98,16 @@ export const useTeamStore = defineStore('team', {
       try {
         await API.graphql({
           query: deleteUserTeam,
-          variables: {input: { id: id }}
-        })
-        this.fetchTeams()
-        success('User removed from team')
-      } catch(err) {
-        error('Something went wrong')
+          variables: { input: { id: id } },
+        });
+        this.fetchTeams();
+        success('User removed from team');
+      } catch (err) {
+        error('Something went wrong');
       }
     },
     async updateTeam(input, route) {
-      const { users, ...newInput} = input
+      const { users, ...newInput } = input;
       try {
         await API.graphql({
           query: updateTeam,
