@@ -32,11 +32,11 @@ type Provider @model @auth(rules: [{allow: private, operations: [read]}, {allow:
 type Skill @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["admins"]}]) {
   id: ID!
   name: String!
+  shortName: String!
   description: String
-  image: String
   providerId: ID! @index(name: "byProvider")
   provider: Provider @belongsTo(fields: ["providerId"])
-  level: SkillLevel! @default(value: "l1")
+  users: [UserSkill] @hasMany(indexName: "bySkill", fields: ["id"])
 }
 
 enum SkillLevel {
@@ -60,6 +60,7 @@ type User @model @auth(rules: [{allow: private, operations: [read]},{allow: owne
   email: String!
   image: String
   certifications: [UserCertification] @hasMany(indexName: "byUser", fields: ["id"])
+  skills: [UserSkill] @hasMany(indexName: "byUser", fields: ["id"])
   teams: [UserTeam] @hasMany(indexName: "byUser", fields: ["id"])
   color: String
   state: String
@@ -79,6 +80,18 @@ type UserCertification @model @auth(rules: [{allow: private, operations: [create
   owner: String
 }
 
+type UserSkill @model @auth(rules: [{allow: private, operations: [create, read]}, {allow: owner}, {allow: groups, groups: ["admins"]}]) {
+  id: ID!
+  userId: ID! @index(name: "byUser")
+  skillId: ID! @index(name: "bySkill")
+  user: User! @belongsTo(fields: ["userId"])
+  skill: Skill! @belongsTo(fields: ["skillId"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+  level: SkillLevel!
+}
+
 type UserTeam @model @auth(rules: [{allow: private, operations: [create, read]}, {allow: owner}, {allow: groups, groups: ["admins"]}]) {
   id: ID!
   userId: ID! @index(name: "byUser")
@@ -89,3 +102,4 @@ type UserTeam @model @auth(rules: [{allow: private, operations: [create, read]},
   updatedAt: AWSDateTime!
   owner: String
 }
+
