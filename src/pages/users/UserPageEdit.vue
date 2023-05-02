@@ -52,9 +52,9 @@
             :options="states"
             dense
           />
-          <div v-if="existingCerts.length > 0">
-            <div class="text-caption">Certs</div>
-            <q-item v-for="item in sortedCerts" :key="item.id" class="q-px-xs">
+          <q-expansion-item icon="mdi-certificate" label="Certifications">
+            <q-list>
+            <q-item v-for="item in sortedCerts" :key="item.id">
               <q-item-section avatar>
                 <q-avatar size="md">
                   <q-img
@@ -75,7 +75,8 @@
                 />
               </q-item-section>
             </q-item>
-          </div>
+          </q-list>
+          </q-expansion-item>
         </div>
       </transition>
     </template>
@@ -109,7 +110,7 @@ const input = reactive({
 const existingCerts = ref([]);
 
 const sortedCerts = computed(() => {
-  return orderBy(existingCerts.value, 'name', 'asc');
+  return orderBy(existingCerts.value, 'certification.name', 'asc');
 });
 
 const fetchUser = async () => {

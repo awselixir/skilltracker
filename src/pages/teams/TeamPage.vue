@@ -41,19 +41,6 @@
             <q-btn
               flat
               round
-              icon="mdi-plus"
-              @click="
-                router.push({
-                  name: 'addUserCert',
-                  params: { id: route.params.id },
-                })
-              "
-              class="q-ml-sm"
-              v-if="filteredAvailableUsers.length > 0 && userStore.isAdmin"
-            />
-            <q-btn
-              flat
-              round
               icon="mdi-pencil"
               @click="
                 router.push({
@@ -99,8 +86,7 @@
   </q-page>
 </template>
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue';
-import { orderBy } from 'lodash';
+import { onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTeamStore } from 'src/stores/team-store';
 import { useUserStore } from 'src/stores/user-store';
@@ -118,20 +104,6 @@ const item = reactive({
   description: '',
   color: '',
   users: [],
-});
-
-const sortedUsers = computed(() => {
-  return orderBy(userStore.users, 'firstName', 'asc');
-});
-
-const existingUserIds = computed(() => {
-  return item.users.map((item) => item.user.id);
-});
-
-const filteredAvailableUsers = computed(() => {
-  return sortedUsers.value.filter(
-    (user) => !existingUserIds.value.includes(user.id)
-  );
 });
 
 const columns = [

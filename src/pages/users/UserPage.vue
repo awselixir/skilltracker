@@ -78,7 +78,7 @@
                 })
               "
               class="q-ml-sm"
-              v-if="userStore.isAdmin"
+              v-if="userStore.isAdmin || item.id === userStore.me.id"
             />
             <q-btn
               flat
