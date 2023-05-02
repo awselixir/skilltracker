@@ -22,7 +22,13 @@
             v-if="userStore.me.firstName.length > 0"
           >
             <q-list>
-              <q-item clickable v-close-popup @click="router.push({name: 'user', params: {id: userStore.me.id}})">
+              <q-item
+                clickable
+                v-close-popup
+                @click="
+                  router.push({ name: 'user', params: { id: userStore.me.id } })
+                "
+              >
                 <q-item-section avatar>
                   <q-icon name="mdi-account" />
                 </q-item-section>
@@ -94,11 +100,19 @@
               <q-item-label>Certifications</q-item-label>
             </q-item-section>
           </q-item>
-          <q-expansion-item class="text-white" switch-toggle-side label="Admin">
-            <q-item
+          <q-item clickable :to="{ name: 'skills' }" class="text-white">
+            <q-item-section avatar>
+              <q-icon name="mdi-school" color="white" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Skills</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item
               :to="{ name: 'levels' }"
               class="text-white"
-              :inset-level="1"
+              v-if="userStore.me.isAdmin"
             >
               <q-item-section avatar>
                 <q-icon name="mdi-stairs-box" color="white" />
@@ -108,7 +122,6 @@
                 <q-item-label>Levels</q-item-label>
               </q-item-section>
             </q-item>
-          </q-expansion-item>
         </q-list>
       </q-drawer>
 
@@ -153,7 +166,7 @@ const auth = useAuthenticator();
 
 Amplify.configure(awsconfig);
 
-const router = useRouter()
+const router = useRouter();
 
 const certificationStore = useCertificationStore();
 const levelStore = useLevelStore();
