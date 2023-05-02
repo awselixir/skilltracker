@@ -51,9 +51,17 @@ export type Skill = {
   image?: string | null,
   providerId: string,
   provider?: Provider | null,
+  level: SkillLevel,
   createdAt: string,
   updatedAt: string,
 };
+
+export enum SkillLevel {
+  l1 = "l1",
+  l2 = "l2",
+  l3 = "l3",
+}
+
 
 export type CertificationLevel = {
   __typename: "CertificationLevel",
@@ -238,6 +246,22 @@ export type ModelProviderConnection = {
   nextToken?: string | null,
 };
 
+export type ModelTeamFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  color?: ModelStringInput | null,
+  and?: Array< ModelTeamFilterInput | null > | null,
+  or?: Array< ModelTeamFilterInput | null > | null,
+  not?: ModelTeamFilterInput | null,
+};
+
+export type ModelTeamConnection = {
+  __typename: "ModelTeamConnection",
+  items:  Array<Team | null >,
+  nextToken?: string | null,
+};
+
 export type CreateCertificationInput = {
   id?: string | null,
   name: string,
@@ -349,6 +373,7 @@ export type CreateSkillInput = {
   description?: string | null,
   image?: string | null,
   providerId: string,
+  level: SkillLevel,
 };
 
 export type ModelSkillConditionInput = {
@@ -356,9 +381,15 @@ export type ModelSkillConditionInput = {
   description?: ModelStringInput | null,
   image?: ModelStringInput | null,
   providerId?: ModelIDInput | null,
+  level?: ModelSkillLevelInput | null,
   and?: Array< ModelSkillConditionInput | null > | null,
   or?: Array< ModelSkillConditionInput | null > | null,
   not?: ModelSkillConditionInput | null,
+};
+
+export type ModelSkillLevelInput = {
+  eq?: SkillLevel | null,
+  ne?: SkillLevel | null,
 };
 
 export type UpdateSkillInput = {
@@ -367,46 +398,10 @@ export type UpdateSkillInput = {
   description?: string | null,
   image?: string | null,
   providerId?: string | null,
+  level?: SkillLevel | null,
 };
 
 export type DeleteSkillInput = {
-  id: string,
-};
-
-export type CreateSkillLevelInput = {
-  id?: string | null,
-  name: string,
-  description?: string | null,
-  score?: number | null,
-};
-
-export type ModelSkillLevelConditionInput = {
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  score?: ModelIntInput | null,
-  and?: Array< ModelSkillLevelConditionInput | null > | null,
-  or?: Array< ModelSkillLevelConditionInput | null > | null,
-  not?: ModelSkillLevelConditionInput | null,
-};
-
-export type SkillLevel = {
-  __typename: "SkillLevel",
-  id: string,
-  name: string,
-  description?: string | null,
-  score?: number | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateSkillLevelInput = {
-  id: string,
-  name?: string | null,
-  description?: string | null,
-  score?: number | null,
-};
-
-export type DeleteSkillLevelInput = {
   id: string,
 };
 
@@ -576,41 +571,10 @@ export type ModelSkillFilterInput = {
   description?: ModelStringInput | null,
   image?: ModelStringInput | null,
   providerId?: ModelIDInput | null,
+  level?: ModelSkillLevelInput | null,
   and?: Array< ModelSkillFilterInput | null > | null,
   or?: Array< ModelSkillFilterInput | null > | null,
   not?: ModelSkillFilterInput | null,
-};
-
-export type ModelSkillLevelFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  score?: ModelIntInput | null,
-  and?: Array< ModelSkillLevelFilterInput | null > | null,
-  or?: Array< ModelSkillLevelFilterInput | null > | null,
-  not?: ModelSkillLevelFilterInput | null,
-};
-
-export type ModelSkillLevelConnection = {
-  __typename: "ModelSkillLevelConnection",
-  items:  Array<SkillLevel | null >,
-  nextToken?: string | null,
-};
-
-export type ModelTeamFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  color?: ModelStringInput | null,
-  and?: Array< ModelTeamFilterInput | null > | null,
-  or?: Array< ModelTeamFilterInput | null > | null,
-  not?: ModelTeamFilterInput | null,
-};
-
-export type ModelTeamConnection = {
-  __typename: "ModelTeamConnection",
-  items:  Array<Team | null >,
-  nextToken?: string | null,
 };
 
 export type ModelUserCertificationFilterInput = {
@@ -718,17 +682,9 @@ export type ModelSubscriptionSkillFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   image?: ModelSubscriptionStringInput | null,
   providerId?: ModelSubscriptionIDInput | null,
+  level?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSkillFilterInput | null > | null,
   or?: Array< ModelSubscriptionSkillFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSkillLevelFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  score?: ModelSubscriptionIntInput | null,
-  and?: Array< ModelSubscriptionSkillLevelFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSkillLevelFilterInput | null > | null,
 };
 
 export type ModelSubscriptionTeamFilterInput = {
@@ -1096,6 +1052,135 @@ export type ListProvidersCustomQuery = {
   } | null,
 };
 
+export type CustomListTeamsQueryVariables = {
+  filter?: ModelTeamFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CustomListTeamsQuery = {
+  listTeams?:  {
+    __typename: "ModelTeamConnection",
+    items:  Array< {
+      __typename: "Team",
+      id: string,
+      name: string,
+      description?: string | null,
+      color?: string | null,
+      users?:  {
+        __typename: "ModelUserTeamConnection",
+        items:  Array< {
+          __typename: "UserTeam",
+          id: string,
+          userId: string,
+          teamId: string,
+          user:  {
+            __typename: "User",
+            id: string,
+            firstName: string,
+            lastName: string,
+            email: string,
+            image?: string | null,
+            color?: string | null,
+            state?: string | null,
+            title?: string | null,
+            certifications?:  {
+              __typename: "ModelUserCertificationConnection",
+              items:  Array< {
+                __typename: "UserCertification",
+                id: string,
+                userId: string,
+                certificationId: string,
+                certification:  {
+                  __typename: "Certification",
+                  id: string,
+                  name: string,
+                  shortName: string,
+                  description?: string | null,
+                  image?: string | null,
+                  providerID: string,
+                  certificationlevelID: string,
+                  certificationLevel?:  {
+                    __typename: "CertificationLevel",
+                    id: string,
+                    name: string,
+                    score?: number | null,
+                  } | null,
+                },
+                earnedAt?: string | null,
+                expiredAt?: string | null,
+              } | null >,
+            } | null,
+          },
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type CustomGetTeamQueryVariables = {
+  id: string,
+};
+
+export type CustomGetTeamQuery = {
+  getTeam?:  {
+    __typename: "Team",
+    id: string,
+    name: string,
+    description?: string | null,
+    color?: string | null,
+    users?:  {
+      __typename: "ModelUserTeamConnection",
+      items:  Array< {
+        __typename: "UserTeam",
+        id: string,
+        userId: string,
+        teamId: string,
+        user:  {
+          __typename: "User",
+          id: string,
+          firstName: string,
+          lastName: string,
+          email: string,
+          image?: string | null,
+          certifications?:  {
+            __typename: "ModelUserCertificationConnection",
+            items:  Array< {
+              __typename: "UserCertification",
+              id: string,
+              userId: string,
+              certificationId: string,
+              certification:  {
+                __typename: "Certification",
+                id: string,
+                name: string,
+                shortName: string,
+                description?: string | null,
+                image?: string | null,
+                providerID: string,
+                certificationlevelID: string,
+                certificationLevel?:  {
+                  __typename: "CertificationLevel",
+                  id: string,
+                  name: string,
+                  score?: number | null,
+                } | null,
+              },
+              earnedAt?: string | null,
+              expiredAt?: string | null,
+            } | null >,
+          } | null,
+          color?: string | null,
+          state?: string | null,
+          title?: string | null,
+        },
+      } | null >,
+    } | null,
+  } | null,
+};
+
 export type CreateCertificationMutationVariables = {
   input: CreateCertificationInput,
   condition?: ModelCertificationConditionInput | null,
@@ -1175,6 +1260,7 @@ export type CreateCertificationMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -1388,6 +1474,7 @@ export type UpdateCertificationMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -1601,6 +1688,7 @@ export type DeleteCertificationMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -2074,6 +2162,7 @@ export type CreateProviderMutation = {
           createdAt: string,
           updatedAt: string,
         } | null,
+        level: SkillLevel,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -2186,6 +2275,7 @@ export type UpdateProviderMutation = {
           createdAt: string,
           updatedAt: string,
         } | null,
+        level: SkillLevel,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -2298,6 +2388,7 @@ export type DeleteProviderMutation = {
           createdAt: string,
           updatedAt: string,
         } | null,
+        level: SkillLevel,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -2386,6 +2477,7 @@ export type CreateSkillMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -2394,6 +2486,7 @@ export type CreateSkillMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    level: SkillLevel,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2477,6 +2570,7 @@ export type UpdateSkillMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -2485,6 +2579,7 @@ export type UpdateSkillMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    level: SkillLevel,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2568,6 +2663,7 @@ export type DeleteSkillMutation = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -2576,57 +2672,7 @@ export type DeleteSkillMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateSkillLevelMutationVariables = {
-  input: CreateSkillLevelInput,
-  condition?: ModelSkillLevelConditionInput | null,
-};
-
-export type CreateSkillLevelMutation = {
-  createSkillLevel?:  {
-    __typename: "SkillLevel",
-    id: string,
-    name: string,
-    description?: string | null,
-    score?: number | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateSkillLevelMutationVariables = {
-  input: UpdateSkillLevelInput,
-  condition?: ModelSkillLevelConditionInput | null,
-};
-
-export type UpdateSkillLevelMutation = {
-  updateSkillLevel?:  {
-    __typename: "SkillLevel",
-    id: string,
-    name: string,
-    description?: string | null,
-    score?: number | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteSkillLevelMutationVariables = {
-  input: DeleteSkillLevelInput,
-  condition?: ModelSkillLevelConditionInput | null,
-};
-
-export type DeleteSkillLevelMutation = {
-  deleteSkillLevel?:  {
-    __typename: "SkillLevel",
-    id: string,
-    name: string,
-    description?: string | null,
-    score?: number | null,
+    level: SkillLevel,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -3395,6 +3441,7 @@ export type CreateUserCertificationMutation = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -3623,6 +3670,7 @@ export type UpdateUserCertificationMutation = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -3851,6 +3899,7 @@ export type DeleteUserCertificationMutation = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -4474,6 +4523,7 @@ export type GetCertificationQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -4657,6 +4707,7 @@ export type ListCertificationsQuery = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -4790,6 +4841,7 @@ export type CertificationsByProviderIDQuery = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -4923,6 +4975,7 @@ export type CertificationsByCertificationlevelIDQuery = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -5245,6 +5298,7 @@ export type GetProviderQuery = {
           createdAt: string,
           updatedAt: string,
         } | null,
+        level: SkillLevel,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -5329,6 +5383,7 @@ export type ListProvidersQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -5418,6 +5473,7 @@ export type GetSkillQuery = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -5426,6 +5482,7 @@ export type GetSkillQuery = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    level: SkillLevel,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -5479,6 +5536,7 @@ export type ListSkillsQuery = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -5487,6 +5545,7 @@ export type ListSkillsQuery = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      level: SkillLevel,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -5544,6 +5603,7 @@ export type SkillsByProviderIdQuery = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -5552,44 +5612,7 @@ export type SkillsByProviderIdQuery = {
         createdAt: string,
         updatedAt: string,
       } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetSkillLevelQueryVariables = {
-  id: string,
-};
-
-export type GetSkillLevelQuery = {
-  getSkillLevel?:  {
-    __typename: "SkillLevel",
-    id: string,
-    name: string,
-    description?: string | null,
-    score?: number | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListSkillLevelsQueryVariables = {
-  filter?: ModelSkillLevelFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListSkillLevelsQuery = {
-  listSkillLevels?:  {
-    __typename: "ModelSkillLevelConnection",
-    items:  Array< {
-      __typename: "SkillLevel",
-      id: string,
-      name: string,
-      description?: string | null,
-      score?: number | null,
+      level: SkillLevel,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -6105,6 +6128,7 @@ export type GetUserCertificationQuery = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -7059,6 +7083,7 @@ export type OnCreateCertificationSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -7271,6 +7296,7 @@ export type OnUpdateCertificationSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -7483,6 +7509,7 @@ export type OnDeleteCertificationSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -7952,6 +7979,7 @@ export type OnCreateProviderSubscription = {
           createdAt: string,
           updatedAt: string,
         } | null,
+        level: SkillLevel,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -8063,6 +8091,7 @@ export type OnUpdateProviderSubscription = {
           createdAt: string,
           updatedAt: string,
         } | null,
+        level: SkillLevel,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -8174,6 +8203,7 @@ export type OnDeleteProviderSubscription = {
           createdAt: string,
           updatedAt: string,
         } | null,
+        level: SkillLevel,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -8261,6 +8291,7 @@ export type OnCreateSkillSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -8269,6 +8300,7 @@ export type OnCreateSkillSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    level: SkillLevel,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -8351,6 +8383,7 @@ export type OnUpdateSkillSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -8359,6 +8392,7 @@ export type OnUpdateSkillSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    level: SkillLevel,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -8441,6 +8475,7 @@ export type OnDeleteSkillSubscription = {
             createdAt: string,
             updatedAt: string,
           } | null,
+          level: SkillLevel,
           createdAt: string,
           updatedAt: string,
         } | null >,
@@ -8449,54 +8484,7 @@ export type OnDeleteSkillSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateSkillLevelSubscriptionVariables = {
-  filter?: ModelSubscriptionSkillLevelFilterInput | null,
-};
-
-export type OnCreateSkillLevelSubscription = {
-  onCreateSkillLevel?:  {
-    __typename: "SkillLevel",
-    id: string,
-    name: string,
-    description?: string | null,
-    score?: number | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateSkillLevelSubscriptionVariables = {
-  filter?: ModelSubscriptionSkillLevelFilterInput | null,
-};
-
-export type OnUpdateSkillLevelSubscription = {
-  onUpdateSkillLevel?:  {
-    __typename: "SkillLevel",
-    id: string,
-    name: string,
-    description?: string | null,
-    score?: number | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteSkillLevelSubscriptionVariables = {
-  filter?: ModelSubscriptionSkillLevelFilterInput | null,
-};
-
-export type OnDeleteSkillLevelSubscription = {
-  onDeleteSkillLevel?:  {
-    __typename: "SkillLevel",
-    id: string,
-    name: string,
-    description?: string | null,
-    score?: number | null,
+    level: SkillLevel,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -9262,6 +9250,7 @@ export type OnCreateUserCertificationSubscription = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -9490,6 +9479,7 @@ export type OnUpdateUserCertificationSubscription = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,
@@ -9718,6 +9708,7 @@ export type OnDeleteUserCertificationSubscription = {
             description?: string | null,
             image?: string | null,
             providerId: string,
+            level: SkillLevel,
             createdAt: string,
             updatedAt: string,
           } | null >,

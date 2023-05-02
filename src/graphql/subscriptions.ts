@@ -69,6 +69,7 @@ export const onCreateCertification = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            level
             createdAt
             updatedAt
           }
@@ -255,6 +256,7 @@ export const onUpdateCertification = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            level
             createdAt
             updatedAt
           }
@@ -441,6 +443,7 @@ export const onDeleteCertification = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            level
             createdAt
             updatedAt
           }
@@ -844,6 +847,7 @@ export const onCreateProvider = /* GraphQL */ `
             createdAt
             updatedAt
           }
+          level
           createdAt
           updatedAt
         }
@@ -937,6 +941,7 @@ export const onUpdateProvider = /* GraphQL */ `
             createdAt
             updatedAt
           }
+          level
           createdAt
           updatedAt
         }
@@ -1030,6 +1035,7 @@ export const onDeleteProvider = /* GraphQL */ `
             createdAt
             updatedAt
           }
+          level
           createdAt
           updatedAt
         }
@@ -1104,6 +1110,7 @@ export const onCreateSkill = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            level
             createdAt
             updatedAt
           }
@@ -1112,6 +1119,7 @@ export const onCreateSkill = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      level
       createdAt
       updatedAt
     }
@@ -1181,6 +1189,7 @@ export const onUpdateSkill = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            level
             createdAt
             updatedAt
           }
@@ -1189,6 +1198,7 @@ export const onUpdateSkill = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      level
       createdAt
       updatedAt
     }
@@ -1258,6 +1268,7 @@ export const onDeleteSkill = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            level
             createdAt
             updatedAt
           }
@@ -1266,48 +1277,7 @@ export const onDeleteSkill = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateSkillLevel = /* GraphQL */ `
-  subscription OnCreateSkillLevel(
-    $filter: ModelSubscriptionSkillLevelFilterInput
-  ) {
-    onCreateSkillLevel(filter: $filter) {
-      id
-      name
-      description
-      score
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSkillLevel = /* GraphQL */ `
-  subscription OnUpdateSkillLevel(
-    $filter: ModelSubscriptionSkillLevelFilterInput
-  ) {
-    onUpdateSkillLevel(filter: $filter) {
-      id
-      name
-      description
-      score
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSkillLevel = /* GraphQL */ `
-  subscription OnDeleteSkillLevel(
-    $filter: ModelSubscriptionSkillLevelFilterInput
-  ) {
-    onDeleteSkillLevel(filter: $filter) {
-      id
-      name
-      description
-      score
+      level
       createdAt
       updatedAt
     }
@@ -1969,6 +1939,7 @@ export const onCreateUserCertification = /* GraphQL */ `
               description
               image
               providerId
+              level
               createdAt
               updatedAt
             }
@@ -2173,6 +2144,7 @@ export const onUpdateUserCertification = /* GraphQL */ `
               description
               image
               providerId
+              level
               createdAt
               updatedAt
             }
@@ -2377,6 +2349,7 @@ export const onDeleteUserCertification = /* GraphQL */ `
               description
               image
               providerId
+              level
               createdAt
               updatedAt
             }

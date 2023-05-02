@@ -67,6 +67,7 @@ export const getCertification = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            level
             createdAt
             updatedAt
           }
@@ -227,6 +228,7 @@ export const listCertifications = /* GraphQL */ `
               description
               image
               providerId
+              level
               createdAt
               updatedAt
             }
@@ -351,6 +353,7 @@ export const certificationsByProviderID = /* GraphQL */ `
               description
               image
               providerId
+              level
               createdAt
               updatedAt
             }
@@ -475,6 +478,7 @@ export const certificationsByCertificationlevelID = /* GraphQL */ `
               description
               image
               providerId
+              level
               createdAt
               updatedAt
             }
@@ -755,6 +759,7 @@ export const getProvider = /* GraphQL */ `
             createdAt
             updatedAt
           }
+          level
           createdAt
           updatedAt
         }
@@ -828,6 +833,7 @@ export const listProviders = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            level
             createdAt
             updatedAt
           }
@@ -904,6 +910,7 @@ export const getSkill = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            level
             createdAt
             updatedAt
           }
@@ -912,6 +919,7 @@ export const getSkill = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      level
       createdAt
       updatedAt
     }
@@ -957,6 +965,7 @@ export const listSkills = /* GraphQL */ `
               description
               image
               providerId
+              level
               createdAt
               updatedAt
             }
@@ -965,6 +974,7 @@ export const listSkills = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        level
         createdAt
         updatedAt
       }
@@ -1020,6 +1030,7 @@ export const skillsByProviderId = /* GraphQL */ `
               description
               image
               providerId
+              level
               createdAt
               updatedAt
             }
@@ -1028,37 +1039,7 @@ export const skillsByProviderId = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getSkillLevel = /* GraphQL */ `
-  query GetSkillLevel($id: ID!) {
-    getSkillLevel(id: $id) {
-      id
-      name
-      description
-      score
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listSkillLevels = /* GraphQL */ `
-  query ListSkillLevels(
-    $filter: ModelSkillLevelFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listSkillLevels(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        description
-        score
+        level
         createdAt
         updatedAt
       }
@@ -1506,6 +1487,7 @@ export const getUserCertification = /* GraphQL */ `
               description
               image
               providerId
+              level
               createdAt
               updatedAt
             }
