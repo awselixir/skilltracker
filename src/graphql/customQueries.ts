@@ -172,6 +172,28 @@ export const getUser = /* GraphQL */ `
       lastName
       email
       title
+      skills {
+        items {
+          id
+          userId
+          skillId
+          skill {
+            id
+            name
+            shortName
+            description
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+            }
+          }
+          level
+        }
+        nextToken
+      }
       certifications {
         items {
           id

@@ -57,8 +57,8 @@ export const onCreateCertification = /* GraphQL */ `
           items {
             id
             name
+            shortName
             description
-            image
             providerId
             provider {
               id
@@ -69,7 +69,9 @@ export const onCreateCertification = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            level
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -133,6 +135,9 @@ export const onCreateCertification = /* GraphQL */ `
             email
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             teams {
@@ -244,8 +249,8 @@ export const onUpdateCertification = /* GraphQL */ `
           items {
             id
             name
+            shortName
             description
-            image
             providerId
             provider {
               id
@@ -256,7 +261,9 @@ export const onUpdateCertification = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            level
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -320,6 +327,9 @@ export const onUpdateCertification = /* GraphQL */ `
             email
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             teams {
@@ -431,8 +441,8 @@ export const onDeleteCertification = /* GraphQL */ `
           items {
             id
             name
+            shortName
             description
-            image
             providerId
             provider {
               id
@@ -443,7 +453,9 @@ export const onDeleteCertification = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            level
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -507,6 +519,9 @@ export const onDeleteCertification = /* GraphQL */ `
             email
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             teams {
@@ -829,8 +844,8 @@ export const onCreateProvider = /* GraphQL */ `
         items {
           id
           name
+          shortName
           description
-          image
           providerId
           provider {
             id
@@ -847,7 +862,18 @@ export const onCreateProvider = /* GraphQL */ `
             createdAt
             updatedAt
           }
-          level
+          users {
+            items {
+              id
+              userId
+              skillId
+              createdAt
+              updatedAt
+              owner
+              level
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -923,8 +949,8 @@ export const onUpdateProvider = /* GraphQL */ `
         items {
           id
           name
+          shortName
           description
-          image
           providerId
           provider {
             id
@@ -941,7 +967,18 @@ export const onUpdateProvider = /* GraphQL */ `
             createdAt
             updatedAt
           }
-          level
+          users {
+            items {
+              id
+              userId
+              skillId
+              createdAt
+              updatedAt
+              owner
+              level
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -1017,8 +1054,8 @@ export const onDeleteProvider = /* GraphQL */ `
         items {
           id
           name
+          shortName
           description
-          image
           providerId
           provider {
             id
@@ -1035,7 +1072,18 @@ export const onDeleteProvider = /* GraphQL */ `
             createdAt
             updatedAt
           }
-          level
+          users {
+            items {
+              id
+              userId
+              skillId
+              createdAt
+              updatedAt
+              owner
+              level
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -1051,8 +1099,8 @@ export const onCreateSkill = /* GraphQL */ `
     onCreateSkill(filter: $filter) {
       id
       name
+      shortName
       description
-      image
       providerId
       provider {
         id
@@ -1098,8 +1146,8 @@ export const onCreateSkill = /* GraphQL */ `
           items {
             id
             name
+            shortName
             description
-            image
             providerId
             provider {
               id
@@ -1110,7 +1158,9 @@ export const onCreateSkill = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            level
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1119,7 +1169,61 @@ export const onCreateSkill = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      level
+      users {
+        items {
+          id
+          userId
+          skillId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          skill {
+            id
+            name
+            shortName
+            description
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+          level
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -1130,8 +1234,8 @@ export const onUpdateSkill = /* GraphQL */ `
     onUpdateSkill(filter: $filter) {
       id
       name
+      shortName
       description
-      image
       providerId
       provider {
         id
@@ -1177,8 +1281,8 @@ export const onUpdateSkill = /* GraphQL */ `
           items {
             id
             name
+            shortName
             description
-            image
             providerId
             provider {
               id
@@ -1189,7 +1293,9 @@ export const onUpdateSkill = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            level
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1198,7 +1304,61 @@ export const onUpdateSkill = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      level
+      users {
+        items {
+          id
+          userId
+          skillId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          skill {
+            id
+            name
+            shortName
+            description
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+          level
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -1209,8 +1369,8 @@ export const onDeleteSkill = /* GraphQL */ `
     onDeleteSkill(filter: $filter) {
       id
       name
+      shortName
       description
-      image
       providerId
       provider {
         id
@@ -1256,8 +1416,8 @@ export const onDeleteSkill = /* GraphQL */ `
           items {
             id
             name
+            shortName
             description
-            image
             providerId
             provider {
               id
@@ -1268,7 +1428,9 @@ export const onDeleteSkill = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            level
+            users {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -1277,7 +1439,61 @@ export const onDeleteSkill = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      level
+      users {
+        items {
+          id
+          userId
+          skillId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          skill {
+            id
+            name
+            shortName
+            description
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+          level
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -1302,6 +1518,9 @@ export const onCreateTeam = /* GraphQL */ `
             email
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             teams {
@@ -1357,6 +1576,9 @@ export const onUpdateTeam = /* GraphQL */ `
             certifications {
               nextToken
             }
+            skills {
+              nextToken
+            }
             teams {
               nextToken
             }
@@ -1408,6 +1630,9 @@ export const onDeleteTeam = /* GraphQL */ `
             email
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             teams {
@@ -1467,6 +1692,9 @@ export const onCreateUser = /* GraphQL */ `
             certifications {
               nextToken
             }
+            skills {
+              nextToken
+            }
             teams {
               nextToken
             }
@@ -1516,6 +1744,61 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
+      skills {
+        items {
+          id
+          userId
+          skillId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          skill {
+            id
+            name
+            shortName
+            description
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+          level
+        }
+        nextToken
+      }
       teams {
         items {
           id
@@ -1528,6 +1811,9 @@ export const onCreateUser = /* GraphQL */ `
             email
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             teams {
@@ -1591,6 +1877,9 @@ export const onUpdateUser = /* GraphQL */ `
             certifications {
               nextToken
             }
+            skills {
+              nextToken
+            }
             teams {
               nextToken
             }
@@ -1640,6 +1929,61 @@ export const onUpdateUser = /* GraphQL */ `
         }
         nextToken
       }
+      skills {
+        items {
+          id
+          userId
+          skillId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          skill {
+            id
+            name
+            shortName
+            description
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+          level
+        }
+        nextToken
+      }
       teams {
         items {
           id
@@ -1652,6 +1996,9 @@ export const onUpdateUser = /* GraphQL */ `
             email
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             teams {
@@ -1715,6 +2062,9 @@ export const onDeleteUser = /* GraphQL */ `
             certifications {
               nextToken
             }
+            skills {
+              nextToken
+            }
             teams {
               nextToken
             }
@@ -1764,6 +2114,61 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      skills {
+        items {
+          id
+          userId
+          skillId
+          user {
+            id
+            firstName
+            lastName
+            email
+            image
+            certifications {
+              nextToken
+            }
+            skills {
+              nextToken
+            }
+            teams {
+              nextToken
+            }
+            color
+            state
+            title
+            createdAt
+            updatedAt
+            owner
+          }
+          skill {
+            id
+            name
+            shortName
+            description
+            providerId
+            provider {
+              id
+              name
+              shortName
+              description
+              image
+              createdAt
+              updatedAt
+            }
+            users {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+          owner
+          level
+        }
+        nextToken
+      }
       teams {
         items {
           id
@@ -1776,6 +2181,9 @@ export const onDeleteUser = /* GraphQL */ `
             email
             image
             certifications {
+              nextToken
+            }
+            skills {
               nextToken
             }
             teams {
@@ -1866,6 +2274,40 @@ export const onCreateUserCertification = /* GraphQL */ `
           }
           nextToken
         }
+        skills {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
+          }
+          nextToken
+        }
         teams {
           items {
             id
@@ -1936,10 +2378,9 @@ export const onCreateUserCertification = /* GraphQL */ `
             items {
               id
               name
+              shortName
               description
-              image
               providerId
-              level
               createdAt
               updatedAt
             }
@@ -2071,6 +2512,40 @@ export const onUpdateUserCertification = /* GraphQL */ `
           }
           nextToken
         }
+        skills {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
+          }
+          nextToken
+        }
         teams {
           items {
             id
@@ -2141,10 +2616,9 @@ export const onUpdateUserCertification = /* GraphQL */ `
             items {
               id
               name
+              shortName
               description
-              image
               providerId
-              level
               createdAt
               updatedAt
             }
@@ -2276,6 +2750,40 @@ export const onDeleteUserCertification = /* GraphQL */ `
           }
           nextToken
         }
+        skills {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
+          }
+          nextToken
+        }
         teams {
           items {
             id
@@ -2346,10 +2854,9 @@ export const onDeleteUserCertification = /* GraphQL */ `
             items {
               id
               name
+              shortName
               description
-              image
               providerId
-              level
               createdAt
               updatedAt
             }
@@ -2429,6 +2936,636 @@ export const onDeleteUserCertification = /* GraphQL */ `
     }
   }
 `;
+export const onCreateUserSkill = /* GraphQL */ `
+  subscription OnCreateUserSkill(
+    $filter: ModelSubscriptionUserSkillFilterInput
+    $owner: String
+  ) {
+    onCreateUserSkill(filter: $filter, owner: $owner) {
+      id
+      userId
+      skillId
+      user {
+        id
+        firstName
+        lastName
+        email
+        image
+        certifications {
+          items {
+            id
+            userId
+            certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            earnedAt
+            expiredAt
+            owner
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
+          }
+          nextToken
+        }
+        teams {
+          items {
+            id
+            userId
+            teamId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        color
+        state
+        title
+        createdAt
+        updatedAt
+        owner
+      }
+      skill {
+        id
+        name
+        shortName
+        description
+        providerId
+        provider {
+          id
+          name
+          shortName
+          description
+          image
+          certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        users {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+      level
+    }
+  }
+`;
+export const onUpdateUserSkill = /* GraphQL */ `
+  subscription OnUpdateUserSkill(
+    $filter: ModelSubscriptionUserSkillFilterInput
+    $owner: String
+  ) {
+    onUpdateUserSkill(filter: $filter, owner: $owner) {
+      id
+      userId
+      skillId
+      user {
+        id
+        firstName
+        lastName
+        email
+        image
+        certifications {
+          items {
+            id
+            userId
+            certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            earnedAt
+            expiredAt
+            owner
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
+          }
+          nextToken
+        }
+        teams {
+          items {
+            id
+            userId
+            teamId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        color
+        state
+        title
+        createdAt
+        updatedAt
+        owner
+      }
+      skill {
+        id
+        name
+        shortName
+        description
+        providerId
+        provider {
+          id
+          name
+          shortName
+          description
+          image
+          certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        users {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+      level
+    }
+  }
+`;
+export const onDeleteUserSkill = /* GraphQL */ `
+  subscription OnDeleteUserSkill(
+    $filter: ModelSubscriptionUserSkillFilterInput
+    $owner: String
+  ) {
+    onDeleteUserSkill(filter: $filter, owner: $owner) {
+      id
+      userId
+      skillId
+      user {
+        id
+        firstName
+        lastName
+        email
+        image
+        certifications {
+          items {
+            id
+            userId
+            certificationId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            certification {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            earnedAt
+            expiredAt
+            owner
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
+          }
+          nextToken
+        }
+        teams {
+          items {
+            id
+            userId
+            teamId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            team {
+              id
+              name
+              description
+              color
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        color
+        state
+        title
+        createdAt
+        updatedAt
+        owner
+      }
+      skill {
+        id
+        name
+        shortName
+        description
+        providerId
+        provider {
+          id
+          name
+          shortName
+          description
+          image
+          certifications {
+            items {
+              id
+              name
+              shortName
+              description
+              image
+              providerID
+              certificationlevelID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          skills {
+            items {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        users {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+      level
+    }
+  }
+`;
 export const onCreateUserTeam = /* GraphQL */ `
   subscription OnCreateUserTeam(
     $filter: ModelSubscriptionUserTeamFilterInput
@@ -2478,6 +3615,40 @@ export const onCreateUserTeam = /* GraphQL */ `
             earnedAt
             expiredAt
             owner
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
           }
           nextToken
         }
@@ -2618,6 +3789,40 @@ export const onUpdateUserTeam = /* GraphQL */ `
           }
           nextToken
         }
+        skills {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
+          }
+          nextToken
+        }
         teams {
           items {
             id
@@ -2752,6 +3957,40 @@ export const onDeleteUserTeam = /* GraphQL */ `
             earnedAt
             expiredAt
             owner
+          }
+          nextToken
+        }
+        skills {
+          items {
+            id
+            userId
+            skillId
+            user {
+              id
+              firstName
+              lastName
+              email
+              image
+              color
+              state
+              title
+              createdAt
+              updatedAt
+              owner
+            }
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+            owner
+            level
           }
           nextToken
         }
