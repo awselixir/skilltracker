@@ -78,6 +78,32 @@ const routes: RouteRecordRaw[] = [
         ],
       },
       {
+        path: 'skills',
+        name: 'skills',
+        component: () => import('src/pages/skills/SkillsPage.vue'),
+        children: [
+          {
+            path: 'new',
+            name: 'newSkill',
+            component: () => import('pages/skills/SkillsPageNew.vue'),
+            props: true,
+          },
+        ]
+      },
+      {
+        path: 'skills/:id',
+        name: 'skill',
+        component: () => import('src/pages/skills/SkillPage.vue'),
+        children: [
+          {
+            path: 'edit',
+            name: 'editSkill',
+            component: () => import('src/pages/skills/SkillPageEdit.vue'),
+            props: true,
+          },
+        ]
+      },
+      {
         path: 'teams',
         name: 'teams',
         component: () => import('src/pages/teams/TeamsPage.vue'),
