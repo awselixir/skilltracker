@@ -129,6 +129,28 @@ export const listUsers = /* GraphQL */ `
             expiredAt
           }
         }
+        skills {
+          items {
+            id
+            userId
+            skillId
+            skill {
+              id
+              name
+              shortName
+              description
+              providerId
+              provider {
+                id
+                name
+                shortName
+                description
+              }
+            }
+            level
+          }
+          nextToken
+        }
         teams {
           items {
             id
@@ -376,26 +398,26 @@ export const getTeam = /* GraphQL */ `
             image
             certifications {
               items {
+                id
+                userId
+                certificationId
+                certification {
                   id
-                  userId
-                  certificationId
-                  certification {
+                  name
+                  shortName
+                  description
+                  image
+                  providerID
+                  certificationlevelID
+                  certificationLevel {
                     id
                     name
-                    shortName
-                    description
-                    image
-                    providerID
-                    certificationlevelID
-                    certificationLevel {
-                      id
-                      name
-                      score
-                    }
+                    score
                   }
-                  earnedAt
-                  expiredAt
                 }
+                earnedAt
+                expiredAt
+              }
             }
             color
             state

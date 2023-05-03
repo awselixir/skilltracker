@@ -95,7 +95,7 @@ import { reactive, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 import { useUserStore } from 'src/stores/user-store';
 import { useRouter } from 'vue-router';
-import { usersPageColumns } from 'src/shared/columns.js';
+import { usersPageColumns } from 'src/shared/columns';
 
 const $q = useQuasar();
 const router = useRouter();

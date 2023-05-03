@@ -133,7 +133,6 @@ const option = {
 };
 
 watch(props, () => {
-  console.log(newProps)
   option.visualMap.max = props.max
   option.series.data = props.dataset
   myChart.value.setOption(option, true)

@@ -51,7 +51,11 @@
           :pagination="pagination"
           binary-state-sort
           :rows="item.users"
-          @row-click="(_event, row) => router.push({name: 'user', params: {id: row.user.id}})"
+          @row-click="
+            (_event, row) =>
+              router.push({ name: 'user', params: { id: row.user.id } })
+          "
+          dense
         >
           <template v-slot:top="props">
             <div class="q-table__title">Users</div>
@@ -60,7 +64,12 @@
               flat
               round
               icon="mdi-pencil"
-              @click="router.push({name: 'editSkill', params: {id: route.params.id}})"
+              @click="
+                router.push({
+                  name: 'editSkill',
+                  params: { id: route.params.id },
+                })
+              "
               class="q-ml-sm"
               v-if="userStore.isAdmin"
             />
@@ -72,17 +81,21 @@
               "
               @click="props.toggleFullscreen"
               class="q-ml-sm"
+              v-if="$q.screen.gt.sm"
             />
           </template>
           <template v-slot:body-cell-name="props">
             <q-td :props="props">
               <q-item>
                 <q-item-section avatar>
-                  <q-avatar :color="props.row.user.color" text-color="white" size="md">{{ props.row.user.firstName[0] }}</q-avatar>
+                  <q-avatar
+                    :color="props.row.user.color"
+                    text-color="white"
+                    size="md"
+                    >{{ props.row.user.firstName[0] }}</q-avatar
+                  >
                 </q-item-section>
-                <q-item-section
-                  >{{ props.value }}</q-item-section
-                >
+                <q-item-section>{{ props.value }}</q-item-section>
               </q-item>
             </q-td>
           </template>
@@ -97,12 +110,16 @@
 </template>
 <script setup>
 import { onMounted, reactive, ref } from 'vue';
+import { useQuasar } from 'quasar';
 import { useRoute, useRouter } from 'vue-router';
-import { useSkillStore} from 'src/stores/skill-store'
+import { useSkillStore } from 'src/stores/skill-store';
 import { useUserStore } from 'src/stores/user-store';
 
+const $q = useQuasar();
+
 const route = useRoute();
-const router = useRouter()
+const router = useRouter();
+
 const skillStore = useSkillStore();
 const userStore = useUserStore();
 
@@ -130,14 +147,14 @@ const columns = [
     align: 'left',
     sortable: true,
   },
-  // {
-  //   name: 'earnedAt',
-  //   field: 'earnedAt',
-  //   label: 'Earned',
-  //   required: true,
-  //   align: 'center',
-  //   sortable: true,
-  // },
+  {
+    name: 'level',
+    field: (row) => skillStore.skillsScores[row.level],
+    label: 'Level',
+    required: true,
+    align: 'center',
+    sortable: true,
+  },
 ];
 
 const pagination = reactive({
@@ -153,14 +170,8 @@ const fetchSkill = async () => {
 
   const skill = await skillStore.fetchSkill(route.params.id);
 
-  const {
-    id,
-    name,
-    description,
-    provider,
-    shortName,
-    users,
-  } = skill.data?.getSkill;
+  const { id, name, description, provider, shortName, users } =
+    skill.data?.getSkill;
   item.id = id;
   item.name = name;
   item.description = description;

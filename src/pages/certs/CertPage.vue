@@ -1,3 +1,4 @@
+<!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <template>
   <q-page padding>
     <transition
@@ -52,7 +53,10 @@
           :pagination="pagination"
           binary-state-sort
           :rows="item.users"
-          @row-click="(_event, row) => router.push({name: 'user', params: {id: row.user.id}})"
+          @row-click="
+            (_event, row) =>
+              router.push({ name: 'user', params: { id: row.user.id } })
+          "
         >
           <template v-slot:top="props">
             <div class="q-table__title">Earned</div>
@@ -61,7 +65,12 @@
               flat
               round
               icon="mdi-plus"
-              @click="router.push({name: 'addUserCert', params: {id: route.params.id}})"
+              @click="
+                router.push({
+                  name: 'addUserCert',
+                  params: { id: route.params.id },
+                })
+              "
               class="q-ml-sm"
               v-if="filteredAvailableUsers.length > 0 && userStore.isAdmin"
             />
@@ -69,7 +78,12 @@
               flat
               round
               icon="mdi-pencil"
-              @click="router.push({name: 'editCert', params: {id: route.params.id}})"
+              @click="
+                router.push({
+                  name: 'editCert',
+                  params: { id: route.params.id },
+                })
+              "
               class="q-ml-sm"
               v-if="userStore.isAdmin"
             />
@@ -81,17 +95,21 @@
               "
               @click="props.toggleFullscreen"
               class="q-ml-sm"
+              v-if="$q.screen.gt.sm"
             />
           </template>
           <template v-slot:body-cell-name="props">
             <q-td :props="props">
               <q-item>
                 <q-item-section avatar>
-                  <q-avatar :color="props.row.user.color" text-color="white" size="md">{{ props.row.user.firstName[0] }}</q-avatar>
+                  <q-avatar
+                    :color="props.row.user.color"
+                    text-color="white"
+                    size="md"
+                    >{{ props.row.user.firstName[0] }}</q-avatar
+                  >
                 </q-item-section>
-                <q-item-section
-                  >{{ props.value }}</q-item-section
-                >
+                <q-item-section>{{ props.value }}</q-item-section>
               </q-item>
             </q-td>
           </template>
@@ -106,13 +124,17 @@
 </template>
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue';
+import { useQuasar } from 'quasar';
 import { orderBy } from 'lodash';
 import { useRoute, useRouter } from 'vue-router';
 import { useCertificationStore } from 'src/stores/certification-store';
 import { useUserStore } from 'src/stores/user-store';
 
+const $q = useQuasar();
+
 const route = useRoute();
-const router = useRouter()
+const router = useRouter();
+
 const certStore = useCertificationStore();
 const userStore = useUserStore();
 
@@ -181,26 +203,28 @@ const fetchCert = async () => {
 
   const cert = await certStore.fetchCertification(route.params.id);
 
-  const {
-    id,
-    name,
-    description,
-    provider,
-    shortName,
-    certificationLevel,
-    users,
-  } = cert.data?.getCertification;
-  item.id = id;
-  item.name = name;
-  item.description = description;
-  item.shortName = shortName;
-  item.provider.id = provider.id;
-  item.provider.name = provider.name;
-  item.provider.shortName = provider.shortName;
-  item.level.id = certificationLevel.id;
-  item.level.name = certificationLevel.name;
-  item.users = users.items;
-  loading.value = false;
+  if (cert) {
+    const {
+      id,
+      name,
+      description,
+      provider,
+      shortName,
+      certificationLevel,
+      users,
+    } = cert.data?.getCertification;
+    item.id = id;
+    item.name = name;
+    item.description = description;
+    item.shortName = shortName;
+    item.provider.id = provider.id;
+    item.provider.name = provider.name;
+    item.provider.shortName = provider.shortName;
+    item.level.id = certificationLevel.id;
+    item.level.name = certificationLevel.name;
+    item.users = users.items;
+    loading.value = false;
+  }
 };
 
 onMounted(async () => {

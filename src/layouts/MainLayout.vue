@@ -110,18 +110,18 @@
             </q-item-section>
           </q-item>
           <q-item
-              :to="{ name: 'levels' }"
-              class="text-white"
-              v-if="userStore.me.isAdmin"
-            >
-              <q-item-section avatar>
-                <q-icon name="mdi-stairs-box" color="white" />
-              </q-item-section>
+            :to="{ name: 'levels' }"
+            class="text-white"
+            v-if="userStore.me.isAdmin"
+          >
+            <q-item-section avatar>
+              <q-icon name="mdi-stairs-box" color="white" />
+            </q-item-section>
 
-              <q-item-section>
-                <q-item-label>Levels</q-item-label>
-              </q-item-section>
-            </q-item>
+            <q-item-section>
+              <q-item-label>Levels</q-item-label>
+            </q-item-section>
+          </q-item>
         </q-list>
       </q-drawer>
 
@@ -151,6 +151,7 @@ import { useCertificationStore } from 'src/stores/certification-store';
 import { useLevelStore } from '../stores/level-store';
 import { useProviderStore } from '../stores/provider-store';
 import { useScoreStore } from '../stores/score-store';
+import { useSkillStore } from 'src/stores/skill-store';
 import { useTeamStore } from 'src/stores/team-store';
 import { useUserStore } from '../stores/user-store';
 import '@aws-amplify/ui-vue/styles.css';
@@ -172,6 +173,7 @@ const certificationStore = useCertificationStore();
 const levelStore = useLevelStore();
 const providerStore = useProviderStore();
 const scoreStore = useScoreStore();
+const skillStore = useSkillStore();
 const teamStore = useTeamStore();
 const userStore = useUserStore();
 
@@ -218,6 +220,7 @@ const fetchData = async () => {
     providerStore.fetchProviders(),
     levelStore.fetchCertsLevels(),
     userStore.fetchUsers(),
+    skillStore.fetchSkills(),
     teamStore.fetchTeams(),
     userStore.fetchMe(auth.user.username),
   ]);

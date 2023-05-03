@@ -107,7 +107,7 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import { orderBy } from 'lodash';
 import { useRoute, useRouter } from 'vue-router';
-import { useCertificationStore } from 'src/stores/certification-store';
+import { useCertificationStore } from 'src/stores/certification-store.ts';
 import { useUserStore } from 'src/stores/user-store';
 
 const route = useRoute();

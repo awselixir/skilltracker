@@ -48,7 +48,7 @@
       <template v-slot:item="props">
         <div
           class="q-pa-xs col-xs-12 col-sm-6"
-          @click="router.push({ name: 'user', params: { id: props.row.id } })"
+          @click="router.push({ name: 'team', params: { id: props.row.id } })"
         >
           <q-card>
             <q-card-section class="q-py-none">

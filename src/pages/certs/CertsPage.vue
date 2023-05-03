@@ -57,7 +57,10 @@
         </q-td>
       </template>
       <template v-slot:item="props">
-        <div class="q-pa-xs col-xs-12 col-sm-6" @click="router.push({name: 'cert', params: {id: props.row.id}})">
+        <div
+          class="q-pa-xs col-xs-12 col-sm-6"
+          @click="router.push({ name: 'cert', params: { id: props.row.id } })"
+        >
           <q-card>
             <q-card-section class="q-py-none">
               <q-item class="q-pa-none">
@@ -71,34 +74,34 @@
                   </q-avatar>
                 </q-item-section>
                 <q-item-section
-                  >{{ props.row.name }} ({{ props.row.shortName }})</q-item-section
+                  >{{ props.row.name }} ({{
+                    props.row.shortName
+                  }})</q-item-section
                 >
               </q-item>
             </q-card-section>
             <q-separator></q-separator>
             <q-card-section class="q-py-none">
               <q-item dense class="q-px-none">
-                <q-item-section>
-                  Provider
-                </q-item-section>
+                <q-item-section> Provider </q-item-section>
                 <q-item-section side>
                   {{ props.row.provider.shortName }}
                 </q-item-section>
               </q-item>
               <q-item dense class="q-px-none">
-                <q-item-section>
-                  Level
-                </q-item-section>
+                <q-item-section> Level </q-item-section>
                 <q-item-section side>
                   {{ props.row.certificationLevel.name }}
                 </q-item-section>
               </q-item>
               <q-item dense class="q-px-none">
-                <q-item-section>
-                  Earned
-                </q-item-section>
+                <q-item-section> Earned </q-item-section>
                 <q-item-section side>
-                  {{ props.row.users.items.length > 0 ? props.row.users.items.length : '-' }}
+                  {{
+                    props.row.users.items.length > 0
+                      ? props.row.users.items.length
+                      : '-'
+                  }}
                 </q-item-section>
               </q-item>
             </q-card-section>
@@ -111,13 +114,13 @@
 </template>
 <script setup>
 import { reactive, onMounted } from 'vue';
-import { useQuasar} from 'quasar'
+import { useQuasar } from 'quasar';
 import { useCertificationStore } from '../../stores/certification-store';
 import { useUserStore } from 'src/stores/user-store';
 import { useRouter } from 'vue-router';
 import { certsPageColumns } from 'src/shared/columns';
 
-const $q = useQuasar()
+const $q = useQuasar();
 const router = useRouter();
 
 const certificationStore = useCertificationStore();

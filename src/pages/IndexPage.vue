@@ -82,45 +82,7 @@
         <div class="row q-col-gutter-sm q-pt-md">
           <div class="col-12 col-md">
             <q-table
-              :columns="[
-                {
-                  name: 'name',
-                  field: (row) => `${row.firstName} ${row.lastName}`,
-                  label: 'Name',
-                  required: true,
-                  align: 'left',
-                  sortable: false,
-                },
-                {
-                  name: 'certs',
-                  field: (row) =>
-                    row.certifications.items.length > 0
-                      ? row.certifications.items.length
-                      : '-',
-                  label: 'Certs',
-                  required: false,
-                  align: 'center',
-                  sortable: false,
-                },
-                {
-                  name: 'score',
-                  field: (row) => {
-                    if (row.certifications.items.length > 0) {
-                      return row.certifications.items.reduce(
-                        (acc, cert) =>
-                          acc + cert.certification.certificationLevel.score,
-                        0
-                      );
-                    } else {
-                      return '-';
-                    }
-                  },
-                  label: 'Score',
-                  required: false,
-                  align: 'center',
-                  sortable: false,
-                },
-              ]"
+              :columns="usersLeaderboardColumns"
               square
               :rows="userStore.users"
               binary-state-sort
@@ -250,6 +212,7 @@ import { useRouter } from 'vue-router';
 import { useScoreStore } from 'src/stores/score-store';
 import { useTeamStore } from 'src/stores/team-store';
 import { useUserStore } from 'src/stores/user-store';
+import { usersLeaderboardColumns } from 'src/shared/columns';
 import { calculateTeamsCerts, calculateTeamsScore } from 'src/shared/functions';
 
 const router = useRouter();

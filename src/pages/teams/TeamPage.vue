@@ -34,6 +34,7 @@
             (_event, row) =>
               router.push({ name: 'user', params: { id: row.user.id } })
           "
+          :visible-columns="$q.screen.lt.md ? ['name', 'score'] : ['name', 'certs', 'score']"
         >
           <template v-slot:top="props">
             <div class="q-table__title">Members</div>
@@ -59,6 +60,7 @@
               "
               @click="props.toggleFullscreen"
               class="q-ml-sm"
+              v-if="$q.screen.gt.sm"
             />
           </template>
           <template v-slot:body-cell-name="props">
@@ -87,12 +89,16 @@
 </template>
 <script setup>
 import { onMounted, reactive, ref } from 'vue';
+import { useQuasar } from 'quasar';
 import { useRoute, useRouter } from 'vue-router';
 import { useTeamStore } from 'src/stores/team-store';
 import { useUserStore } from 'src/stores/user-store';
 
+const $q = useQuasar()
+
 const route = useRoute();
 const router = useRouter();
+
 const teamStore = useTeamStore();
 const userStore = useUserStore();
 
@@ -122,7 +128,7 @@ const columns = [
         ? row.user.certifications.items.length
         : '-',
     label: 'Certs',
-    required: true,
+    required: false,
     align: 'center',
     sortable: true,
   },

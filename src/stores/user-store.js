@@ -6,9 +6,11 @@ import { getUser, listUsers } from 'src/graphql/customQueries';
 import {
   createUser,
   createUserCertification,
+  createUserSkill,
   deleteUser,
   deleteUserCertification,
   updateUser,
+  updateUserSkill
 } from 'src/graphql/mutations';
 import { success, error } from '../components/messages';
 
@@ -82,6 +84,18 @@ export const useUserStore = defineStore('user', {
         error('Something went wrong');
       }
     },
+    async newUserCert(input) {
+      await API.graphql({
+        query: createUserCertification,
+        variables: {input: input}
+      })
+    },
+    async newUserSkill(input) {
+      await API.graphql({
+        query: createUserSkill,
+        variables: {input: input}
+      })
+    },
     async newUserCertification(input) {
       await API.graphql({
         query: createUserCertification,
@@ -121,5 +135,11 @@ export const useUserStore = defineStore('user', {
         variables: { input: input },
       });
     },
+    async updateUserSkill(input) {
+      await API.graphql({
+        query: updateUserSkill,
+        variables: {input: input}
+      })
+    }
   },
 });

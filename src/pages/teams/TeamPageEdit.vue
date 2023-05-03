@@ -164,7 +164,6 @@ const teamDeleteHandler = async () => {
     success(`Team ${input.name} deleted`);
     router.push({ name: 'teams' });
   } catch (err) {
-    console.log(err)
     error('Something went wrong');
   }
 };
@@ -192,7 +191,6 @@ const teamUpdateHandler = async () => {
     goBack();
     emit('updated');
   } catch (err) {
-    console.log(err);
     error('Something went wrong');
   }
 };

@@ -9,9 +9,9 @@ export const useSkillStore = defineStore('skill', {
     skills: [],
     skillsLoading: false,
     skillsScores: {
-      l1: 1,
-      l2: 2,
-      l3: 3,
+      'l1': 1,
+      'l2': 2,
+      'l3': 3,
     },
   }),
   // getters: {

@@ -1,13 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineStore } from 'pinia';
 import { API } from 'aws-amplify';
 //import { listCertifications } from 'src/graphql/queries';
-import { getCertification, listCertifications } from 'src/graphql/customQueries';
+import {
+  getCertification,
+  listCertifications,
+} from 'src/graphql/customQueries';
 import {
   createCertification,
   deleteCertification,
   updateCertification,
 } from 'src/graphql/mutations';
 import { error } from '../components/messages';
+import _ from 'lodash';
 
 export const useCertificationStore = defineStore('certification', {
   state: () => ({
@@ -16,20 +21,7 @@ export const useCertificationStore = defineStore('certification', {
   }),
   getters: {
     certificationsSorted: (state) => {
-      const items = [...state.certifications].sort((a, b) => {
-        const nameA = a.shortName.toUpperCase();
-        const nameB = b.shortName.toUpperCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-
-        return 0;
-      });
-
-      return items;
+      return _.orderBy(state.certifications, 'name', 'asc');
     },
   },
   actions: {
@@ -50,8 +42,11 @@ export const useCertificationStore = defineStore('certification', {
       const allCertifications = await API.graphql({
         query: listCertifications,
       });
-      this.certifications = allCertifications.data?.listCertifications?.items;
+
+      if(allCertifications.data) {
+        this.certifications = allCertifications.data?.listCertifications?.items;
       this.certificationsLoading = false;
+      }
     },
     async newCert(input) {
       return await API.graphql({
