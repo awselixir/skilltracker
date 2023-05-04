@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { calculateTeamsCerts, calculateTeamsScore } from './functions';
+import { calculateTeamsCerts, calculateTeamsScore, calculateTeamsSkills } from './functions';
 import { useSkillStore } from 'src/stores/skill-store';
 
 const skillStore = useSkillStore();
@@ -129,7 +129,7 @@ export const usersLeaderboardColumns = [
     field: (row) =>
       row.skills.items.length > 0 ? row.skills.items.length : '-',
     label: 'Skills',
-    required: true,
+    required: false,
     align: 'center',
     sortable: true,
   },
@@ -232,6 +232,56 @@ export const usersPageColumns = [
   },
 ];
 
+export const teamPageColumns = [
+  {
+    name: 'name',
+    field: (row) => `${row.user.firstName} ${row.user.lastName}`,
+    label: 'Name',
+    required: true,
+    align: 'left',
+    sortable: true,
+  },
+  {
+    name: 'certs',
+    field: (row) =>
+      row.user.certifications.items.length > 0
+        ? row.user.certifications.items.length
+        : '-',
+    label: 'Certs',
+    required: false,
+    align: 'center',
+    sortable: true,
+  },
+  {
+    name: 'skills',
+    field: (row) =>
+      row.user.skills.items.length > 0
+        ? row.user.skills.items.length
+        : '-',
+    label: 'Skills',
+    required: false,
+    align: 'center',
+    sortable: true,
+  },
+  {
+    name: 'score',
+    field: (row) => {
+      if (row.user.certifications.items.length > 0) {
+        return row.user.certifications.items.reduce(
+          (acc, cert) => acc + cert.certification.certificationLevel.score,
+          0
+        );
+      } else {
+        return '-';
+      }
+    },
+    label: 'Score',
+    required: true,
+    align: 'center',
+    sortable: true,
+  },
+];
+
 export const teamsPageColumns = [
   {
     name: 'name',
@@ -254,6 +304,14 @@ export const teamsPageColumns = [
     field: (row) => (calculateTeamsCerts(row) ? calculateTeamsCerts(row) : '-'),
     label: 'Certs',
     required: true,
+    align: 'center',
+    sortable: true,
+  },
+  {
+    name: 'skills',
+    field: (row) => (calculateTeamsSkills(row) ? calculateTeamsSkills(row) : '-'),
+    label: 'Skills',
+    required: false,
     align: 'center',
     sortable: true,
   },
