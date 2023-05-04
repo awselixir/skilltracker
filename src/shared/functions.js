@@ -30,6 +30,12 @@ export const calculateTeamsCerts = (row) => {
   }, 0);
 };
 
+export const calculateTeamsSkills = (row) => {
+  return row.users.items.reduce((acc, userTeam) => {
+    return acc + userTeam.user.skills.items.length;
+  }, 0);
+};
+
 export const calculateTeamsScore = (row) => {
   const usersCerts = []
   for (const item of row.users.items) {
