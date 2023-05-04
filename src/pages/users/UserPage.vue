@@ -195,7 +195,11 @@
                 @update:model-value="
                   (value) => userSkillUpdateHandler(props.row.id, value)
                 "
+                v-if="userStore.isAdmin || item.id !== userStore.me.id"
               ></q-btn-toggle>
+              <div v-else>
+                {{ skillStore.skillsScores[props.row.level] }}
+              </div>
             </q-td>
           </template>
         </q-table>
@@ -211,6 +215,7 @@
 import { onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
+import { useSkillStore } from 'src/stores/skill-store';
 import { useUserStore } from 'src/stores/user-store';
 import _ from 'lodash';
 import { error, success } from 'components/messages';
@@ -221,6 +226,7 @@ import {
 
 const route = useRoute();
 const router = useRouter();
+const skillStore = useSkillStore();
 const userStore = useUserStore();
 const $q = useQuasar();
 

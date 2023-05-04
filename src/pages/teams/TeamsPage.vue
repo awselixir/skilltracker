@@ -86,6 +86,16 @@
                   }}
                 </q-item-section>
               </q-item>
+              <q-item dense class="q-px-none">
+                <q-item-section>Skills</q-item-section>
+                <q-item-section side>
+                  {{
+                    calculateTeamsSkills(props.row) > 0
+                      ? calculateTeamsSkills(props.row)
+                      : '-'
+                  }}
+                </q-item-section>
+              </q-item>
             </q-card-section>
           </q-card>
         </div>
@@ -100,7 +110,7 @@ import { useQuasar } from 'quasar';
 import { useTeamStore } from '../../stores/team-store';
 import { useRouter } from 'vue-router';
 import { teamsPageColumns } from 'src/shared/columns';
-import { calculateTeamsCerts } from 'src/shared/functions';
+import { calculateTeamsCerts, calculateTeamsSkills } from 'src/shared/functions';
 
 const $q = useQuasar();
 const router = useRouter();

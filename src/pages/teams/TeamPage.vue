@@ -25,7 +25,7 @@
         </q-card>
         <q-table
           title="Members"
-          :columns="columns"
+          :columns="teamPageColumns"
           no-data-label="No members"
           :pagination="pagination"
           binary-state-sort
@@ -34,7 +34,7 @@
             (_event, row) =>
               router.push({ name: 'user', params: { id: row.user.id } })
           "
-          :visible-columns="$q.screen.lt.md ? ['name', 'score'] : ['name', 'certs', 'score']"
+          :visible-columns="$q.screen.lt.md ? ['name', 'score'] : ['name', 'certs','skills', 'score']"
         >
           <template v-slot:top="props">
             <div class="q-table__title">Members</div>
@@ -93,6 +93,7 @@ import { useQuasar } from 'quasar';
 import { useRoute, useRouter } from 'vue-router';
 import { useTeamStore } from 'src/stores/team-store';
 import { useUserStore } from 'src/stores/user-store';
+import { teamPageColumns} from 'src/shared/columns'
 
 const $q = useQuasar()
 
@@ -111,45 +112,6 @@ const item = reactive({
   color: '',
   users: [],
 });
-
-const columns = [
-  {
-    name: 'name',
-    field: (row) => `${row.user.firstName} ${row.user.lastName}`,
-    label: 'Name',
-    required: true,
-    align: 'left',
-    sortable: true,
-  },
-  {
-    name: 'certs',
-    field: (row) =>
-      row.user.certifications.items.length > 0
-        ? row.user.certifications.items.length
-        : '-',
-    label: 'Certs',
-    required: false,
-    align: 'center',
-    sortable: true,
-  },
-  {
-    name: 'score',
-    field: (row) => {
-      if (row.user.certifications.items.length > 0) {
-        return row.user.certifications.items.reduce(
-          (acc, cert) => acc + cert.certification.certificationLevel.score,
-          0
-        );
-      } else {
-        return '-';
-      }
-    },
-    label: 'Score',
-    required: true,
-    align: 'center',
-    sortable: true,
-  },
-];
 
 const pagination = reactive({
   sortBy: 'name',

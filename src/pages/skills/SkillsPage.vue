@@ -46,7 +46,7 @@
               </q-avatar>
             </q-item-section>
             <q-item-section
-              >{{ props.value }} ({{ props.row.shortName }})</q-item-section
+              >{{ props.row.name !== props.row.shortName ? `${props.row.name} (${props.row.shortName})` :  props.row.name  }}</q-item-section
             >
           </q-item>
         </q-td>
@@ -71,7 +71,7 @@
                   </q-avatar>
                 </q-item-section>
                 <q-item-section
-                  >{{ props.row.name }} ({{ props.row.shortName }})</q-item-section
+                  >{{ props.row.name !== props.row.shortName ? `${props.row.name} (${props.row.shortName})` :  props.row.name  }}</q-item-section
                 >
               </q-item>
             </q-card-section>

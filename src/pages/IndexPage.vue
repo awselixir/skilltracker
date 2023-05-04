@@ -100,6 +100,7 @@
                 (_event, row) =>
                   router.push({ name: 'user', params: { id: row.id } })
               "
+              :visible-columns="$q.screen.lt.md ? ['name','score'] : ['name','certs','skills','score']"
             >
               <template v-slot:body-cell-name="props">
                 <q-td :props="props">
@@ -208,6 +209,7 @@
 import BarChart from 'components/BarChart.vue';
 import GeoChart from 'src/components/GeoChart.vue';
 import HighlightCard from 'src/components/HighlightCard.vue';
+import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router';
 import { useScoreStore } from 'src/stores/score-store';
 import { useTeamStore } from 'src/stores/team-store';
@@ -215,6 +217,7 @@ import { useUserStore } from 'src/stores/user-store';
 import { usersLeaderboardColumns } from 'src/shared/columns';
 import { calculateTeamsCerts, calculateTeamsScore } from 'src/shared/functions';
 
+const $q = useQuasar()
 const router = useRouter();
 const scoreStore = useScoreStore();
 const teamStore = useTeamStore();
