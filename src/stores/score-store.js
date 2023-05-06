@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia';
 import { useCertificationStore } from './certification-store';
 //import { useProviderStore } from './provider-store';
+import { useSkillStore } from './skill-store';
 import { useUserStore } from './user-store';
 import states from 'src/shared/states';
 import { orderBy} from 'lodash'
 
 const certStore = useCertificationStore();
 //const providerStore = useProviderStore()
+const skillStore = useSkillStore()
 const userStore = useUserStore();
 
 export const useScoreStore = defineStore('score', {
@@ -30,15 +32,30 @@ export const useScoreStore = defineStore('score', {
 
       return orderBy(certsArray, 'value', 'desc').filter(item => item.value != 0).slice(0, 10)
     },
+    totalSkills: () => {
+      return skillStore.skills.reduce(
+        (acc, skill) => acc + skill.users.items.length,
+        0
+      );
+    },
     // topProviders: () => {
     //   const providersArray = providerStore.providers.map
     // }
     totalScore: () => {
-      return certStore.certifications.reduce(
-        (acc, cert) =>
-          acc + cert.certificationLevel.score * cert.users.items.length,
-        0
-      );
+      const certifiedUsers = userStore.users.filter(user => user.certifications.items.length > 0)
+
+      const certsScore =  certifiedUsers.reduce((total, user) => {
+        const sum = user.certifications.items.reduce((acc, cert) => acc + cert.certification.certificationLevel.score, 0)
+        return sum + total
+      }, 0)
+
+      const skilledUsers = userStore.users.filter(user => user.skills.items.length > 0)
+      const skillsScore =  skilledUsers.reduce((total, user) => {
+        const sum = user.skills.items.reduce((acc, skill) => acc + skillStore.skillsScores[skill.level], 0)
+        return sum + total
+      }, 0)
+
+      return skillsScore + certsScore
     },
     certifiedUsers: () => {
       return userStore.users.reduce(
