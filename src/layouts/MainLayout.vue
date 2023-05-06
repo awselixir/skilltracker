@@ -112,7 +112,7 @@
           <q-item
             :to="{ name: 'levels' }"
             class="text-white"
-            v-if="userStore.me.isAdmin"
+            v-if="userStore.isAdmin"
           >
             <q-item-section avatar>
               <q-icon name="mdi-stairs-box" color="white" />
@@ -232,6 +232,13 @@ watch(
   async (newAuth) => {
     if (newAuth.route === 'authenticated') {
       await fetchData();
+      setInterval(async () => {
+        await Promise.allSettled([
+          certificationStore.fetchCertifications(),
+          userStore.fetchUsers(),
+          skillStore.fetchSkills(),
+        ]);
+      }, 300000);
     }
     if (
       typeof newAuth.user !== 'undefined' &&

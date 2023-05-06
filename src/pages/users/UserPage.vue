@@ -10,8 +10,8 @@
           <q-card-section>
             <div class="row items-center q-col-gutter-md">
               <div class="col-md-auto col-12">
-                <div class="row">
-                  <div class="col">
+                <div class="row items-center">
+                  <div class="col-md-auto col">
                     <q-avatar
                       :color="item.color"
                       text-color="white"
@@ -30,7 +30,6 @@
                           params: { id: route.params.id },
                         })
                       "
-                      class="q-ml-sm"
                       v-if="userStore.isAdmin || item.id === userStore.me.id"
                     />
                   </div>
@@ -40,7 +39,7 @@
                 <div class="text-h4 q-mb-sm">
                   {{ item.firstName }} {{ item.lastName }}
                 </div>
-                <div class="row q-col-gutter-sm items-center">
+                <div class="row items-center q-col-gutter-sm">
                   <div class="col-md-auto col-2">Email:</div>
                   <div class="col-10 text-grey-8 col-md-auto">
                     {{ item.email }}
@@ -61,16 +60,21 @@
                         : '-'
                     }}
                   </div>
+                  <div class="col-md-auto col-2">Skills:</div>
+                  <div class="col-md-auto col-10 text-grey-8">
+                    {{ item.skills.length > 0 ? item.skills.length : '-' }}
+                  </div>
                   <div class="col-md-auto col-2">Score:</div>
                   <div class="col-md-auto col-10 text-grey-8">
-                    {{ calculateScore() }}
+                    {{ calculateScore() > 0 ? calculateScore() : '-' }}
                   </div>
                 </div>
               </div>
-              <div class="col-auto text-center gt-sm">
+              <div
+                class="col-md-auto text-center col-12 gt-sm"
+                v-if="userStore.isAdmin || item.id === userStore.me.id"
+              >
                 <q-btn
-                  flat
-                  round
                   icon="mdi-pencil"
                   @click="
                     router.push({
@@ -78,8 +82,9 @@
                       params: { id: route.params.id },
                     })
                   "
-                  class="q-ml-sm"
                   v-if="userStore.isAdmin || item.id === userStore.me.id"
+                  round
+                  unelevated
                 />
               </div>
             </div>
@@ -87,7 +92,11 @@
         </q-card>
         <q-table
           title="Certs"
-          :visible-columns="$q.screen.lt.md ? ['name'] : ['name', 'earnedAt']"
+          :visible-columns="
+            userStore.isAdmin || item.id === userStore.me.id
+              ? ['name', 'delete']
+              : ['name']
+          "
           :columns="userPageCertsColumns"
           no-data-label="No certifications earned yet"
           :pagination="certPagination"
@@ -102,10 +111,27 @@
           "
           class="q-mb-md"
           dense
+          v-if="
+            item.certifications.length > 0 ||
+            userStore.isAdmin ||
+            item.id === userStore.me.id
+          "
         >
           <template v-slot:top="props">
             <div class="q-table__title">Certs</div>
             <q-space></q-space>
+            <q-btn
+              flat
+              round
+              icon="mdi-plus"
+              @click="
+                router.push({
+                  name: 'addUserCerts',
+                  params: { id: route.params.id },
+                })
+              "
+              v-if="userStore.isAdmin || item.id === userStore.me.id"
+            />
             <q-btn
               flat
               round
@@ -133,10 +159,24 @@
               </q-item>
             </q-td>
           </template>
+          <template v-slot:body-cell-delete="props">
+            <q-td :props="props" auto-width>
+              <q-btn
+                icon="mdi-delete"
+                round
+                unelevated
+                @click.stop="userCertDeleteHandler(props.row.id)"
+              />
+            </q-td>
+          </template>
         </q-table>
         <q-table
           title="Skills"
-          :visible-columns="$q.screen.lt.md ? ['name'] : ['name']"
+          :visible-columns="
+            userStore.isAdmin || item.id === userStore.me.id
+              ? ['name', 'level', 'delete']
+              : ['name', 'level']
+          "
           :columns="userPageSkillsColumns"
           no-data-label="No skills earned yet"
           :pagination="skillPagination"
@@ -150,10 +190,27 @@
               })
           "
           dense
+          v-if="
+            item.skills.length > 0 ||
+            userStore.isAdmin ||
+            item.id === userStore.me.id
+          "
         >
           <template v-slot:top="props">
             <div class="q-table__title">Skills</div>
             <q-space></q-space>
+            <q-btn
+              flat
+              round
+              icon="mdi-plus"
+              @click="
+                router.push({
+                  name: 'addUserSkills',
+                  params: { id: route.params.id },
+                })
+              "
+              v-if="userStore.isAdmin || item.id === userStore.me.id"
+            />
             <q-btn
               flat
               round
@@ -202,6 +259,16 @@
               </div>
             </q-td>
           </template>
+          <template v-slot:body-cell-delete="props">
+            <q-td :props="props" auto-width>
+              <q-btn
+                icon="mdi-delete"
+                round
+                unelevated
+                @click.stop="userCertDeleteHandler(props.row.id)"
+              />
+            </q-td>
+          </template>
         </q-table>
       </div>
     </transition>
@@ -245,14 +312,24 @@ const item = reactive({
 });
 
 const calculateScore = () => {
+  let certScore = 0;
+  let skillScore = 0;
+
   if (item.certifications.length > 0) {
-    return item.certifications.reduce(
+    certScore = item.certifications.reduce(
       (acc, cert) => acc + cert.certification.certificationLevel.score,
       0
     );
-  } else {
-    return '-';
   }
+
+  if (item.skills.length > 0) {
+    skillScore = item.skills.reduce(
+      (acc, skill) => acc + skillStore.skillsScores[skill.level],
+      0
+    );
+  }
+
+  return certScore + skillScore;
 };
 
 const certPagination = reactive({
@@ -263,7 +340,6 @@ const certPagination = reactive({
 const skillPagination = reactive({
   sortBy: 'name',
   rowsPerPage: 5,
-  descending: true,
 });
 
 const skillOptions = [
@@ -296,6 +372,16 @@ const fetchUser = async () => {
   item.certifications = certifications.items;
   item.skills = _.orderBy(skills.items, 'skill.name', 'asc');
   loading.value = false;
+};
+
+const userCertDeleteHandler = async (id) => {
+  try {
+    await userStore.deleteUserCert(id);
+    success('Certification removed');
+    await fetchUser();
+  } catch (err) {
+    error('Something went wrong');
+  }
 };
 
 const userSkillUpdateHandler = async (id, level) => {

@@ -26,21 +26,21 @@
             :to="{ name: 'users' }"
           />
           <HighlightCard
+            icon="mdi-school"
+            class="col-12 col-md"
+            color="green"
+            text-color="white"
+            :label="scoreStore.totalSkills"
+            text="Skills"
+            :to="{ name: 'skills' }"
+          />
+          <HighlightCard
             icon="mdi-scoreboard"
             class="col-12 col-md"
             color="blue"
             text-color="white"
             :label="scoreStore.totalScore"
             text="Total Score"
-          />
-          <HighlightCard
-            icon="mdi-domain"
-            class="col-12 col-md"
-            color="green"
-            text-color="white"
-            label="AWS"
-            text="Top Provider"
-            :to="{ name: 'providers' }"
           />
         </div>
         <div class="row q-col-gutter-sm q-pt-md">

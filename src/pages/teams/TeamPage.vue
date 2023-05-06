@@ -119,11 +119,6 @@ const pagination = reactive({
 });
 
 const fetchTeam = async () => {
-  // const cert = await API.graphql({
-  //   query: getCertification,
-  //   variables: { id: route.params.id },
-  // });
-
   const team = await teamStore.fetchTeam(route.params.id);
 
   const { id, name, color, description, users } = team.data?.getTeam;

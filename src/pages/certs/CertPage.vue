@@ -180,14 +180,6 @@ const columns = [
     align: 'left',
     sortable: true,
   },
-  {
-    name: 'earnedAt',
-    field: 'earnedAt',
-    label: 'Earned',
-    required: true,
-    align: 'center',
-    sortable: true,
-  },
 ];
 
 const pagination = reactive({
