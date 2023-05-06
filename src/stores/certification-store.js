@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineStore } from 'pinia';
 import { API } from 'aws-amplify';
-//import { listCertifications } from 'src/graphql/queries';
 import {
   getCertification,
   listCertifications,
