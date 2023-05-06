@@ -1,41 +1,12 @@
-# Skill Tracker (skilltracker)
+# Skill Tracker
 
 Track skills and certs across your organization
 
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
-```
+## Stack Oveview
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
-
-
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js).
+- [Quasar Framework](https://quasar.dev)
+- [Amplify](https://aws.amazon.com/amplify/)
+- [AppSync](https://aws.amazon.com/appsync/)
+- [CloudFront](https://aws.amazon.com/cloudfront/)
+- [Cognito](https://aws.amazon.com/cognito/)
+- [DynamoDB](https://aws.amazon.com/dynamodb/)
