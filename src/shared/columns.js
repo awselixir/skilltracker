@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { calculateTeamsCerts, calculateTeamsScore, calculateTeamsSkills } from './functions';
+import { calculateTeamsCerts, calculateTeamsScore, calculateTeamsSkills, calculateUserScore } from './functions';
 import { useSkillStore } from 'src/stores/skill-store';
 
 const skillStore = useSkillStore();
@@ -76,9 +76,9 @@ export const userPageCertsColumns = [
     sortable: true,
   },
   {
-    name: 'earnedAt',
-    field: 'earnedAt',
-    label: 'Earned',
+    name: 'delete',
+    field: '',
+    label: '',
     required: false,
     align: 'center',
     sortable: true,
@@ -98,7 +98,15 @@ export const userPageSkillsColumns = [
     name: 'level',
     field: (row) => row.level,
     label: 'Level',
-    required: true,
+    required: false,
+    align: 'center',
+    sortable: true,
+  },
+  {
+    name: 'delete',
+    field: '',
+    label: '',
+    required: false,
     align: 'center',
     sortable: true,
   },
@@ -199,32 +207,7 @@ export const usersPageColumns = [
   },
   {
     name: 'score',
-    field: (row) => {
-      let certScore = 0;
-      let skillScore = 0;
-
-      if (row.certifications.items.length > 0) {
-        certScore = row.certifications.items.reduce(
-          (acc, cert) => acc + cert.certification.certificationLevel.score,
-          0
-        );
-      }
-
-      if (row.skills.items.length > 0) {
-        skillScore = row.skills.items.reduce(
-          (acc, skill) => acc + skillStore.skillsScores[skill.level],
-          0
-        );
-      }
-
-      const totalScore = certScore + skillScore;
-
-      if (totalScore > 0) {
-        return totalScore;
-      } else {
-        return '-';
-      }
-    },
+    field: (row) => calculateUserScore(row) > 0 ? calculateUserScore(row) : '-',
     label: 'Score',
     required: true,
     align: 'center',
