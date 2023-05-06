@@ -152,6 +152,18 @@ const routes: RouteRecordRaw[] = [
             component: () => import('src/pages/users/UserPageEdit.vue'),
             props: true,
           },
+          {
+            path: 'certs',
+            name: 'addUserCerts',
+            component: () => import('src/pages/users/UserPageAddCerts.vue'),
+            props: true,
+          },
+          {
+            path: 'skills',
+            name: 'addUserSkills',
+            component: () => import('src/pages/users/UserPageAddSkills.vue'),
+            props: true,
+          },
         ],
       },
       {
