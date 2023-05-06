@@ -3,35 +3,23 @@ import { API } from 'aws-amplify';
 import { listSkills, getSkill } from 'src/graphql/queries';
 import { createSkill, deleteSkill, updateSkill } from 'src/graphql/mutations';
 import { error } from '../components/messages';
+import _ from 'lodash';
 
 export const useSkillStore = defineStore('skill', {
   state: () => ({
     skills: [],
     skillsLoading: false,
     skillsScores: {
-      'l1': 1,
-      'l2': 2,
-      'l3': 3,
+      l1: 1,
+      l2: 2,
+      l3: 3,
     },
   }),
-  // getters: {
-  //   certificationsSorted: (state) => {
-  //     const items = [...state.certifications].sort((a, b) => {
-  //       const nameA = a.shortName.toUpperCase();
-  //       const nameB = b.shortName.toUpperCase();
-  //       if (nameA < nameB) {
-  //         return -1;
-  //       }
-  //       if (nameA > nameB) {
-  //         return 1;
-  //       }
-
-  //       return 0;
-  //     });
-
-  //     return items;
-  //   },
-  // },
+  getters: {
+    skillsSorted: (state) => {
+      return _.orderBy(state.skills, 'name', 'asc');
+    },
+  },
   actions: {
     async fetchSkill(id) {
       try {
