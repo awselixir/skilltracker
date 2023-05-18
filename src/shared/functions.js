@@ -63,6 +63,13 @@ export const calculateTeamsScore = (row) => {
   return usersCertsScore + usersSkillsScore;
 };
 
+export const calculateTeamsAverage = (row) => {
+  const teamScore = calculateTeamsScore(row);
+  const teamUserCount = row.users.items.length;
+
+  return ((teamScore/(teamUserCount * 1.0)).toFixed(0))
+};
+
 export const calculateUserScore = (row) => {
   let certScore = 0;
   let skillScore = 0;
