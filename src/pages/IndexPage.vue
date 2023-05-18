@@ -71,10 +71,10 @@
           <div class="col-12 col-md">
             <q-card class="col-12 col-md bg-indigo-6" square>
               <q-card-section class="text-h6 text-white"
-                >Popular Skills</q-card-section
+                >Skill Map</q-card-section
               >
               <q-card-section>
-                <BarChart :dataset="scoreStore.topCerts" color="indigo" />
+                <TreeMap color="indigo" />
               </q-card-section>
             </q-card>
           </div>
@@ -207,6 +207,8 @@
 import BarChart from 'components/BarChart.vue';
 import GeoChart from 'src/components/GeoChart.vue';
 import HighlightCard from 'src/components/HighlightCard.vue';
+import TreeMap from 'components/TreeMap.vue'
+
 import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router';
 import { useScoreStore } from 'src/stores/score-store';
