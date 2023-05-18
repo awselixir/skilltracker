@@ -12,10 +12,12 @@
       @row-click="rowClickHandler"
       :grid="$q.screen.lt.md"
       grid-header
+      :filter="filter"
     >
       <template v-slot:top="props">
         <div class="q-table__title">Certifications</div>
         <q-space></q-space>
+        <q-input v-model="filter" dense borderless debounce="300" placeholder="Search" clearable></q-input>
         <q-btn
           flat
           round
@@ -114,7 +116,7 @@
   <router-view></router-view>
 </template>
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, ref } from 'vue';
 import { useQuasar } from 'quasar';
 import { useCertificationStore } from '../../stores/certification-store';
 import { useUserStore } from 'src/stores/user-store';
@@ -126,6 +128,8 @@ const router = useRouter();
 
 const certificationStore = useCertificationStore();
 const userStore = useUserStore();
+
+const filter = ref('')
 
 onMounted(async () => {
   await certificationStore.fetchCertifications();

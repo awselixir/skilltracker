@@ -12,10 +12,13 @@
       @row-click="rowClickHandler"
       :grid="$q.screen.lt.md"
       grid-header
+      :filter="filter"
     >
       <template v-slot:top="props">
         <div class="q-table__title">Skills</div>
         <q-space></q-space>
+        <q-input v-model="filter" dense borderless debounce="300" placeholder="Search" clearable>
+        </q-input>
         <q-btn
           flat
           round
@@ -105,7 +108,7 @@
   <router-view></router-view>
 </template>
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { useQuasar} from 'quasar'
 import { useSkillStore} from 'src/stores/skill-store'
 import { useUserStore } from 'src/stores/user-store';
@@ -117,6 +120,8 @@ const router = useRouter();
 
 const skillStore = useSkillStore()
 const userStore = useUserStore();
+
+const filter = ref('')
 
 onMounted(async () => {
   await skillStore.fetchSkills();

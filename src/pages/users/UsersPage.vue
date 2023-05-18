@@ -13,10 +13,12 @@
       :grid="$q.screen.lt.md"
       grid-header
       :visible-columns="$q.screen.lt.md ? ['name','score'] : ['name','certs','skills','score']"
+      :filter="filter"
     >
       <template v-slot:top="props">
         <div class="q-table__title">Users</div>
         <q-space></q-space>
+        <q-input v-model="filter" dense borderless debounce="300" placeholder="Search" clearable></q-input>
         <q-btn
           flat
           round
@@ -103,7 +105,7 @@
   <router-view></router-view>
 </template>
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 import { useUserStore } from 'src/stores/user-store';
 import { useRouter } from 'vue-router';
@@ -112,6 +114,8 @@ import { usersPageColumns } from 'src/shared/columns';
 const $q = useQuasar();
 const router = useRouter();
 const userStore = useUserStore();
+
+const filter = ref('')
 
 onMounted(async () => {
   await userStore.fetchUsers();
