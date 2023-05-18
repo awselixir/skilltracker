@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { calculateTeamsCerts, calculateTeamsScore, calculateTeamsSkills, calculateUserScore } from './functions';
+import { calculateTeamsAverage, calculateTeamsCerts, calculateTeamsScore, calculateTeamsSkills, calculateUserScore } from './functions';
 import { useSkillStore } from 'src/stores/skill-store';
 
 const skillStore = useSkillStore();
@@ -139,7 +139,7 @@ export const usersLeaderboardColumns = [
     label: 'Skills',
     required: false,
     align: 'center',
-    sortable: true,
+    sortable: false,
   },
   {
     name: 'score',
@@ -172,7 +172,7 @@ export const usersLeaderboardColumns = [
     label: 'Score',
     required: true,
     align: 'center',
-    sortable: true,
+    sortable: false,
   },
 ];
 
@@ -302,6 +302,14 @@ export const teamsPageColumns = [
     name: 'score',
     field: (row) => (calculateTeamsScore(row) ? calculateTeamsScore(row) : '-'),
     label: 'Score',
+    required: true,
+    align: 'center',
+    sortable: true,
+  },
+  {
+    name: 'average',
+    field: (row) => (calculateTeamsAverage(row) ? calculateTeamsAverage(row) : '-'),
+    label: 'Average',
     required: true,
     align: 'center',
     sortable: true,

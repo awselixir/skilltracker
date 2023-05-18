@@ -11,6 +11,7 @@
       row-key="id"
       @row-click="rowClickHandler"
       :grid="$q.screen.lt.md"
+      grid-header
       class="teams-table"
     >
       <template v-slot:top="props">

@@ -11,6 +11,8 @@
       row-key="id"
       @row-click="rowClickHandler"
       :grid="$q.screen.lt.md"
+      grid-header
+      :visible-columns="$q.screen.lt.md ? ['name','score'] : ['name','certs','skills','score']"
     >
       <template v-slot:top="props">
         <div class="q-table__title">Users</div>
@@ -72,6 +74,16 @@
                   {{
                     props.row.certifications.items.length > 0
                       ? props.row.certifications.items.length
+                      : '-'
+                  }}
+                </q-item-section>
+              </q-item>
+              <q-item dense class="q-px-none">
+                <q-item-section>Skills</q-item-section>
+                <q-item-section side>
+                  {{
+                    props.row.skills.items.length > 0
+                      ? props.row.skills.items.length
                       : '-'
                   }}
                 </q-item-section>

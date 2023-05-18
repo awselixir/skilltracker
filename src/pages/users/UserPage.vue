@@ -252,7 +252,7 @@
                 @update:model-value="
                   (value) => userSkillUpdateHandler(props.row.id, value)
                 "
-                v-if="userStore.isAdmin || item.id !== userStore.me.id"
+                v-if="userStore.isAdmin || item.id === userStore.me.id"
               ></q-btn-toggle>
               <div v-else>
                 {{ skillStore.skillsScores[props.row.level] }}
@@ -265,7 +265,7 @@
                 icon="mdi-delete"
                 round
                 unelevated
-                @click.stop="userCertDeleteHandler(props.row.id)"
+                @click.stop="userSkillDeleteHandler(props.row.id)"
               />
             </q-td>
           </template>
@@ -334,12 +334,12 @@ const calculateScore = () => {
 
 const certPagination = reactive({
   sortBy: 'name',
-  rowsPerPage: 5,
+  rowsPerPage: 10,
 });
 
 const skillPagination = reactive({
   sortBy: 'name',
-  rowsPerPage: 5,
+  rowsPerPage: 10,
 });
 
 const skillOptions = [
@@ -378,6 +378,16 @@ const userCertDeleteHandler = async (id) => {
   try {
     await userStore.deleteUserCert(id);
     success('Certification removed');
+    await fetchUser();
+  } catch (err) {
+    error('Something went wrong');
+  }
+};
+
+const userSkillDeleteHandler = async (id) => {
+  try {
+    await userStore.deleteUserSkill(id);
+    success('Skill removed');
     await fetchUser();
   } catch (err) {
     error('Something went wrong');

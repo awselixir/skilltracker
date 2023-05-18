@@ -11,6 +11,7 @@
       row-key="id"
       @row-click="rowClickHandler"
       :grid="$q.screen.lt.md"
+      grid-header
     >
       <template v-slot:top="props">
         <div class="q-table__title">Skills</div>
@@ -85,22 +86,16 @@
                   {{ props.row.provider.shortName }}
                 </q-item-section>
               </q-item>
-              <!-- <q-item dense class="q-px-none">
-                <q-item-section>
-                  Level
-                </q-item-section>
+              <q-item dense class="q-px-none">
+                <q-item-section> Earned </q-item-section>
                 <q-item-section side>
-                  {{ props.row.certificationLevel.name }}
+                  {{
+                    props.row.users.items.length > 0
+                      ? props.row.users.items.length
+                      : '-'
+                  }}
                 </q-item-section>
-              </q-item> -->
-              <!-- <q-item dense class="q-px-none">
-                <q-item-section>
-                  Earned
-                </q-item-section>
-                <q-item-section side>
-                  {{ props.row.users.items.length > 0 ? props.row.users.items.length : '-' }}
-                </q-item-section>
-              </q-item> -->
+              </q-item>
             </q-card-section>
           </q-card>
         </div>

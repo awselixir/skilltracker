@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { orderBy } from 'lodash';
 import { useCertificationStore } from './certification-store';
+import { useSkillStore } from './skill-store'
 import { API } from 'aws-amplify';
 import { getUser, listUsers } from 'src/graphql/customQueries';
 import {
@@ -9,12 +10,14 @@ import {
   createUserSkill,
   deleteUser,
   deleteUserCertification,
+  deleteUserSkill,
   updateUser,
   updateUserSkill
 } from 'src/graphql/mutations';
 import { success, error } from '../components/messages';
 
 const certificationStore = useCertificationStore();
+const skillStore = useSkillStore()
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -128,6 +131,16 @@ export const useUserStore = defineStore('user', {
       } catch (err) {
         error('Something went wrong');
       }
+    },
+    async deleteUserSkill(id) {
+      await API.graphql({
+        query: deleteUserSkill,
+        variables: { input: { id: id } },
+      });
+      await Promise.allSettled([
+        skillStore.fetchSkills(),
+        this.fetchUsers(),
+      ]);
     },
     async updateUser(input) {
       return await API.graphql({

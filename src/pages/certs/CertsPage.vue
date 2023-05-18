@@ -11,6 +11,7 @@
       row-key="id"
       @row-click="rowClickHandler"
       :grid="$q.screen.lt.md"
+      grid-header
     >
       <template v-slot:top="props">
         <div class="q-table__title">Certifications</div>
