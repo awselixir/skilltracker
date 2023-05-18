@@ -136,24 +136,22 @@
                   sortable: false,
                 },
                 {
-                  name: 'certs',
-                  field: (row) =>
-                    calculateTeamsCerts(row) > 0
-                      ? calculateTeamsCerts(row)
-                      : '-',
-                  label: 'Certs',
-                  required: false,
-                  align: 'center',
-                  sortable: false,
-                },
-                {
                   name: 'score',
                   field: (row) =>
                     calculateTeamsScore(row) ? calculateTeamsScore(row) : '-',
                   label: 'Score',
                   required: true,
                   align: 'center',
-                  sortable: true,
+                  sortable: false,
+                },
+                {
+                  name: 'average',
+                  field: (row) =>
+                    calculateTeamsAverage(row) ? calculateTeamsAverage(row) : '-',
+                  label: 'Average',
+                  required: true,
+                  align: 'center',
+                  sortable: false,
                 },
               ]"
               square
@@ -161,7 +159,7 @@
               binary-state-sort
               title="Team Leaderboard"
               :pagination="{
-                sortBy: 'certs',
+                sortBy: 'average',
                 rowsPerPage: 10,
                 descending: true,
               }"
@@ -215,7 +213,7 @@ import { useScoreStore } from 'src/stores/score-store';
 import { useTeamStore } from 'src/stores/team-store';
 import { useUserStore } from 'src/stores/user-store';
 import { usersLeaderboardColumns } from 'src/shared/columns';
-import { calculateTeamsCerts, calculateTeamsScore } from 'src/shared/functions';
+import { calculateTeamsAverage, calculateTeamsScore } from 'src/shared/functions';
 
 const $q = useQuasar()
 const router = useRouter();
