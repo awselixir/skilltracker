@@ -4,11 +4,11 @@ import { useCertificationStore } from './certification-store';
 import { useSkillStore } from './skill-store';
 import { useUserStore } from './user-store';
 import states from 'src/shared/states';
-import { orderBy} from 'lodash'
+import { orderBy } from 'lodash';
 
 const certStore = useCertificationStore();
 //const providerStore = useProviderStore()
-const skillStore = useSkillStore()
+const skillStore = useSkillStore();
 const userStore = useUserStore();
 
 export const useScoreStore = defineStore('score', {
@@ -23,14 +23,16 @@ export const useScoreStore = defineStore('score', {
       );
     },
     topCerts: () => {
-      const certsArray = certStore.certifications.map(cert => {
+      const certsArray = certStore.certifications.map((cert) => {
         return {
           name: cert.shortName,
-          value: cert.users.items.length
-        }
-      })
+          value: cert.users.items.length,
+        };
+      });
 
-      return orderBy(certsArray, 'value', 'desc').filter(item => item.value != 0).slice(0, 10)
+      return orderBy(certsArray, 'value', 'desc')
+        .filter((item) => item.value != 0)
+        .slice(0, 10);
     },
     totalSkills: () => {
       return skillStore.skills.reduce(
@@ -42,20 +44,30 @@ export const useScoreStore = defineStore('score', {
     //   const providersArray = providerStore.providers.map
     // }
     totalScore: () => {
-      const certifiedUsers = userStore.users.filter(user => user.certifications.items.length > 0)
+      const certifiedUsers = userStore.users.filter(
+        (user) => user.certifications.items.length > 0
+      );
 
-      const certsScore =  certifiedUsers.reduce((total, user) => {
-        const sum = user.certifications.items.reduce((acc, cert) => acc + cert.certification.certificationLevel.score, 0)
-        return sum + total
-      }, 0)
+      const certsScore = certifiedUsers.reduce((total, user) => {
+        const sum = user.certifications.items.reduce(
+          (acc, cert) => acc + cert.certification.certificationLevel.score,
+          0
+        );
+        return sum + total;
+      }, 0);
 
-      const skilledUsers = userStore.users.filter(user => user.skills.items.length > 0)
-      const skillsScore =  skilledUsers.reduce((total, user) => {
-        const sum = user.skills.items.reduce((acc, skill) => acc + skillStore.skillsScores[skill.level], 0)
-        return sum + total
-      }, 0)
+      const skilledUsers = userStore.users.filter(
+        (user) => user.skills.items.length > 0
+      );
+      const skillsScore = skilledUsers.reduce((total, user) => {
+        const sum = user.skills.items.reduce(
+          (acc, skill) => acc + skillStore.skillsScores[skill.level],
+          0
+        );
+        return sum + total;
+      }, 0);
 
-      return skillsScore + certsScore
+      return skillsScore + certsScore;
     },
     certifiedUsers: () => {
       return userStore.users.reduce(
@@ -68,11 +80,17 @@ export const useScoreStore = defineStore('score', {
       states.forEach((state) => (usaStates[state] = 0));
 
       for (const user of userStore.users) {
-        const userScore = user.certifications.items.reduce(
+        const certScore = user.certifications.items.reduce(
           (acc, cert) => acc + cert.certification.certificationLevel.score,
           0
         );
-        usaStates[user.state] = userScore;
+
+        const skillScore = user.skills.items.reduce(
+          (acc, skill) => acc + skillStore.skillsScores[skill.level],
+          0
+        );
+
+        usaStates[user.state] = certScore + skillScore;
       }
       const usaStatesArray = Object.entries(usaStates).map(([key, value]) => {
         return {
