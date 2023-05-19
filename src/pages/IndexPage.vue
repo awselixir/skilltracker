@@ -74,7 +74,7 @@
                 >Skill Map</q-card-section
               >
               <q-card-section>
-                <TreeMap color="indigo" />
+                <TreeMap :dataset="scoreStore.skillsTreemap" color="indigo" />
               </q-card-section>
             </q-card>
           </div>
@@ -89,7 +89,7 @@
               title="User Leaderboard"
               :pagination="{
                 sortBy: 'score',
-                rowsPerPage: 10,
+                rowsPerPage: 5,
                 descending: true,
               }"
               hide-bottom
@@ -160,7 +160,7 @@
               title="Team Leaderboard"
               :pagination="{
                 sortBy: 'average',
-                rowsPerPage: 10,
+                rowsPerPage: 5,
                 descending: true,
               }"
               hide-bottom

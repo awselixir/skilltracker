@@ -93,7 +93,7 @@
               <q-item dense class="q-px-none">
                 <q-item-section>Score</q-item-section>
                 <q-item-section side>
-                  {{ calculateScore(props.row) }}
+                  {{ calculateUserScore(props.row) > 0 ? calculateUserScore(props.row) : '-' }}
                 </q-item-section>
               </q-item>
             </q-card-section>
@@ -110,6 +110,7 @@ import { useQuasar } from 'quasar';
 import { useUserStore } from 'src/stores/user-store';
 import { useRouter } from 'vue-router';
 import { usersPageColumns } from 'src/shared/columns';
+import { calculateUserScore } from 'src/shared/functions';
 
 const $q = useQuasar();
 const router = useRouter();
@@ -120,17 +121,6 @@ const filter = ref('')
 onMounted(async () => {
   await userStore.fetchUsers();
 });
-
-const calculateScore = (row) => {
-  if (row.certifications.items.length > 0) {
-    return row.certifications.items.reduce(
-      (acc, cert) => acc + cert.certification.certificationLevel.score,
-      0
-    );
-  } else {
-    return '-';
-  }
-};
 
 const rowClickHandler = (_event, row) => {
   router.push({ name: 'user', params: { id: row.id } });

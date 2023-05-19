@@ -67,7 +67,7 @@ export const calculateTeamsAverage = (row) => {
   const teamScore = calculateTeamsScore(row);
   const teamUserCount = row.users.items.length;
 
-  return ((teamScore/(teamUserCount * 1.0)).toFixed(0))
+  return +((teamScore/(teamUserCount * 1.0)).toFixed(0))
 };
 
 export const calculateUserScore = (row) => {

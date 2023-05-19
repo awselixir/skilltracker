@@ -237,6 +237,7 @@ watch(
           certificationStore.fetchCertifications(),
           userStore.fetchUsers(),
           skillStore.fetchSkills(),
+          teamStore.fetchTeams(),
         ]);
       }, 300000);
     }
