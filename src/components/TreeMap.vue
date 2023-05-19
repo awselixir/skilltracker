@@ -45,11 +45,6 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  max: {
-    type: Number,
-    required: false,
-    default: 500,
-  },
 });
 
 echarts.use([
@@ -86,12 +81,7 @@ const option = {
           show: true,
         },
       },
-      data: [
-        { name: 'EC2', value: 11 },
-        { name: 'EBS', value: 8 },
-        { name: 'CloudWatch', value: 8 },
-        { name: 'CF', value: 7 },
-      ],
+      data: props.dataset,
     },
   ],
 };
@@ -99,7 +89,6 @@ const option = {
 watch(
   props,
   () => {
-    option.visualMap.max = props.max;
     option.series.data = props.dataset;
     myChart.value.setOption(option, true);
   },

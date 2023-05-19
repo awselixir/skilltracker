@@ -40,9 +40,14 @@ export const useScoreStore = defineStore('score', {
         0
       );
     },
-    // topProviders: () => {
-    //   const providersArray = providerStore.providers.map
-    // }
+    skillsTreemap() {
+      return skillStore.skills.map((skill) => {
+        return {
+          name: skill.shortName,
+          value: skill.users.items.length,
+        };
+      }).filter(item => item.value > 1);
+    },
     totalScore: () => {
       const certifiedUsers = userStore.users.filter(
         (user) => user.certifications.items.length > 0
@@ -90,7 +95,8 @@ export const useScoreStore = defineStore('score', {
           0
         );
 
-        usaStates[user.state] = certScore + skillScore;
+        usaStates[user.state] =
+          usaStates[user.state] + (certScore + skillScore);
       }
       const usaStatesArray = Object.entries(usaStates).map(([key, value]) => {
         return {
@@ -99,10 +105,10 @@ export const useScoreStore = defineStore('score', {
         };
       });
 
-      return usaStatesArray;
+      return usaStatesArray.filter((item) => item.name != 'null');
     },
     scoreByStateMax() {
-      return Math.max(...this.scoreByState.map((item) => item.value));
+      return Math.max(this.scoreByState.map((item) => item.value));
     },
   },
 });
