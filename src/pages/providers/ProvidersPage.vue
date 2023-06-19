@@ -39,10 +39,16 @@
           <q-item class="q-pa-none" dense>
             <q-item-section avatar>
               <q-avatar size="sm">
-              <img :src="`/icons/${props.row.shortName.toLowerCase()}.png`" />
-            </q-avatar>
+                <q-img
+                  :src="`/icons/${props.row.shortName.toLowerCase()}.png`"
+                  height="24px"
+                  width="24px"
+                />
+              </q-avatar>
             </q-item-section>
-            <q-item-section>{{  props.value }} ({{ props.row.shortName }})</q-item-section>
+            <q-item-section
+              >{{ props.value }} ({{ props.row.shortName }})</q-item-section
+            >
           </q-item>
         </q-td>
       </template>
@@ -53,13 +59,13 @@
 <script setup>
 import { onMounted } from 'vue';
 import { useProviderStore } from '../../stores/provider-store';
-import { useUserStore } from 'src/stores/user-store'
+import { useUserStore } from 'src/stores/user-store';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
 const providerStore = useProviderStore();
-const userStore = useUserStore()
+const userStore = useUserStore();
 
 onMounted(async () => {
   await providerStore.fetchProviders();
@@ -87,12 +93,11 @@ const columns = [
   },
   {
     name: 'availableCerts',
-    field: row => row.certifications.items.length,
+    field: (row) => row.certifications.items.length,
     label: 'Available Certs',
     required: false,
     align: 'center',
     sortable: true,
   },
-
 ];
 </script>

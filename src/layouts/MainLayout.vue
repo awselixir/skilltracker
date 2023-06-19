@@ -232,14 +232,6 @@ watch(
   async (newAuth) => {
     if (newAuth.route === 'authenticated') {
       await fetchData();
-      setInterval(async () => {
-        await Promise.allSettled([
-          certificationStore.fetchCertifications(),
-          userStore.fetchUsers(),
-          skillStore.fetchSkills(),
-          teamStore.fetchTeams(),
-        ]);
-      }, 300000);
     }
     if (
       typeof newAuth.user !== 'undefined' &&

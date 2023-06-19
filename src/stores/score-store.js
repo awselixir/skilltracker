@@ -4,7 +4,7 @@ import { useCertificationStore } from './certification-store';
 import { useSkillStore } from './skill-store';
 import { useUserStore } from './user-store';
 import states from 'src/shared/states';
-import { orderBy } from 'lodash';
+import { orderBy, maxBy } from 'lodash';
 
 const certStore = useCertificationStore();
 //const providerStore = useProviderStore()
@@ -108,7 +108,8 @@ export const useScoreStore = defineStore('score', {
       return usaStatesArray.filter((item) => item.name != 'null');
     },
     scoreByStateMax() {
-      return Math.max(this.scoreByState.map((item) => item.value));
+      const maxValue =  maxBy(this.scoreByState, 'value')
+      return maxValue['value']
     },
   },
 });

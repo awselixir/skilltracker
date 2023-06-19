@@ -248,16 +248,7 @@ export const teamPageColumns = [
   },
   {
     name: 'score',
-    field: (row) => {
-      if (row.user.certifications.items.length > 0) {
-        return row.user.certifications.items.reduce(
-          (acc, cert) => acc + cert.certification.certificationLevel.score,
-          0
-        );
-      } else {
-        return '-';
-      }
-    },
+    field: (row) => calculateUserScore(row.user) > 0 ? calculateUserScore(row.user) : '-',
     label: 'Score',
     required: true,
     align: 'center',
