@@ -101,8 +101,8 @@
   },
   "hosting": {
     "amplifyhosting": {
-      "providerPlugin": "awscloudformation",
       "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
       "type": "manual"
     }
   },
